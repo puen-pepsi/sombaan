@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
-using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
+using EmailService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
@@ -22,16 +20,16 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        // private readonly IEmailSender _emailSender;
+        private readonly IEmailSender _emailSender;
         private readonly IUnitOfWork _unitOfWork;
 
         public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager,
         
         ITokenService tokenService, IMapper mapper,
-        // IEmailSender emailSender,
+        IEmailSender emailSender,
         IUnitOfWork unitOfWork)
         {
-            // _emailSender = emailSender;
+            _emailSender = emailSender;
             _unitOfWork = unitOfWork;
             _signInManager = signInManager;
             _userManager = userManager;
@@ -51,17 +49,17 @@ namespace API.Controllers
 
         if (!result.Succeeded) return BadRequest(result.Errors);
 
-        // var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        // var param = new Dictionary<string, string>
-        // {
-        //     {"token", token },
-        //     {"email", user.Email }
-        // };
-        // var callback = QueryHelpers.AddQueryString(registerDto.ClientURI, param);
-        // var message = new MailMessage(new string[] { user.Email }, "Rainobu Email Verification", 
-        //         $"Please verify your email by clicking this : <a href='{callback}'>link</a>", 
-        //         null);
-        // await _emailSender.SendEmailAsync(message);
+        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        var param = new Dictionary<string, string>
+        {
+            {"token", token },
+            {"email", user.Email }
+        };
+        var callback = QueryHelpers.AddQueryString(registerDto.ClientURI, param);
+        var message = new MailMessage(new string[] { user.Email }, "Rainobu Email Verification", 
+                $"Please verify your email by clicking this : <a href='{callback}'>link</a>", 
+                null);
+        await _emailSender.SendEmailAsync(message);
 
         var roleResult = await _userManager.AddToRoleAsync(user, "Member");
 
@@ -93,11 +91,9 @@ namespace API.Controllers
         // var user = await _userManager.FindByNameAsync(userForAuthentication.Email);
         if (user == null) return Unauthorized("Invalid username");
 
-        // if (!await _userManager.IsEmailConfirmedAsync(user))
-        //     return Unauthorized("Email is not confirmed");
+        if (!await _userManager.IsEmailConfirmedAsync(user))
+            return Unauthorized("Email is not confirmed");
 
-        // if (!await _userManager.IsEmailConfirmedAsync(user))
-        //     return Unauthorized(new AuthResponseDto { ErrorMessage = "Email is not confirmed" });
 
         var result = await _signInManager
             .CheckPasswordSignInAsync(user, loginDto.Password, false);
@@ -128,13 +124,13 @@ namespace API.Controllers
             {"email", forgotPasswordDto.Email }
         };
 
-        // var callback = QueryHelpers.AddQueryString(forgotPasswordDto.ClientURI, param);
+        var callback = QueryHelpers.AddQueryString(forgotPasswordDto.ClientURI, param);
 
-        // var message = new MailMessage
-        // (new string[] { user.Email }, "Rainobu Password Reset",   
-        // $"Please reset your password by clicking this: <a href='{callback}'>link</a>",
-        //  null);
-        // await _emailSender.SendEmailAsync(message);
+        var message = new MailMessage
+        (new string[] { user.Email }, "Rainobu Password Reset",   
+        $"Please reset your password by clicking this: <a href='{callback}'>link</a>",
+         null);
+        await _emailSender.SendEmailAsync(message);
 
         return Ok();
     }

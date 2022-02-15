@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using API.Data;
 using API.Entities;
+using EmailService;
 // using EmailService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -32,11 +33,11 @@ namespace API.Extensions
                 .AddEntityFrameworkStores<DataContext>()
                 .AddDefaultTokenProviders();
                 //add .AddDefaultTokenProviders();
-            // var emailConfig = config
-            //     .GetSection("EmailConfiguration")
-            //     .Get<EmailConfiguration>();
-            // services.AddSingleton(emailConfig);
-            // services.AddScoped<IEmailSender, EmailSender>();
+            var emailConfig = config
+                .GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+            services.AddScoped<IEmailSender, EmailSender>();
 
             // services.Configure<DataProtectionTokenProviderOptions>(opt =>
             //     opt.TokenLifespan = TimeSpan.FromHours(2));
