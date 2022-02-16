@@ -1,42 +1,31 @@
-<div class="register">
-<form [formGroup]='registerForm' (ngSubmit)="registerForm.valid && register()" autocomplete="off">
+<div class="container">
     <h2 class="text-center ">Sign up</h2>
-    <hr>&nbsp;
-    <p>&nbsp;&nbsp;&nbsp;&nbsp;Whether it be reading an epic tale of an isekai-ed hero or having a 
-        peaceful online tea time conversation with your friends, you can find them all here in 
-        this Guild! Join our rich community of anime/manga/lightnovel -loving readers,
-         writers and illustrators here at <b>Rainobu!!</b></p>
-
-    <app-text-input [formControl]='registerForm.controls["username"]' 
-        [label]='"Username"'></app-text-input>
-    <app-text-input [formControl]='registerForm.controls["knownAs"]' 
-        [label]='"Known As"'></app-text-input>
-    <!-- <app-date-input [formControl]='registerForm.controls["dateOfBirth"]' 
-        [label]='"Date Of Birth"' [maxDate] = 'maxDate'></app-date-input> -->
-
-    <app-text-input [formControl]='registerForm.controls["email"]' 
-        [label]='"Email"'></app-text-input>
-    <app-text-input [formControl]='registerForm.controls["password"]' 
-        [label]='"Password"' [type]='"password"'>
-    </app-text-input>
-    <app-text-input [formControl]='registerForm.controls["confirmPassword"]' 
-        [label]='"Confirm Password"'
-        [type]='"password"'></app-text-input>
-
-    <div class="row" *ngIf="validationErrors.length > 0">
-        <ul class="text-danger">
-            <li *ngFor="let error of validationErrors">
-                {{error}}
-            </li>
-        </ul>
-    </div>
-    <div class="form-group text-center">
-        <button [disabled]='!registerForm.valid' class="btn btn-success mr-2" type="submit">Register</button>
-        <button class="btn btn-default mr-2" (click)="cancel()" type="button">Cancel</button>
+    <hr>
+<form (ngSubmit)="registerForm.valid && register()"  [formGroup]='registerForm' autocomplete="off">
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput />
+        <mat-error>{{getEmailErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input type="password" formControlName="password" matInput />
+        <mat-error>The field password is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Comfirm Password</mat-label>
+        <input type="password" formControlName="confirmPassword" matInput />
+        <mat-error>{{getConfirmPasswordErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <div>
+        <button mat-flat-button color="primary" [disabled]="registerForm.invalid">
+            Sign Up
+        </button>
+        <a mat-stroked-button routerLink="/">
+            Cancel
+        </a>
     </div>
 </form>
-    <p>By Continuing, you agree to rainobu's 
-        <b>Terms of Service</b> and <b>Privacy Policy</b></p>
 </div>
 
  

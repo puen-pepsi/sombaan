@@ -1,13 +1,13 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav role="navigation">
-        
+        <app-sidenav-list (closesidenav)="sidenav.close()"></app-sidenav-list>
     </mat-sidenav>
 
     <mat-sidenav-content>
-            
+        <app-header (sidenavtoggle)="sidenav.toggle()"></app-header>
         <!-- <app-section-header></app-section-header> -->
         <!-- <main class="container"> -->
-        <main class="container">
+        <main >
              <router-outlet></router-outlet>
         </main>
 

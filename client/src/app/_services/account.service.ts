@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { map} from 'rxjs/operators'
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
@@ -31,7 +31,7 @@ export class AccountService {
     return this.http.post(this.baseUrl + 'account/login',model).pipe(
       map((response:User)=>{
         const user = response;
-        // console.log(user)
+        console.log(user)
         if(user) {
           this.setCurrentUser(user);
           // this.presence.createHubConnection(user);

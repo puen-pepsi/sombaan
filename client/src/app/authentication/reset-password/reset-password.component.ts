@@ -8,7 +8,7 @@ import { ResetPasswordDto } from 'src/app/_models/ResetPasswordDto';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+  styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
   public resetPasswordForm: FormGroup;

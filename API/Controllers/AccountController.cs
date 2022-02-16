@@ -40,10 +40,10 @@ namespace API.Controllers
     [HttpPost("register")]
     public async Task<ActionResult> Register(RegisterDto registerDto)
     {
-        if (await UserExists(registerDto.Username)) return BadRequest("Username is taken");
+        if (await UserExists(registerDto.Email)) return BadRequest("Email is taken");
         var user = _mapper.Map<AppUser>(registerDto);
 
-        user.UserName = registerDto.Username.ToLower();
+        user.UserName = registerDto.Email;
 
         var result = await _userManager.CreateAsync(user, registerDto.Password);
 
@@ -56,7 +56,7 @@ namespace API.Controllers
             {"email", user.Email }
         };
         var callback = QueryHelpers.AddQueryString(registerDto.ClientURI, param);
-        var message = new MailMessage(new string[] { user.Email }, "Rainobu Email Verification", 
+        var message = new MailMessage(new string[] { user.Email }, "Sombaan Email Verification", 
                 $"Please verify your email by clicking this : <a href='{callback}'>link</a>", 
                 null);
         await _emailSender.SendEmailAsync(message);
@@ -78,18 +78,12 @@ namespace API.Controllers
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
         var user = new AppUser();
-        if(loginDto.Username.Contains("@")){
              user = await _userManager.Users
             .Include(p => p.Photos)
-            .SingleOrDefaultAsync(x => x.Email == loginDto.Username.ToLower());
-        }else{
-             user = await _userManager.Users
-            .Include(p => p.Photos)
-            .SingleOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower()); 
-        }
+            .SingleOrDefaultAsync(x => x.Email == loginDto.Email.ToLower());
 
         // var user = await _userManager.FindByNameAsync(userForAuthentication.Email);
-        if (user == null) return Unauthorized("Invalid username");
+        if (user == null) return Unauthorized("Invalid Email");
 
         if (!await _userManager.IsEmailConfirmedAsync(user))
             return Unauthorized("Email is not confirmed");

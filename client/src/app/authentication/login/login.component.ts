@@ -1,4 +1,5 @@
 import {  Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 // import { SocialUser } from 'angularx-social-login';
@@ -9,11 +10,11 @@ import { AccountService } from '../../_services/account.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['./login.component.css'],
 
 })
 export class LoginComponent implements OnInit {
-  model:any={};
+  loginForm : FormGroup;
   public errorMessage: string = '';
   public showError: boolean=false;
   registerMode = false;
@@ -21,17 +22,26 @@ export class LoginComponent implements OnInit {
   constructor(
     public accountService: AccountService ,
     private router : Router,
+    private fb :FormBuilder,
     private route :ActivatedRoute,
     private toastr:ToastrService,
     ) { }
 
 
   ngOnInit(): void {
-    this.registerMode=false;
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.intitializeForm();
+  }
+  intitializeForm(){
+    this.loginForm = this.fb.group({
+      email:['',[Validators.required,Validators.email]],
+      password: ['', [Validators.required]
+      ],   
+    })
   }
   login(){
-    this.accountService.login(this.model).subscribe({
+    console.log(this.loginForm.value);
+    this.accountService.login(this.loginForm.value).subscribe({
       next:(response) => {
         this.router.navigateByUrl(this.returnUrl);
         this.toastr.success("LogIn Success","Information");
@@ -42,18 +52,6 @@ export class LoginComponent implements OnInit {
         console.log(this.errorMessage)
       }
     });
-
-    //   next : { (response) => {
-    //   console.log(response)
-    //   this.router.navigateByUrl(this.returnUrl);
-    //   this.toastr.success("LogIn success","Infomation");
-    // }},
-    //   error: {(error) => {
-    //   this.errorMessage = error;
-    //   this.showError = true;
-    //   console.log(this.errorMessage)}
-    // })
-
   }
   logout(){
     this.accountService.logout();
@@ -112,4 +110,16 @@ export class LoginComponent implements OnInit {
   home(){
     this.router.navigateByUrl('/')
   }
+  getEmailErrorMessage(){
+    var field = this.loginForm.get('email');
+    if (field.hasError('required')){
+      return "The email field is required";
+    }
+
+    if (field.hasError('email')){
+      return "The email is invalid";
+    }
+
+    return '';
+  }  
 }

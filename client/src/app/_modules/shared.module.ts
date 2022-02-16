@@ -34,7 +34,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     // BsDropdownModule.forRoot(),
     ToastrModule.forRoot({
-        positionClass: 'toast-bottom-right'
+        positionClass: 'toast-top-right'
     }),
     // NgxGalleryModule,
     // FileUploadModule,
