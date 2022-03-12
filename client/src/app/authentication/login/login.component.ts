@@ -39,19 +39,29 @@ export class LoginComponent implements OnInit {
       ],   
     })
   }
+  // login(){
+  //   console.log(this.loginForm.value);
+  //   this.accountService.login(this.loginForm.value).subscribe({
+  //     next:(response) => {
+  //       this.router.navigateByUrl(this.returnUrl);
+  //       this.toastr.success("LogIn Success","Information");
+  //     },
+  //     error:(error)=> {
+  //       this.errorMessage = error;
+  //       this.showError = true;
+  //       console.log(this.errorMessage)
+  //     }
+  //   });
+  // }
   login(){
-    console.log(this.loginForm.value);
-    this.accountService.login(this.loginForm.value).subscribe({
-      next:(response) => {
+    this.accountService.login(this.loginForm.value).subscribe(
+      (response) => {
         this.router.navigateByUrl(this.returnUrl);
         this.toastr.success("LogIn Success","Information");
-      },
-      error:(error)=> {
-        this.errorMessage = error;
-        this.showError = true;
-        console.log(this.errorMessage)
+      },(error) =>{
+        console.log(error)
       }
-    });
+    );
   }
   logout(){
     this.accountService.logout();

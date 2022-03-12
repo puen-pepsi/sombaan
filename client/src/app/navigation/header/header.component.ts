@@ -1,15 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 // import { SocialUser } from 'angularx-social-login';
 import { ToastrService } from 'ngx-toastr';
 import { ExternalAuthDto } from 'src/app/_models/externalAuthDto';
 import { AccountService } from 'src/app/_services/account.service';
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  encapsulation:ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit {
   @Input() headlogo:string;
@@ -30,7 +29,6 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
 
    };
 

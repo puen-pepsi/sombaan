@@ -27,6 +27,8 @@ namespace API.Extensions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             // services.AddScoped<LogUserActivity>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+            services.AddScoped<IFileStorageService, InAppStorageService>();
+            services.AddHttpContextAccessor();
             services.AddDbContext<DataContext>(x => {           
                 x.UseSqlite(config.GetConnectionString
                 ("DefaultConnection"));

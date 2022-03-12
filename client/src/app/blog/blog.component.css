@@ -1,0 +1,19 @@
+#Filters .filters_buttons {
+    
+    padding: 15px;
+    /* background-image: url(../images/stripes/stripes_5_b.png); */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+ul {
+    display: flex;
+    gap:30px;
+    list-style: none;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}

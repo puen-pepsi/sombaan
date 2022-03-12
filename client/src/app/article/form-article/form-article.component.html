@@ -1,0 +1,41 @@
+<form (submit)="saveChanges()" [formGroup]="form" [style.fontSize.px]="14">
+    <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input formControlName="title"  matInput />
+        <mat-error>The title is required</mat-error>
+    </mat-form-field>
+    <!-- <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input formControlName="description"  matInput />
+        <mat-error>The title is required</mat-error>
+    </mat-form-field> -->
+    <mat-form-field appearance="fill">
+        <mat-label>Content</mat-label>
+        <input formControlName="body"  matInput />
+        <mat-error>The title is required</mat-error>
+    </mat-form-field>
+    <app-input-markdown 
+        [markdownContent]="model?.description"
+        [label]="'description'"
+        (changeMarkdown)="changeMarkdown($event)"></app-input-markdown>
+    <app-input-img
+        [urlCurrentImage]="model?.picture"
+        (onImageSelected)="onImageSelected($event)"></app-input-img>
+
+    <app-multiple-selector
+        [NonSelectedItems]="nonSelectedGenres"
+        [SelectedItems]="selectedGenres"
+    ></app-multiple-selector>
+
+    <app-tag-autocomplete
+        [AllTags]="allTags"
+        [SelectedTags]="selectedTags">
+    </app-tag-autocomplete>
+
+    <div>
+        <button mat-flat-button color="primary" [disabled]="form.invalid">
+          Save Changes
+        </button>
+        <a mat-stroked-button routerLink="/">Cancel</a>
+      </div>
+</form>

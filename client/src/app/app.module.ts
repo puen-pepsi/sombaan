@@ -1,24 +1,28 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MaterialModule } from './material.module';
 import { SharedModule } from './_modules/shared.module';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
-import { DisplayErrorsComponent } from './utilities/display-errors/display-errors.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
-
+import { ErrorInterceptor } from './_interceptors/error.interceptor';
+import { FooterComponent } from './navigation/footer/footer.component';
+import { BlogComponent } from './blog/blog.component';
+import { SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
+import { MarkdownModule} from 'ngx-markdown';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SidenavListComponent,
-    DisplayErrorsComponent
+    FooterComponent,
+    BlogComponent
 
   ],
   imports: [
@@ -26,13 +30,14 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule,
     FlexLayoutModule,
-    SharedModule
+    SharedModule,
+    SweetAlert2Module.forRoot(),
+    MarkdownModule.forRoot()
   ],
   providers: [
+    {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true},
-
   ],
   bootstrap: [AppComponent]
 })

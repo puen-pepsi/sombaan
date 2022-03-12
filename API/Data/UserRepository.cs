@@ -21,9 +21,6 @@ namespace API.Data
             _mapper = mapper;
             _context = context;
         }
-
-       
-
         public async Task<MemberDto> GetMemberAsync(string username)
         {
             return await _context.Users

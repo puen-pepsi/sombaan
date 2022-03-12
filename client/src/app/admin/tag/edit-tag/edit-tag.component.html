@@ -1,0 +1,6 @@
+<h2>Edit Genre</h2>
+
+<app-form-tag *ngIf="model" [model]="model" 
+(onSaveChanges)="saveChanges($event)"></app-form-tag>
+
+<mat-spinner *ngIf="!model"></mat-spinner>
