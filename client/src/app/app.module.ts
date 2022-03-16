@@ -15,6 +15,7 @@ import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { FooterComponent } from './navigation/footer/footer.component';
 import { BlogComponent } from './blog/blog.component';
 import { SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
+import { ToastrModule} from 'ngx-toastr';
 import { MarkdownModule} from 'ngx-markdown';
 @NgModule({
   declarations: [
@@ -33,7 +34,10 @@ import { MarkdownModule} from 'ngx-markdown';
     FlexLayoutModule,
     SharedModule,
     SweetAlert2Module.forRoot(),
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right'
+  }),
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},

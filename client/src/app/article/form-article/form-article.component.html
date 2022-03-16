@@ -18,10 +18,13 @@
         [markdownContent]="model?.description"
         [label]="'description'"
         (changeMarkdown)="changeMarkdown($event)"></app-input-markdown>
-    <app-input-img
+    <!-- <app-input-img
         [urlCurrentImage]="model?.picture"
-        (onImageSelected)="onImageSelected($event)"></app-input-img>
-
+        (onImageSelected)="onImageSelected($event)"></app-input-img> -->
+    <app-input-multi-img
+        [imageInfos]="model?.photoList"
+        [previews]="photoPreview"
+        (onUploadImage)="onUploadImage($event)"></app-input-multi-img>
     <app-multiple-selector
         [NonSelectedItems]="nonSelectedGenres"
         [SelectedItems]="selectedGenres"

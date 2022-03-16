@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { multipleSelectorModel } from 'src/app/utilities/multiple-selector/multiple-selector.model';
-import { articleCreationDTO } from '../articles.model';
+import { articleCreationDTO, photoDTO } from '../articles.model';
 
 @Component({
   selector: 'app-form-article',
@@ -18,15 +18,23 @@ export class FormArticleComponent implements OnInit {
   @Input()
   selectedGenres: multipleSelectorModel[] = [];
   @Input()
-  selectedTags:string[]=['Lemon'];
-  nonSelectedGenres: multipleSelectorModel[] = [
-    {key:1,value:"Drama"},
-    {key:2,value:"Action"},
-    {key:3,value:"Comedy"}
-  ];
-  allTags:string[]=[
-    'Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'
-  ]
+  nonSelectedGenres : multipleSelectorModel[] = [];
+  @Input()
+  selectedTags:string[]=[];
+  @Input()
+  nonSelectedTags:string[]=[]
+  @Input()
+  allTags : string[] = [];
+  @Input()
+  photoPreview: photoDTO[]=[];
+  // nonSelectedGenres: multipleSelectorModel[] = [
+  //   {key:1,value:"Drama"},
+  //   {key:2,value:"Action"},
+  //   {key:3,value:"Comedy"}
+  // ];
+  // allTags:string[]=[
+  //   'Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'
+  // ]
 
   constructor(private formBuilder : FormBuilder) { }
   form : FormGroup;
@@ -43,25 +51,27 @@ export class FormArticleComponent implements OnInit {
       }],
       genresIds: '',
       tagsIds:'',
-      picture:''
+      photoList:''
     })
     if (this.model !== undefined){
       this.form.patchValue(this.model);
     }
   }
-  changeMarkdown(content){
+  changeMarkdown(content:string){
     this.form.get('description').setValue(content);
   }
-  onImageSelected(image){
-    console.log(image)
-    this.form.get('picture').setValue(image);
+  // onImageSelected(image:any){
+  //   console.log(image)
+  //   this.form.get('picture').setValue(image);
+  // }
+  onUploadImage(images:any){
+    this.form.get('photoList').setValue(images);
   }
   saveChanges(){
     const genresIds = this.selectedGenres.map(value => value.key);
     this.form.get('genresIds').setValue(genresIds);
     const tagsIds = this.selectedTags.map(value => value);
     this.form.get('tagsIds').setValue(tagsIds);
-
     this.onSaveChanges.emit(this.form.value);
 
   }

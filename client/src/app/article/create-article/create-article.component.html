@@ -1,3 +1,7 @@
 <h2>Create Article</h2>
 
-<app-form-article (onSaveChanges)="saveChanges($event)"></app-form-article>
+<app-form-article 
+    *ngIf="nonSelectedGenres"
+    [nonSelectedGenres]="nonSelectedGenres" 
+    [allTags]="allTags"
+    (onSaveChanges)="saveChanges($event)"></app-form-article>

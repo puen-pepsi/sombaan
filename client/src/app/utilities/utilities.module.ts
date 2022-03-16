@@ -8,6 +8,7 @@ import { InputMarkdownComponent } from './input-markdown/input-markdown.componen
 import {MarkdownModule} from 'ngx-markdown';
 import { MultipleSelectorComponent } from './multiple-selector/multiple-selector.component';
 import { TagAutocompleteComponent } from './tag-autocomplete/tag-autocomplete.component';
+import { InputMultiImgComponent } from './input-multi-img/input-multi-img.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { TagAutocompleteComponent } from './tag-autocomplete/tag-autocomplete.co
     InputMarkdownComponent,
     MultipleSelectorComponent,
     TagAutocompleteComponent,
+    InputMultiImgComponent,
   ],
   imports: [
     CommonModule,
@@ -30,7 +32,8 @@ import { TagAutocompleteComponent } from './tag-autocomplete/tag-autocomplete.co
     InputImgComponent,
     InputMarkdownComponent,
     MultipleSelectorComponent,
-    TagAutocompleteComponent
+    TagAutocompleteComponent,
+    InputMultiImgComponent
   ]
 })
 export class UtilitiesModule { }

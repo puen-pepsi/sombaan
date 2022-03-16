@@ -1,0 +1,172 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using API.Data;
+using API.DTOs;
+using API.Entities;
+using API.Helpers;
+using API.Interfaces;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+
+namespace API.Controllers
+{
+    public class ArticlesController : BaseApiController
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly DataContext _context;
+        private readonly ILogger<GenresController> _logger;
+        private readonly IFileStorageService _fileStorageService;
+        private string container = "articles";
+        public ArticlesController(ILogger<GenresController> logger,
+        IFileStorageService fileStorageService,
+        IUnitOfWork unitOfWork, IMapper mapper,
+        DataContext context)
+        {
+            _fileStorageService = fileStorageService;
+            _mapper = mapper;
+            _context = context;
+            _logger = logger;
+            _unitOfWork = unitOfWork;
+
+        }
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<ArticleDto>> Get(int id)
+        {
+            var article = await  _unitOfWork.ArticleRepository.GetArticle(id);
+            if(article == null){
+                return NotFound();
+            }
+            var dto = _mapper.Map<ArticleDto>(article);
+
+            return dto;
+        }
+        [HttpGet("PostGet")]
+        public async Task<ActionResult<ArticlePostGetDto>> PostGet()
+        {
+
+            var genres = await _unitOfWork.Genres.GetAll();
+            var tags = await _unitOfWork.TagRepository.getTagsAll();
+            var TagDto = _mapper.Map<List<TagDto>>(tags);
+            var genresDTO = _mapper.Map<List<GenreDto>>(genres);
+
+            return new ArticlePostGetDto() { Genres = genresDTO, Tags = TagDto };
+        }
+        [HttpPost]
+        public async Task<ActionResult<int>> Post([FromForm] ArticleCreationDto articleCreationDto)
+        {
+            articleCreationDto.AuthorId = 1;
+            //Add Author
+            var article = _mapper.Map<Article>(articleCreationDto);
+
+            
+            var Taglist = new List<ArticleTag>();
+
+            if (articleCreationDto.PhotoList != null)
+            {
+                var listImage = new List<PhotoArticle>();
+                listImage = await _fileStorageService.SaveMultiFile(container, articleCreationDto.PhotoList);
+                article.PhotoArticles = listImage;
+            }
+
+            _unitOfWork.ArticleRepository.AddAritcle(article);
+           if(await _unitOfWork.Complete()) {
+                if( articleCreationDto.TagsIds.Count > 0){
+                    var Alltag = await _unitOfWork.TagRepository.getTagsAll();
+                    foreach (string tag in  articleCreationDto.TagsIds)
+                    {
+                        if(!Alltag.Exists(t => t.Name.ToLower().Trim() == tag.ToLower().Trim())){
+                            var addTag = new Tag{Name = tag};
+                            await _unitOfWork.Tags.Insert(addTag);
+                            //Add article
+                            article.Taglist.Add( new ArticleTag{
+                                Tag = addTag,
+                                Article = article
+                            });
+                            await _unitOfWork.Complete();
+
+                        }else{
+                        
+                            var tagAdd = await _unitOfWork.TagRepository.getTagByName(tag);
+                            article.Taglist.Add(new ArticleTag{
+                                Tag = tagAdd,
+                                Article = article
+                            });
+                            await _unitOfWork.Complete();
+                        }
+
+                    }
+                }
+            }
+                return article.Id;
+        }
+        [HttpGet("putget/{id:int}")]
+        public async Task<ActionResult<ArticlePutGetDto>> PutGet(int id)
+        {
+            var ArticleResult = await Get(id);
+            if (ArticleResult.Result is NotFoundResult) { return NotFound(); }
+
+            var article = ArticleResult.Value;
+
+            var genresSelectedIds = article.Genres.Select(x => x.Id).ToList();
+            var nonSelectedGenres = await _context.Genres.Where( x => 
+                     !genresSelectedIds.Contains(x.Id))
+                     .ToListAsync();
+        
+            var tagsSelectedIds = article.Tags.Select(x => x.Id).ToList();
+            var nonSelectedTags = await _context.Tags.Where( x => 
+                    !tagsSelectedIds.Contains(x.Id))
+                    .ToListAsync();
+            //Photolist 
+
+            var nonSelectedGenresDTOs = _mapper.Map<List<GenreDto>>(nonSelectedGenres);
+            var nonSelectedTagsDTOs  =  _mapper.Map<List<TagDto>>(nonSelectedTags);
+
+            var response = new ArticlePutGetDto();
+            response.Article = article;
+            response.SelectedGenres = article.Genres;
+            response.NonSelectedGenres = nonSelectedGenresDTOs;
+            response.SelectedTags = article.Tags.Select(x => x.Name).ToList();
+            response.NonSelectedTags = nonSelectedTagsDTOs.Select(x => x.Name).ToList();
+            return response;
+        }
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(int id, [FromForm] ArticleCreationDto articleCreationDto)
+        {
+            var article = await _unitOfWork.ArticleRepository.GetArticle(id);
+
+            if (article == null)
+            {
+                return NotFound();
+            }
+
+            article = _mapper.Map(articleCreationDto, article);
+             
+            if (articleCreationDto.PhotoList != null)
+            {
+                // article.Poster = await fileStorageService.EditFile(container, articleCreationDTO.Poster,
+                //     article.Poster);
+            }
+            if (articleCreationDto.PhotoList != null)
+            {
+                var listImage = new List<PhotoArticle>();
+                foreach(var file in articleCreationDto.PhotoList){
+                    var getUrl = await _fileStorageService
+                        .EditFile(container,file,file.FileName);
+                    listImage.Add(new PhotoArticle{
+                        ArticleId=article.Id,
+                        Url=getUrl
+                    });  
+                }
+                article.PhotoArticles = listImage;
+            }
+            //edit Tags
+            await _unitOfWork.Complete();
+            return NoContent();
+        }
+    }
+
+}

@@ -34,11 +34,14 @@ export class TagAutocompleteComponent implements OnInit {
   ngOnInit(): void {
   }
   add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    // Add our fruit
-    if (value) {
-      this.SelectedTags.push(value);
+    const value = (event.value || '').trim().toLowerCase();
+    // console.log(value)
+    if(!(this.SelectedTags.includes(value))){
+      // Add our fruit
+      if (value) {
+        this.SelectedTags.push(value);
+      }
+      
     }
 
     // Clear the input value
@@ -54,7 +57,11 @@ export class TagAutocompleteComponent implements OnInit {
     }
   }
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.SelectedTags.push(event.option.viewValue);
+    // console.log(event.option.viewValue)
+    if(!(this.SelectedTags.includes(event.option.viewValue))){
+      this.SelectedTags.push(event.option.viewValue);
+    }
+    
     this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);
   }

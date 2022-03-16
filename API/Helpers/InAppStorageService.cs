@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using API.Entities;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace API.Helpers
 {
-    public class InAppStorageService : API.Helpers.IFileStorageService
+    public class InAppStorageService : IFileStorageService
     {
         private readonly IWebHostEnvironment env;
         private readonly IHttpContextAccessor httpContextAccessor;
@@ -42,7 +43,11 @@ namespace API.Helpers
             await DeleteFile(fileRoute, containerName);
             return await SaveFile(containerName, file);
         }
-
+        // public async Task<string> EditMultiFile(string containerName, List<IFormFile> files)
+        // {
+        //     await DeleteFile(fileRoute, containerName);
+        //     return await SaveFile(containerName, files);
+        // }
         public async Task<string> SaveFile(string containerName, IFormFile file)
         {
             var extension = Path.GetExtension(file.FileName);
@@ -66,5 +71,36 @@ namespace API.Helpers
             var routeForDB = Path.Combine(url, containerName, fileName).Replace("\\", "/");
             return routeForDB;
         }
+        public async Task<List<PhotoArticle>> SaveMultiFile(string containerName, List<IFormFile> files)
+        {
+            var result = new List<PhotoArticle>();
+            
+            foreach(var file in files){
+                var extension = Path.GetExtension(file.FileName);
+                var fileName = $"{Guid.NewGuid()}{extension}";
+                string folder = Path.Combine(env.WebRootPath, containerName);
+                // string folder = Path.Combine(Directory.GetCurrentDirectory(), containerName);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                    string route = Path.Combine(folder, fileName);
+                    using (var ms = new MemoryStream())
+                    {
+                        await file.CopyToAsync(ms);
+                        var content = ms.ToArray();
+                        await File.WriteAllBytesAsync(route, content);
+                    }
+
+                    var url = $"{httpContextAccessor.HttpContext.Request.Scheme}://{httpContextAccessor.HttpContext.Request.Host}";
+                    var routeForDB = Path.Combine(url, containerName, fileName).Replace("\\", "/");
+                result.Add(new PhotoArticle{
+                     Url=routeForDB,
+                });
+            } 
+            return result;
+        }
+
     }
 }

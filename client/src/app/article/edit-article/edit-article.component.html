@@ -1,0 +1,11 @@
+<h2>Edit Article</h2>
+
+<app-form-article 
+    [model]="model"
+    *ngIf="model"
+    [selectedGenres]="selectedGenres"
+    [nonSelectedGenres]="nonSelectedGenres" 
+    [selectedTags]="selectedTags"
+    [allTags]="nonSelectedTags"
+    [photoPreview]="photoList"
+    (onSaveChanges)="saveChanges($event)"></app-form-article>

@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { FormArticleComponent } from './form-article/form-article.component';
 import { CreateArticleComponent } from './create-article/create-article.component';
 import { UtilitiesModule } from '../utilities/utilities.module';
+import { ArticleDetailsComponent } from './article-details/article-details.component';
+import { EditArticleComponent } from './edit-article/edit-article.component';
 
 
 
@@ -13,7 +15,9 @@ import { UtilitiesModule } from '../utilities/utilities.module';
   declarations: [
     ArticleFilterComponent,
     FormArticleComponent,
-    CreateArticleComponent
+    CreateArticleComponent,
+    ArticleDetailsComponent,
+    EditArticleComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +25,9 @@ import { UtilitiesModule } from '../utilities/utilities.module';
     UtilitiesModule,
     RouterModule.forChild([
       {path:'',component:ArticleFilterComponent},
-      {path:'create',component:CreateArticleComponent}
+      {path:'create',component:CreateArticleComponent},
+      {path:'edit/:id',component:EditArticleComponent},
+      {path:'details/:id',component:ArticleDetailsComponent}
     ])
   ]
 })

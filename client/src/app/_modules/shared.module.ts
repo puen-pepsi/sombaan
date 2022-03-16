@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ToastrModule } from 'ngx-toastr';
+// import { ToastrModule } from 'ngx-toastr';
 import { TextInputComponent } from '../_forms/text-input/text-input.component';
 // import { NgxGalleryModule} from '@kolkov/ngx-gallery';
 // import { FileUploadModule } from 'ng2-file-upload';
@@ -32,9 +32,9 @@ import { MaterialModule } from '../material.module';
   imports: [
     CommonModule,
     // BsDropdownModule.forRoot(),
-    ToastrModule.forRoot({
-        positionClass: 'toast-top-right'
-    }),
+    // ToastrModule.forRoot({
+    //     positionClass: 'toast-top-right'
+    // }),
     // NgxGalleryModule,
     // FileUploadModule,
     BsDatepickerModule.forRoot(),
@@ -52,7 +52,7 @@ import { MaterialModule } from '../material.module';
   ],
   exports:[
     // BsDropdownModule,
-    ToastrModule,
+    // ToastrModule,
     // TabsModule,
     // NgxGalleryModule,
     // FileUploadModule,

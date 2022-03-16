@@ -1,6 +1,6 @@
 <mat-form-field class="example-chip-list" appearance="fill">
     <mat-label>Tag</mat-label>
-    <mat-chip-list #chipList aria-label="Fruit selection">
+    <mat-chip-list #chipList aria-label="Tags selection">
       <mat-chip
         *ngFor="let tag of SelectedTags"
         (removed)="remove(tag)">
