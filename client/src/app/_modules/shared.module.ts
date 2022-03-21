@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-// import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import { TextInputComponent } from '../_forms/text-input/text-input.component';
 // import { NgxGalleryModule} from '@kolkov/ngx-gallery';
 // import { FileUploadModule } from 'ng2-file-upload';
@@ -11,7 +11,7 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker'
 // import { TimeagoModule } from 'ngx-timeago';
 // import { ModalModule } from 'ngx-bootstrap/modal';
 // import { ScrollSpyModule } from 'ng-spy';
-// import { HasRoleDirective } from '../_directives/has-role.directive';
+import { HasRoleDirective } from '../_directives/has-role.directive';
 // import { IvyCarouselModule} from 'angular-responsive-carousel';
 // import { Ng2SearchPipeModule } from 'ng2-search-filter';
 // import { GetRoleDirective } from '../_directives/get-role.directive';
@@ -23,7 +23,7 @@ import { MaterialModule } from '../material.module';
 
 @NgModule({
   declarations: [
-    // HasRoleDirective,
+    HasRoleDirective,
     // GetRoleDirective,
     // SanitizeHtmlPipe,
     // TruncatePipe
@@ -32,9 +32,14 @@ import { MaterialModule } from '../material.module';
   imports: [
     CommonModule,
     // BsDropdownModule.forRoot(),
-    // ToastrModule.forRoot({
-    //     positionClass: 'toast-top-right'
-    // }),
+    ToastrModule.forRoot({
+        positionClass: 'toast-top-right',
+        closeButton: true,
+        newestOnTop: false,
+        progressBar: true,
+        preventDuplicates: true,
+        
+    }),
     // NgxGalleryModule,
     // FileUploadModule,
     BsDatepickerModule.forRoot(),
@@ -52,7 +57,7 @@ import { MaterialModule } from '../material.module';
   ],
   exports:[
     // BsDropdownModule,
-    // ToastrModule,
+    ToastrModule,
     // TabsModule,
     // NgxGalleryModule,
     // FileUploadModule,
@@ -62,7 +67,7 @@ import { MaterialModule } from '../material.module';
     // TimeagoModule,
     // ModalModule,
     // ScrollSpyModule,
-    // HasRoleDirective,
+    HasRoleDirective,
     // GetRoleDirective,
     // IvyCarouselModule,
     // Ng2SearchPipeModule,

@@ -1,3 +1,35 @@
+
+.container-upload{
+  margin: 20px auto;
+  max-width: 821px;
+}
 .preview {
     max-width: 200px;
+    min-width: 200px;
+  }
+  .preview-list{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap:5px;
+  }
+  .preview-item img {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  .preview-item .mat-mini-fab {
+    position: absolute;
+    
+    top: 0%;
+    right: -0.4%;
+    
+    background-color: #555;
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
   }

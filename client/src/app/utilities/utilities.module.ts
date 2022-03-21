@@ -33,7 +33,8 @@ import { InputMultiImgComponent } from './input-multi-img/input-multi-img.compon
     InputMarkdownComponent,
     MultipleSelectorComponent,
     TagAutocompleteComponent,
-    InputMultiImgComponent
+    InputMultiImgComponent,
+    MarkdownModule
   ]
 })
 export class UtilitiesModule { }

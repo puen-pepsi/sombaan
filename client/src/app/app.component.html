@@ -1,16 +1,17 @@
-<!-- <mat-sidenav-container class="example-container">
+<mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav role="navigation">
         <app-sidenav-list (closesidenav)="sidenav.close()"></app-sidenav-list>
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <app-header (sidenavtoggle)="sidenav.toggle()"></app-header>
+        <!-- <app-header (sidenavtoggle)="sidenav.toggle()"></app-header> -->
+        <app-nav (sidenavtoggle)="sidenav.toggle()" ></app-nav>
         <main >
              <router-outlet></router-outlet>
         </main>
         <app-footer></app-footer>
     </mat-sidenav-content>
-</mat-sidenav-container> --> 
-<app-header></app-header> 
+</mat-sidenav-container> 
+<!-- <app-header></app-header> 
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+<app-footer></app-footer> -->

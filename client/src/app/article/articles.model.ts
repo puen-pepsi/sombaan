@@ -21,6 +21,7 @@ export interface articlePutGetDTO{
     nonSelectedTags:string[];
 }
 export interface articleDTO{
+    id:number;
     title: string;
     description : string;
     body:string;

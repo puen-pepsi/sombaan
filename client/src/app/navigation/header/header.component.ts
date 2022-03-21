@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 // import { SocialUser } from 'angularx-social-login';
 import { ToastrService } from 'ngx-toastr';
@@ -17,7 +17,22 @@ export class HeaderComponent implements OnInit {
   model:any = {};
   public errorMessage: string = '';
   public showError: boolean;
-
+  isSticky: boolean = false;
+  navbarfixed : boolean = false;
+  @HostListener('window:scroll', ['$event'])
+  onscroll(){
+    if(window.pageYOffset> 144)
+    {
+      this.navbarfixed = true;
+    }
+    else
+    {
+      this.navbarfixed = false;
+    }
+  }
+  // checkScroll() {
+  //   this.isSticky = window.pageYOffset >= 144;
+  // }
 
   ShowToggle = false;
   constructor(public accountService: AccountService ,

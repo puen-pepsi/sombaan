@@ -9,9 +9,11 @@ import { Observable } from 'rxjs';
 export class InputMultiImgComponent implements OnInit {
   @Output()
   onUploadImage = new EventEmitter<FileList>();
+
   selectedFiles?: FileList;
-  progressInfos: any[] = [];
-  message: string[] = [];
+  // selectedFiles:File[]=[];
+  // progressInfos: any[] = [];
+  // message: string[] = [];
   @Input()
   previews: string[]=[];
   @Input()
@@ -22,11 +24,11 @@ export class InputMultiImgComponent implements OnInit {
     // this.imageInfos = this.uploadService.getFiles();
   }
   selectFiles(event: any): void {
-    this.message = [];
-    this.progressInfos = [];
+    // this.message = [];
+    // this.progressInfos = [];
     this.selectedFiles = event.target.files;
     // console.log(this.selectedFiles)
-    // this.previews = [];
+    this.previews = [];
     if (this.selectedFiles && this.selectedFiles[0]) {
       const numberOfFiles = this.selectedFiles.length;
       for (let i = 0; i < numberOfFiles; i++) {
@@ -38,8 +40,13 @@ export class InputMultiImgComponent implements OnInit {
         reader.readAsDataURL(this.selectedFiles[i]);
       }
     }
-    console.log(this.previews)
     this.onUploadImage.emit(this.selectedFiles);
+  }
+  removeImage(i) {
+    console.log(i)
+    this.previews.slice(i,1);
+    this.selectedFiles.item(i).slice;
+
   }
   // uploadFiles(): void {
   //   this.message = [];

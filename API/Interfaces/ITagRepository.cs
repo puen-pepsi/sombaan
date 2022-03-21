@@ -8,5 +8,7 @@ namespace API.Interfaces
     {
          Task<List<Tag>> getTagsAll();
          Task<Tag> getTagByName(string name);
+        void AddTag(Tag tag);
+        Task<ArticleTag> GetArticleTagAsync(int TagId, int ArticleId);
     }
 }

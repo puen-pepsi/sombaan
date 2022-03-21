@@ -13,7 +13,7 @@ namespace API.DTOs
         public string Description { get; set; }
         public string Body { get; set; }
         public int AuthorId { get; set; }
-        public DateTime CreateAt { get; set; }
+        public DateTime CreateAt { get; set; } = DateTime.Now;
         public DateTime UpdateAt { get; set; }
         public int LikesCount { get; set; } = 0;
         //OTM

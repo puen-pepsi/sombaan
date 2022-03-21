@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,10 +59,11 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> Post([FromForm] ArticleCreationDto articleCreationDto)
         {
-            articleCreationDto.AuthorId = 1;
-            //Add Author
+           
             var article = _mapper.Map<Article>(articleCreationDto);
-
+            article.CreateAt = DateTime.Now;
+            article.AuthorId = 1;
+            //Add Author
             
             var Taglist = new List<ArticleTag>();
 
@@ -70,36 +72,15 @@ namespace API.Controllers
                 var listImage = new List<PhotoArticle>();
                 listImage = await _fileStorageService.SaveMultiFile(container, articleCreationDto.PhotoList);
                 article.PhotoArticles = listImage;
+                // foreach(var image in listImage){
+                //     article.PhotoArticles.Add(image);
+                // }
             }
 
             _unitOfWork.ArticleRepository.AddAritcle(article);
            if(await _unitOfWork.Complete()) {
-                if( articleCreationDto.TagsIds.Count > 0){
-                    var Alltag = await _unitOfWork.TagRepository.getTagsAll();
-                    foreach (string tag in  articleCreationDto.TagsIds)
-                    {
-                        if(!Alltag.Exists(t => t.Name.ToLower().Trim() == tag.ToLower().Trim())){
-                            var addTag = new Tag{Name = tag};
-                            await _unitOfWork.Tags.Insert(addTag);
-                            //Add article
-                            article.Taglist.Add( new ArticleTag{
-                                Tag = addTag,
-                                Article = article
-                            });
-                            await _unitOfWork.Complete();
-
-                        }else{
-                        
-                            var tagAdd = await _unitOfWork.TagRepository.getTagByName(tag);
-                            article.Taglist.Add(new ArticleTag{
-                                Tag = tagAdd,
-                                Article = article
-                            });
-                            await _unitOfWork.Complete();
-                        }
-
-                    }
-                }
+                article.Taglist = await getTag(articleCreationDto.TagsIds,article);
+                await _unitOfWork.Complete();
             }
                 return article.Id;
         }
@@ -137,19 +118,21 @@ namespace API.Controllers
         public async Task<ActionResult> Put(int id, [FromForm] ArticleCreationDto articleCreationDto)
         {
             var article = await _unitOfWork.ArticleRepository.GetArticle(id);
-
             if (article == null)
             {
                 return NotFound();
             }
 
             article = _mapper.Map(articleCreationDto, article);
-             
-            if (articleCreationDto.PhotoList != null)
-            {
-                // article.Poster = await fileStorageService.EditFile(container, articleCreationDTO.Poster,
-                //     article.Poster);
+            article.AuthorId = 1;
+            //remove ole photolist
+            if(article.PhotoArticles != null && articleCreationDto.PhotoList == null){
+                foreach(var file in article.PhotoArticles){
+                  await  _fileStorageService.DeleteFile(file.Url,container);
+                }
+                article.PhotoArticles = null;
             }
+            
             if (articleCreationDto.PhotoList != null)
             {
                 var listImage = new List<PhotoArticle>();
@@ -163,10 +146,41 @@ namespace API.Controllers
                 }
                 article.PhotoArticles = listImage;
             }
-            //edit Tags
+            article.Taglist = await getTag(articleCreationDto.TagsIds,article);
+
             await _unitOfWork.Complete();
             return NoContent();
         }
+
+        private async Task<List<ArticleTag>> getTag(List<string> tagList,Article article){
+               var TagList = new List<ArticleTag>();
+               if(tagList.Count == 0){
+                   return TagList;
+               }
+                var Alltag = await _unitOfWork.TagRepository.getTagsAll();
+                foreach (string tag in tagList)
+                {
+                    if(!Alltag.Exists(t => t.Name.ToLower().Trim() == tag.ToLower().Trim())){
+                        var addTag = new Tag{Name = tag};
+                            _unitOfWork.TagRepository.AddTag(addTag);
+                        //Add article
+                        TagList.Add( new ArticleTag{
+                            Tag = addTag,
+                            Article = article
+                        });
+                    }else{
+                    
+                        var tagAdd = await _unitOfWork.TagRepository.getTagByName(tag);
+                        TagList.Add(new ArticleTag{
+                            Tag = tagAdd,
+                            Article = article
+                        });
+                    }
+                }
+                return TagList;
+        }
+
+
     }
 
 }

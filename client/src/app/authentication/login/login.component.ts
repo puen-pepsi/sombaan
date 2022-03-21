@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
     this.accountService.login(this.loginForm.value).subscribe(
       (response) => {
         this.router.navigateByUrl(this.returnUrl);
-        this.toastr.success("LogIn Success","Information");
+        this.toastr.success("LogIn Success");
       },(error) =>{
         console.log(error)
       }
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
   logout(){
     this.accountService.logout();
     this.router.navigateByUrl('/')
-    this.toastr.success("LogOut success","Information")
+    this.toastr.success("LogOut success")
   }
 
   // public loginWithGoogle = () => {

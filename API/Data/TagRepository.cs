@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using API.Entities;
 using API.Interfaces;
@@ -17,6 +18,9 @@ namespace API.Data
             _context = context;
 
         }
+        public void AddTag(Tag tag){
+            _context.Tags.Add(tag);
+        }
         public async Task<Tag> getTagByName(string name)
         {
             return await _context.Tags.SingleOrDefaultAsync(s => s.Name == name);
@@ -25,6 +29,11 @@ namespace API.Data
         public async Task<List<Tag>> getTagsAll()
         {
             return await _context.Tags.ToListAsync();
+        }
+
+        public async Task<ArticleTag> GetArticleTagAsync(int TagId,int ArticleId){
+            return await _context.ArticleTags
+                    .FirstOrDefaultAsync(x => x.TagId == TagId && x.ArticleId == ArticleId);
         }
     }
 }

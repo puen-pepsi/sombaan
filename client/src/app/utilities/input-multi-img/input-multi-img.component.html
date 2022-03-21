@@ -1,4 +1,4 @@
-<div *ngFor="let progressInfo of progressInfos" class="mb-2">
+<!-- <div *ngFor="let progressInfo of progressInfos" class="mb-2">
     <span>{{ progressInfo.fileName }}</span>
     <div class="progress">
       <div
@@ -12,12 +12,26 @@
         {{ progressInfo.value }}%
       </div>
     </div>
+  </div> -->
+  <div class="container-upload">
+  
+  <div class="preview-list" *ngIf="previews">
+    <div  *ngFor='let preview of previews; let i = index' class="preview-item">
+      <img  [src]="preview.url??preview" class="preview">
+      <button mat-mini-fab (click)="removeImage(i)" class="button" >
+        <mat-icon>delete</mat-icon></button>
+    </div>
+    
   </div>
-  <div class="row">
+  <div class="row mt-3">
     <div class="col-8">
-      <label class="btn btn-default p-0">
+      <!-- <label class="btn btn-default p-0">
         <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
-      </label>
+      </label> -->
+      <input type="file" hidden #fileInput accept="image/png, image/jpeg" 
+        (change)="selectFiles($event)"
+        multiple />
+      <button type="button" mat-stroked-button (click)="fileInput.click()">Select Image</button>
     </div>
     <!-- <div class="col-4">
       <button
@@ -29,10 +43,10 @@
       </button>
     </div> -->
   </div>
-  <div>
-    <img *ngFor='let preview of previews' [src]="preview.url??preview" class="preview">
-  </div>
-  <div *ngIf="message.length" class="alert alert-secondary my-3" role="alert">
+  
+</div>
+
+  <!-- <div *ngIf="message.length" class="alert alert-secondary my-3" role="alert">
     <ul *ngFor="let msg of message; let i = index">
       <li>{{ msg }}</li>
     </ul>
@@ -48,4 +62,4 @@
         <img src="{{ image.url }}" alt="{{ image.name }}" height="80px" />
       </li>
     </ul>
-  </div>
+  </div> -->

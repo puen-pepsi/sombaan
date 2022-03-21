@@ -58,7 +58,7 @@ export class FormArticleComponent implements OnInit {
     }
   }
   changeMarkdown(content:string){
-    this.form.get('description').setValue(content);
+    this.form.get('body').setValue(content);
   }
   // onImageSelected(image:any){
   //   console.log(image)

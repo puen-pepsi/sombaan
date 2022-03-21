@@ -79,54 +79,56 @@
 				</ul>
 			</div>
 
-			<div id="header-wrap">
-				<!-- Primary Navigation
-				============================================= -->
-				<nav id="primary-menu" class="with-arrows style-2 center">
+			<div id="header-wrap" 
+			(scroll)="onscroll()" [ngClass]="navbarfixed?'fixed':'nofixed'">
+			 <!-- [ngClass]="{'mat-elevation-z0' : true, 'sticky' : isSticky}"> -->
+			 <!-- Primary Navigation
+			 ============================================= -->
+			 <nav id="primary-menu" class="with-arrows style-2 center">
 
-					<div class="container clearfix">
+				 <div class="container clearfix">
 
-						<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
-					    
-						<ul>
-							<li class="current"><a href="#"><div>Home</div></a></li>
-							<li><a href="demos/construction/services.html"><div>What we do</div></a>
-								<ul>
-									<li><a href="#"><div>Housing Management</div></a></li>
-									<li><a href="#"><div>Construction Planning</div></a></li>
-									<li><a href="#"><div>Green Homes</div></a></li>
-									<li><a href="#"><div>Architecture Design</div></a></li>
-									<li><a href="#"><div>Interior Planning</div></a></li>
-								</ul>
-							</li>
-							<li><a href="demos/construction/about-us.html"><div>About Us</div></a></li>
-							<li><a href="demos/construction/projects.html"><div>Projects</div></a>
-								<ul>
-									<li><a href="demos/construction/projects-2.html"><div>2 Columns</div></a></li>
-									<li><a href="demos/construction/projects-3.html"><div>3 Columns</div></a></li>
-									<li><a href="demos/construction/projects.html"><div>4 Columns</div></a></li>
-									<li><a href="demos/construction/projects-5.html"><div>5 Columns</div></a></li>
-								</ul>
-							</li>
-							<li><a href="demos/construction/investors.html"><div>Investors</div></a></li>
-							<li><a href="demos/construction/blog.html"><div>News</div></a></li>
-							<li><a href="demos/construction/careers.html"><div>Careers</div></a></li>
-							<li><a href="demos/construction/contact.html"><div>Contact</div></a></li>
-						</ul>
+					 <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+					 
+					 <ul>
+						 <li class="current"><a href="#"><div>Home</div></a></li>
+						 <li><a href="demos/construction/services.html"><div>What we do</div></a>
+							 <ul>
+								 <li><a href="#"><div>Housing Management</div></a></li>
+								 <li><a href="#"><div>Construction Planning</div></a></li>
+								 <li><a href="#"><div>Green Homes</div></a></li>
+								 <li><a href="#"><div>Architecture Design</div></a></li>
+								 <li><a href="#"><div>Interior Planning</div></a></li>
+							 </ul>
+						 </li>
+						 <li><a href="demos/construction/about-us.html"><div>About Us</div></a></li>
+						 <li><a href="demos/construction/projects.html"><div>Projects</div></a>
+							 <ul>
+								 <li><a href="demos/construction/projects-2.html"><div>2 Columns</div></a></li>
+								 <li><a href="demos/construction/projects-3.html"><div>3 Columns</div></a></li>
+								 <li><a href="demos/construction/projects.html"><div>4 Columns</div></a></li>
+								 <li><a href="demos/construction/projects-5.html"><div>5 Columns</div></a></li>
+							 </ul>
+						 </li>
+						 <li><a href="demos/construction/investors.html"><div>Investors</div></a></li>
+						 <li><a href="demos/construction/blog.html"><div>News</div></a></li>
+						 <li><a href="demos/construction/careers.html"><div>Careers</div></a></li>
+						 <li><a href="demos/construction/contact.html"><div>Contact</div></a></li>
+					 </ul>
 
-						<!-- Top Search
-						============================================= -->
-						<div id="top-search">
-							<a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
-							<form action="search.html" method="get">
-								<input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
-							</form>
-						</div><!-- #top-search end -->
+					 <!-- Top Search
+					 ============================================= -->
+					 <div id="top-search">
+						 <a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
+						 <form action="search.html" method="get">
+							 <input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
+						 </form>
+					 </div><!-- #top-search end -->
 
-					</div>
+				 </div>
 
-				</nav><!-- #primary-menu end -->
+			 </nav><!-- #primary-menu end -->
 
-			</div>
+		 </div>
 
-		</header><!-- #header end -->
+		</header><!-- #header end -->			

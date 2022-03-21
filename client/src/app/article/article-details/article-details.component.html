@@ -1,1 +1,49 @@
-<p>article-details works!</p>
+<div class="content-wrap">
+    <div class="container clearfix">
+        <div class="postcontent nobottommargin clearfix">
+            <div *ngIf="article">
+                <div class="entry-title">
+                  <h2>{{article.title | uppercase}}</h2>  
+                </div>
+                <ul class="entry-meta clearfix">
+                    <li><i class="icon-calendar3"></i> {{article.createAt | date:'mediumDate'}}</li>
+                    <li><a href="#"><i class="icon-user"></i>{{article.authorName}}</a></li>
+                    <li>
+                        <i class="icon-folder-open"></i>
+                        <a *ngFor="let genre of article.genres"
+                            href="#">
+                            {{genre.name}}
+                        </a>
+                    </li>
+                    <li><a href="#"><i class="icon-comments"></i> 43 Comments</a></li>
+                    <li><a href="#"><i class="icon-camera-retro"></i></a></li>
+                </ul>
+                <!-- <div class="entry-image" *ngFor="let image of article.photos" >
+                    <img [src]="image.url">
+                </div> -->
+                <div class="entry-image clearfix" *ngIf="article.photos">
+                     <div class="portfolio-single-image masonry-thumbs grid-5" 
+                        data-big="2" data-lightbox="gallery">
+                        <a href="{{image.url}}" 
+                            data-lightbox="gallery-item" 
+                            *ngFor="let image of article.photos"> 
+                            <img class="image_fade" [src]="image.url" alt="">
+                        </a>   
+                    </div>
+                </div>
+               
+                <div class="entry-content notopmargin">
+                    <div style="margin-top: 1rem">
+                        <div>
+                          <markdown [data]="article.body" ngPreserveWhitespaces></markdown>
+                        </div>
+                      </div>
+                </div>
+            </div>
+            <!-- <p>{{article | json}}</p> -->
+        </div>
+        <div class="sidebar nobottommargin col_last clearfix">
+
+        </div>
+    </div>
+</div>

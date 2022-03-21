@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { multipleSelectorModel } from 'src/app/utilities/multiple-selector/multiple-selector.model';
 import { ArticleService } from '../article.service';
-import { articleDTO, photoDTO } from '../articles.model';
+import { articleCreationDTO, articleDTO, photoDTO } from '../articles.model';
 
 @Component({
   selector: 'app-edit-article',
@@ -16,13 +16,13 @@ export class EditArticleComponent implements OnInit {
   nonSelectedTags : string[];
   photoList : photoDTO[];
   constructor(private articleservice:ArticleService,
-              private activeRoute:ActivatedRoute) { }
+              private activeRoute:ActivatedRoute,
+              private router : Router) { }
   model : articleDTO;
   ngOnInit(): void {
     this.activeRoute.params.subscribe(params => {
       this.articleservice.putget(params["id"]).subscribe(putGetDto => {
           this.model = putGetDto.article;
-          console.log(putGetDto.selectedTags)
           this.selectedGenres = putGetDto.selectedGenres.map(genre => {
             return <multipleSelectorModel>{key:genre.id,value:genre.name};
           });
@@ -34,6 +34,12 @@ export class EditArticleComponent implements OnInit {
           this.photoList = putGetDto.article.photos;
           
       });
+    });
+  }
+  saveChanges(articleCreationDTO: articleCreationDTO){
+    this.articleservice.edit(this.model.id, articleCreationDTO).subscribe(() => {
+      // this.router.navigate(['/article/' + this.model.id]);
+      console.log("Ok")
     });
   }
 }

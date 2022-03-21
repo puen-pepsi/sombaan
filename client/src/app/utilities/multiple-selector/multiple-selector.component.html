@@ -4,8 +4,9 @@
         (click)="select(item, index)">{{item.value}}</li>
     </ul>
     <div class="container-buttons">
-        <button type="button" (click)="selectAll()">>></button>
-        <button type="button" (click)="deSelectAll()"><<</button>
+        <button mat-stroked-button type="button"  (click)="selectAll()">
+            <mat-icon>fast_forward</mat-icon></button>
+        <button mat-stroked-button type="button" (click)="deSelectAll()"><<</button>
     </div>
     <ul>
         <li *ngFor="let item of SelectedItems; let index = index"

@@ -10,12 +10,12 @@
         <mat-error>The title is required</mat-error>
     </mat-form-field> -->
     <mat-form-field appearance="fill">
-        <mat-label>Content</mat-label>
-        <input formControlName="body"  matInput />
+        <mat-label>Youtube Link</mat-label>
+        <input formControlName="description"  matInput />
         <mat-error>The title is required</mat-error>
     </mat-form-field>
     <app-input-markdown 
-        [markdownContent]="model?.description"
+        [markdownContent]="model?.body"
         [label]="'description'"
         (changeMarkdown)="changeMarkdown($event)"></app-input-markdown>
     <!-- <app-input-img
@@ -36,7 +36,9 @@
     </app-tag-autocomplete>
 
     <div>
-        <button mat-flat-button color="primary" [disabled]="form.invalid">
+        <button mat-flat-button color="primary" 
+        type="submit"
+        [disabled]="form.invalid">
           Save Changes
         </button>
         <a mat-stroked-button routerLink="/">Cancel</a>
