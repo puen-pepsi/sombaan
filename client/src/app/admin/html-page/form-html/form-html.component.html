@@ -1,0 +1,20 @@
+<form (submit)="saveChanges()"
+    [formGroup]="form" [style.fontSize.px]="14">
+    <mat-form-field appearance="fill">
+        <mat-label>Link</mat-label>
+        <input formControlName="link"  matInput />
+        <mat-error>The Link is required</mat-error>
+    </mat-form-field>
+    <app-ckeditor
+        [EditorData]="model?.content" 
+        (editorChanges)="getContent($event)"
+    ></app-ckeditor>
+    <div>
+    <button mat-flat-button color="primary" 
+    type="submit"
+    [disabled]="form.invalid">
+      Save Changes
+    </button>
+    <a mat-stroked-button routerLink="/">Cancel</a>
+  </div>
+</form>

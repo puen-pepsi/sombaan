@@ -9,6 +9,7 @@ namespace API.Interfaces
     {
         IArticleRepository ArticleRepository{get;}
         ITagRepository TagRepository{get;}
+        IHtmlpageRepository HtmlpageRepository{get;}
         IGenericRepository<Genre> Genres{get;}
         IGenericRepository<Tag> Tags{get;}
         IGenericRepository<Article> Articles{get;}

@@ -12,7 +12,10 @@ import { IndexTagComponent } from './tag/index-tag.component';
 import { CreateTagComponent } from './tag/create-tag/create-tag.component';
 import { EditTagComponent } from './tag/edit-tag/edit-tag.component';
 import { FormTagComponent } from './tag/form-tag/form-tag.component';
-
+import { HtmlPageComponent } from './html-page/html-page.component';
+import { CreateHtmlPageComponent } from './html-page/create-html-page/create-html-page.component';
+import { FormHtmlComponent } from './html-page/form-html/form-html.component';
+import { EditHtmlPageComponent } from './html-page/edit-html-page/edit-html-page.component';
 @NgModule({
   declarations: [
     CreateGenreComponent,
@@ -23,6 +26,10 @@ import { FormTagComponent } from './tag/form-tag/form-tag.component';
     CreateTagComponent,
     EditTagComponent,
     FormTagComponent,
+    HtmlPageComponent,
+    CreateHtmlPageComponent,
+    FormHtmlComponent,
+    EditHtmlPageComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +43,8 @@ import { FormTagComponent } from './tag/form-tag/form-tag.component';
       {path:'tags',component:IndexTagComponent},
       {path:'tags/create',component:CreateTagComponent},
       {path:'tags/edit/:id',component:EditTagComponent},
+      {path:'htmlpage/create',component:CreateHtmlPageComponent},
+      {path:'htmlpage/edit/:id',component:EditHtmlPageComponent}
     ])
     
 

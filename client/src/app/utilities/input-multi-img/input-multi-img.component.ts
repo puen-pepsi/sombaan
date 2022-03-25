@@ -1,3 +1,4 @@
+import { conditionallyCreateMapObjectLiteral } from '@angular/compiler/src/render3/view/util';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -8,16 +9,16 @@ import { Observable } from 'rxjs';
 })
 export class InputMultiImgComponent implements OnInit {
   @Output()
-  onUploadImage = new EventEmitter<FileList>();
-
-  selectedFiles?: FileList;
-  // selectedFiles:File[]=[];
-  // progressInfos: any[] = [];
-  // message: string[] = [];
+  onUploadImage = new EventEmitter<any[]>();
   @Input()
   previews: string[]=[];
   @Input()
   imageInfos?: Observable<any>;
+  // selectedFiles?: FileList;
+  selectedFiles:any[]=[];
+  // progressInfos: any[] = [];
+  // message: string[] = [];
+
   constructor() { }
 
   ngOnInit(): void {
@@ -26,12 +27,19 @@ export class InputMultiImgComponent implements OnInit {
   selectFiles(event: any): void {
     // this.message = [];
     // this.progressInfos = [];
-    this.selectedFiles = event.target.files;
-    // console.log(this.selectedFiles)
+    //this.selectedFiles = event.target.files;
+    
     this.previews = [];
-    if (this.selectedFiles && this.selectedFiles[0]) {
-      const numberOfFiles = this.selectedFiles.length;
+    this.selectedFiles = [];
+    // if (this.selectedFiles && this.selectedFiles[0]) {
+      // const numberOfFiles = this.selectedFiles.length;
+    const files = event.target.files;
+    
+    if(event.target.files && event.target.files[0]){
+      const numberOfFiles = files.length;
       for (let i = 0; i < numberOfFiles; i++) {
+        // file = files[i];
+        this.selectedFiles.push(files[i]);
         const reader = new FileReader();
         reader.onload = (e: any) => {
           // console.log(e.target.result);
@@ -42,11 +50,14 @@ export class InputMultiImgComponent implements OnInit {
     }
     this.onUploadImage.emit(this.selectedFiles);
   }
-  removeImage(i) {
-    console.log(i)
-    this.previews.slice(i,1);
-    this.selectedFiles.item(i).slice;
+  
+  removeImage(index) {
 
+    // this.previews.slice(index,1);
+   this.previews.splice(index,1);
+    this.selectedFiles.splice(index,1);
+    // this.selectedFiles = this.selectedFiles.filter((file:File)=> file !== this.selectedFiles[index]);
+    this.onUploadImage.emit(this.selectedFiles);
   }
   // uploadFiles(): void {
   //   this.message = [];

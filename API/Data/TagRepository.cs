@@ -35,5 +35,6 @@ namespace API.Data
             return await _context.ArticleTags
                     .FirstOrDefaultAsync(x => x.TagId == TagId && x.ArticleId == ArticleId);
         }
+
     }
 }

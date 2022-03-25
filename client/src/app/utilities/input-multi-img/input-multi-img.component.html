@@ -18,8 +18,10 @@
   <div class="preview-list" *ngIf="previews">
     <div  *ngFor='let preview of previews; let i = index' class="preview-item">
       <img  [src]="preview.url??preview" class="preview">
-      <button mat-mini-fab (click)="removeImage(i)" class="button" >
+      <div class="example-button-container">
+        <button type="button" mat-mini-fab (click)="removeImage(i)" >
         <mat-icon>delete</mat-icon></button>
+      </div>
     </div>
     
   </div>

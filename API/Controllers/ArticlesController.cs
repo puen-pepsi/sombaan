@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
 using API.Entities;
+using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
@@ -62,7 +63,7 @@ namespace API.Controllers
            
             var article = _mapper.Map<Article>(articleCreationDto);
             article.CreateAt = DateTime.Now;
-            article.AuthorId = 1;
+            article.AuthorId = User.GetUserId();
             //Add Author
             
             var Taglist = new List<ArticleTag>();

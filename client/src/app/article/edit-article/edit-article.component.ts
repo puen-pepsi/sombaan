@@ -39,7 +39,6 @@ export class EditArticleComponent implements OnInit {
   saveChanges(articleCreationDTO: articleCreationDTO){
     this.articleservice.edit(this.model.id, articleCreationDTO).subscribe(() => {
       // this.router.navigate(['/article/' + this.model.id]);
-      console.log("Ok")
     });
   }
 }

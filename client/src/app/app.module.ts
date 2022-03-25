@@ -17,6 +17,8 @@ import { BlogComponent } from './blog/blog.component';
 import { SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import { MarkdownModule} from 'ngx-markdown';
 import { NavComponent } from './navigation/nav/nav.component';
+// import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
 @NgModule({
   declarations: [
     AppComponent,

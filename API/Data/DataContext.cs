@@ -19,6 +19,7 @@ namespace API.Data
         public DbSet<PhotoArticle> ProtoArticles { get; set; }          
         public DbSet<ArticleTag> ArticleTags { get; set; }
         public DbSet<ArticleGenre> ArticleGenres { get; set; }
+        public DbSet<HtmlPage> HtmlPages { get; set; }
         
 
         protected override void OnModelCreating(ModelBuilder builder)

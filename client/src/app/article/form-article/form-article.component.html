@@ -1,4 +1,6 @@
-<form (submit)="saveChanges()" [formGroup]="form" [style.fontSize.px]="14">
+<form 
+    (submit)="saveChanges()" 
+    [formGroup]="form" [style.fontSize.px]="14">
     <mat-form-field appearance="fill">
         <mat-label>Title</mat-label>
         <input formControlName="title"  matInput />

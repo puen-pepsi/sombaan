@@ -9,6 +9,8 @@ import {MarkdownModule} from 'ngx-markdown';
 import { MultipleSelectorComponent } from './multiple-selector/multiple-selector.component';
 import { TagAutocompleteComponent } from './tag-autocomplete/tag-autocomplete.component';
 import { InputMultiImgComponent } from './input-multi-img/input-multi-img.component';
+import { CkeditorComponent } from './ckeditor/ckeditor.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
@@ -20,11 +22,13 @@ import { InputMultiImgComponent } from './input-multi-img/input-multi-img.compon
     MultipleSelectorComponent,
     TagAutocompleteComponent,
     InputMultiImgComponent,
+    CkeditorComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-    MarkdownModule
+    MarkdownModule,
+    CKEditorModule
   ],
   exports:[
     DisplayErrorsComponent,
@@ -34,7 +38,9 @@ import { InputMultiImgComponent } from './input-multi-img/input-multi-img.compon
     MultipleSelectorComponent,
     TagAutocompleteComponent,
     InputMultiImgComponent,
-    MarkdownModule
+    MarkdownModule,
+    CKEditorModule,
+    CkeditorComponent
   ]
 })
 export class UtilitiesModule { }

@@ -66,6 +66,7 @@ export class FormArticleComponent implements OnInit {
   // }
   onUploadImage(images:any){
     this.form.get('photoList').setValue(images);
+    // console.log(this.form.value)
   }
   saveChanges(){
     const genresIds = this.selectedGenres.map(value => value.key);

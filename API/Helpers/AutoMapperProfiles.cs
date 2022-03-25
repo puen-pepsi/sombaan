@@ -20,7 +20,8 @@ namespace API.Helpers
                     src.Photos.FirstOrDefault(x => x.IsMain).Url));
             CreateMap<Photo, PhotoDto>();
             CreateMap<RegisterDto, AppUser>();
-
+            CreateMap<HtmlPage,HtmlPageCreationDto>().ReverseMap();
+            CreateMap<HtmlPage,HtmlPageDto>().ReverseMap();
             CreateMap<GenreDto, Genre>().ReverseMap();
             CreateMap<GenreCreateDto, Genre>();
             CreateMap<TagDto, Tag>().ReverseMap();

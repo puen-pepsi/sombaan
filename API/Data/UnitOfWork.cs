@@ -35,6 +35,8 @@ namespace API.Data
 
         public ITagRepository TagRepository =>  new TagRepository(_context,_mapper);
 
+        public IHtmlpageRepository HtmlpageRepository =>  new HtmlPageRepository(_context,_mapper);
+
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;
