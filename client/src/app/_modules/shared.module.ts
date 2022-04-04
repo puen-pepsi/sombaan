@@ -15,7 +15,7 @@ import { HasRoleDirective } from '../_directives/has-role.directive';
 // import { IvyCarouselModule} from 'angular-responsive-carousel';
 // import { Ng2SearchPipeModule } from 'ng2-search-filter';
 // import { GetRoleDirective } from '../_directives/get-role.directive';
-// import { SanitizeHtmlPipe } from 'src/pipe/sanitize-html.pipe';
+import { SanitizeHtmlPipe } from '../Pipe/sanitize-html.pipe';
 // import { TruncatePipe } from 'src/pipe/truncate.pipe';
 // import { InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +25,7 @@ import { MaterialModule } from '../material.module';
   declarations: [
     HasRoleDirective,
     // GetRoleDirective,
-    // SanitizeHtmlPipe,
+    SanitizeHtmlPipe,
     // TruncatePipe
     TextInputComponent
   ],
@@ -71,7 +71,7 @@ import { MaterialModule } from '../material.module';
     // GetRoleDirective,
     // IvyCarouselModule,
     // Ng2SearchPipeModule,
-    // SanitizeHtmlPipe,
+    SanitizeHtmlPipe,
     // TruncatePipe,
     // InfiniteScrollModule,
     FormsModule,

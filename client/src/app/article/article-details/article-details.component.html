@@ -2,10 +2,37 @@
     <div class="container clearfix">
         <div class="postcontent nobottommargin clearfix">
             <div *ngIf="article">
+               <p>{{ article | json}}</p>
                 <div class="entry-title">
                   <h2>{{article.title | uppercase}}</h2>  
                 </div>
-                <ul class="entry-meta clearfix">
+                <app-label-meta [article]="article">
+                  <span [hidden]="!canModify">
+                    <a class="btn btn-sm btn-outline-secondary"
+                       [routerLink]="['/editor', article.slug]">
+                      <i class="ion-edit"></i> Edit Article
+                    </a>
+          
+                    <button class="btn btn-sm btn-outline-danger"
+                      [ngClass]="{disabled: isDeleting}"
+                      (click)="deleteArticle()">
+                      <i class="ion-trash-a"></i> Delete Article
+                    </button>
+                  </span>
+                  <span [hidden]="canModify">
+                    <app-follow-button
+                      [profile]="article.author"
+                      (toggle)="onToggleFollowing($event)">
+                    </app-follow-button>
+          
+                    <app-favorite-button
+                      [article]="article"
+                      (toggle)="onToggleFavorite($event)">
+                      {{ article.liked ? 'Unfavorite' : 'Favorite' }} Article <span class="counter">({{ article.likesCount }})</span>
+                    </app-favorite-button>
+                  </span>
+                </app-label-meta>
+                <!-- <ul class="entry-meta clearfix">
                     <li><i class="icon-calendar3"></i> {{article.createAt | date:'mediumDate'}}</li>
                     <li><a href="#"><i class="icon-user"></i>{{article.authorName}}</a></li>
                     <li>
@@ -17,7 +44,7 @@
                     </li>
                     <li><a href="#"><i class="icon-comments"></i> 43 Comments</a></li>
                     <li><a href="#"><i class="icon-camera-retro"></i></a></li>
-                </ul>
+                </ul> -->
                 <!-- <div class="entry-image" *ngFor="let image of article.photos" >
                     <img [src]="image.url">
                 </div> -->
@@ -41,6 +68,40 @@
                 </div>
             </div>
             <!-- <p>{{article | json}}</p> -->
+            <!-- comment -->
+            <!-- <div >
+                <app-display-errors [errors]="commentFormErrors"></app-display-errors>
+                <form class="card comment-form" 
+                  [formGroup]="commentForm"
+                  (ngSubmit)="addComment()">
+                  <fieldset [disabled]="isSubmitting">
+                    <div class="card-block">
+                      <textarea class="form-control"
+                        placeholder="Write a comment..."
+                        rows="3"
+                        formControlName ="content"
+                      ></textarea>
+                    </div>
+                    <div class="card-footer">
+                      <img [src]="user.photoUrl" class="comment-author-img" />
+                      <button class="btn btn-sm btn-primary" 
+                       [disabled]="commentForm.invalid"
+                       type="submit">
+                       Post Comment
+                      </button>
+                    </div>
+                  </fieldset>
+                </form>
+              </div> -->
+
+              <!-- commen list  -->
+              <p>{{commentToGet | json}}</p>
+                <app-article-comment-list *ngIf="commentToGet"
+                [user]="user"
+                [getcomment]="commentToGet"
+                (addComment)="addComment($event)"
+                (deleteComment)="onDeleteComment($event)">
+              </app-article-comment-list> 
         </div>
         <div class="sidebar nobottommargin col_last clearfix">
 

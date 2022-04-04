@@ -42,11 +42,20 @@
 
    <div fxFlex="fill" fxLayout fxLayoutAlign="flex-end">
        <ul fxLayout fxLayoutGap="0px" class="navigation-items" >
-        <li class="dropdown" *ngIf="(accountService.currentUser$ |async) as user" dropdown>
+        <li class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
             <button mat-button
               #menuTrigger="matMenuTrigger"
               [matMenuTriggerFor]="beforeMenu">
-              {{user.username}}
+              <app-label-name
+                [imageUrl]='user.photoUrl'
+                [knownAs]='user.knownAs'
+                [userName]='user.username'
+                [pHeight]='35'
+              >
+                <ng-container content>
+                    Liverpool
+                </ng-container>
+              </app-label-name>
               <mat-icon fxHide.gt-sm >arrow_drop_down</mat-icon>
             </button>
             <mat-menu #beforeMenu="matMenu"

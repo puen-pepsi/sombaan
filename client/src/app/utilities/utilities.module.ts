@@ -11,6 +11,12 @@ import { TagAutocompleteComponent } from './tag-autocomplete/tag-autocomplete.co
 import { InputMultiImgComponent } from './input-multi-img/input-multi-img.component';
 import { CkeditorComponent } from './ckeditor/ckeditor.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { LabelNameComponent } from './label-name/label-name.component';
+import { InputCommentComponent } from './input-comment/input-comment.component';
+import { LabelMetaComponent } from './label-meta/label-meta.component';
+import { FollowButtonComponent } from './buttons/follow-button/follow-button.component';
+import { FavoriteButtonComponent } from './buttons/favorite-button/favorite-button.component';
+import { LikeButtonComponent } from './buttons/like-button/like-button.component';
 
 
 @NgModule({
@@ -23,6 +29,12 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     TagAutocompleteComponent,
     InputMultiImgComponent,
     CkeditorComponent,
+    LabelNameComponent,
+    InputCommentComponent,
+    LabelMetaComponent,
+    FollowButtonComponent,
+    FavoriteButtonComponent,
+    LikeButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +52,13 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     InputMultiImgComponent,
     MarkdownModule,
     CKEditorModule,
-    CkeditorComponent
+    CkeditorComponent,
+    LabelNameComponent,
+    InputCommentComponent,
+    LabelMetaComponent,
+    FollowButtonComponent,
+    FavoriteButtonComponent,
+    LikeButtonComponent
   ]
 })
 export class UtilitiesModule { }

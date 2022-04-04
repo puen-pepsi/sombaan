@@ -26,13 +26,24 @@ namespace API.Helpers
             CreateMap<GenreCreateDto, Genre>();
             CreateMap<TagDto, Tag>().ReverseMap();
             CreateMap<TagCreateDto, Tag>();
-
+            CreateMap<CommentArticle, ArticleCommentDto>()
+                .ForMember(d => d.UserName, o => o.MapFrom(s => s.UserComment.UserName))
+                .ForMember(d => d.liked, o => o.MapFrom(s => s.Liked.Select(x => x.UserLikeComment.UserName)))
+                .ForMember(d => d.Followed,o=> o.MapFrom( f => f.UserComment.FollowedByUser.Any()))
+                .ForMember(d => d.Image, ex => ex.MapFrom(src => src.UserComment.Photos.FirstOrDefault(x => x.IsMain).Url));
+            CreateMap<ArticleCommentCreateDto,CommentArticle>().ReverseMap();    
             CreateMap<ArticleCreationDto,Article>()
                 .ForMember(dest => dest.PhotoArticles,opt => opt.Ignore())
+                .ForMember(dest => dest.Slug,opt => opt.MapFrom(MapSlug))
                 .ForMember(dest => dest.GenreList,opt => opt.MapFrom(MapArticleGenre))
                 .ForMember(dest => dest.Taglist,opt => opt.Ignore());
             CreateMap<Article,ArticleDto>()
-                .ForMember(dest => dest.AuthorName,opt=> opt.MapFrom(x => x.Author.UserName))
+                .ForMember(dest => dest.author,opt => opt.MapFrom(MapAuthorDto))
+                // .ForMember(dest => dest.author.Username,opt=> opt.MapFrom(x => x.Author.UserName))
+                // .ForMember(dest => dest.author.Image,
+                //         opt=>opt.MapFrom(x => x.Author.Photos.FirstOrDefault(x => x.IsMain).Url))
+                // .ForMember(dest=>  dest.author.Following,opt => opt.MapFrom(x=>x.Followed))
+                // .ForMember(dest=> dest.author.Bio,opt=> opt.MapFrom( x => x.Author.Bio))
                 .ForMember(dest => dest.Tags,opt => opt.MapFrom(MapTagDto))
                 .ForMember(dest => dest.Photos,opt=> opt.MapFrom(MapPhotoDto))
                 .ForMember(dest => dest.Genres,opt => opt.MapFrom(MapGenresDto));
@@ -48,6 +59,15 @@ namespace API.Helpers
                 }
             }
             return result;
+        }
+        private ProfileDto MapAuthorDto(Article article ,ArticleDto articledto)
+        {
+            return  new ProfileDto(
+                    article.Author.UserName,
+                    article.Author.Bio,
+                    article.Author.Photos.FirstOrDefault(x => x.IsMain).Url,
+                    article.Followed
+            );
         }
         private List<PhotoDto> MapPhotoDto(Article article ,ArticleDto articledto)
         {
@@ -86,6 +106,12 @@ namespace API.Helpers
 
             return result;
         }
-
+        private string MapSlug(ArticleCreationDto articleCreationDto,Article article)
+        {
+            string result = "";
+            if(articleCreationDto.Title == null){return result;}
+            result = articleCreationDto.Title.GenerateSlug();
+            return result; 
+        }
     }
 }

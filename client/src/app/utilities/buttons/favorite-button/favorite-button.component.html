@@ -1,0 +1,23 @@
+<!-- <button class="btn btn-sm" 
+ [ngClass]="{ 'disabled' : isSubmitting,
+              'btn-outline-primary': !article.liked,
+              'btn-primary': article.liked }"
+ (click)="toggleFavorite()">
+  <mat-icon>favorite</mat-icon>
+  <ng-content></ng-content>
+</button> -->
+<button mat-button class="btn btn-sm action-btn"
+ [ngClass]="{ 'disabled' : isSubmitting,
+              'btn-outline-primary': !article.liked,
+              'btn-primary': article.liked }"
+ (click)="toggleFavorite()">
+  <mat-icon>favorite</mat-icon>
+  <ng-content></ng-content>
+</button>
+<!-- <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+  <mat-icon>favorite</mat-icon>
+  <ng-content></ng-content>
+</button> -->
+<!-- <button mat-stroked-button color="accent"><mat-icon>favorite</mat-icon>
+  <ng-content></ng-content>
+</button> -->

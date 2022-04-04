@@ -17,6 +17,7 @@ import { BlogComponent } from './blog/blog.component';
 import { SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import { MarkdownModule} from 'ngx-markdown';
 import { NavComponent } from './navigation/nav/nav.component';
+import { UtilitiesModule } from './utilities/utilities.module';
 // import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
@@ -36,6 +37,7 @@ import { NavComponent } from './navigation/nav/nav.component';
     BrowserAnimationsModule,
     FlexLayoutModule,
     SharedModule,
+    UtilitiesModule,
     SweetAlert2Module.forRoot(),
     MarkdownModule.forRoot(),
 

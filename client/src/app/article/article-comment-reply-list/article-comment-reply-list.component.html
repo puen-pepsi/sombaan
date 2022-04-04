@@ -1,0 +1,16 @@
+
+<app-input-comment *ngIf="parent"
+    [user]="user"
+    [parent]="parent"
+    [isSubmitting]="isSubmitting"
+    (inputComment)="addReplyComment($event)">
+</app-input-comment>
+<ng-container *ngIf="commentreply">
+    <app-article-comment *ngFor="let comment of commentreply;let i = index"
+        [comment]="comment"
+        [i]="i" 
+        [user]="user"
+        (sentComment)="addReplyComment($event)"
+        (deleteComment)="onDeleteComment(comment)">
+    </app-article-comment>
+</ng-container>

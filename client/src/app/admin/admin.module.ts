@@ -48,6 +48,9 @@ import { EditHtmlPageComponent } from './html-page/edit-html-page/edit-html-page
     ])
     
 
+  ],
+  exports:[
+    HtmlPageComponent
   ]
 })
 export class AdminModule { }

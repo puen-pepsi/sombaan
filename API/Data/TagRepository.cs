@@ -30,7 +30,10 @@ namespace API.Data
         {
             return await _context.Tags.ToListAsync();
         }
-
+        public async Task<List<Tag>> getDbTags(List<string> tagList)
+        {
+            return await _context.Tags.Where( x => tagList.Contains(x.Name)).ToListAsync();
+        }
         public async Task<ArticleTag> GetArticleTagAsync(int TagId,int ArticleId){
             return await _context.ArticleTags
                     .FirstOrDefaultAsync(x => x.TagId == TagId && x.ArticleId == ArticleId);

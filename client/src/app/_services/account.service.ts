@@ -13,6 +13,7 @@ import { ForgotPasswordDto } from '../_models/forgotpasswordDto';
 import { ResetPasswordDto } from '../_models/ResetPasswordDto';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Router } from '@angular/router';
+import { PresenceService } from './presence.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,20 +21,21 @@ export class AccountService {
   baseUrl = environment.apiURL;
   private currentUserSource = new ReplaySubject<User>(1);
   currentUser$ = this.currentUserSource.asObservable();
+
   helper = new JwtHelperService();
   clearTimeout: any;
   constructor(private http: HttpClient,
             // private _externalAuthService: SocialAuthService,
-            // private presence:PresenceService,
+            private presence:PresenceService,
             private router : Router) { }
 
   login(model:any){
     return this.http.post(this.baseUrl + 'account/login',model).pipe(
       map((response:User)=>{
         const user = response;
-        console.log(user)
         if(user) {
           this.setCurrentUser(user);
+          this.presence.createHubConnection(user);
         }
       })
     )
@@ -43,9 +45,16 @@ export class AccountService {
 
     return this.http.post(this.baseUrl + 'account/register',model);
   }
-  isAuthenticated(){
+  isAuthenticated(): boolean{
     const user = JSON.parse(localStorage.getItem("user"));
-    return !this.helper.isTokenExpired(user.token);
+      if(!user){
+        return false;
+      }
+      if (this.helper.isTokenExpired(user.token)){
+      this.logout();
+      return false;
+    }
+    return true;
   }
   setCurrentUser(user:User){
     user.roles = [];
@@ -53,20 +62,21 @@ export class AccountService {
     Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
       localStorage.setItem('user',JSON.stringify(user));
       this.currentUserSource.next(user);
-      
-      let date = new Date();
-      let expirationDate = this.helper.getTokenExpirationDate(user.token);
-      var secondBetweenTwoDate = Math.abs((new Date().getTime() - expirationDate.getTime()) / 1000);
-      this.autoLogout(secondBetweenTwoDate);
+
+      // let date = new Date();
+      // let expirationDate = this.helper.getTokenExpirationDate(user.token);
+      // var secondBetweenTwoDate = Math.abs((new Date().getTime() - expirationDate.getTime()) / 1000);
+      // this.autoLogout(secondBetweenTwoDate);
   }
-  autoLogout(expirationDate: number) {
-    this.clearTimeout = setTimeout(() => {
-      this.logout();
-    }, expirationDate *1000);
-  }
+  // autoLogout(expirationDate: number) {
+  //   this.clearTimeout = setTimeout(() => {
+  //     this.logout();
+  //   }, expirationDate *1000);
+  // }
   logout(){
     localStorage.removeItem('user');
     this.currentUserSource.next(null);
+    this.presence.stopHubConnection();
     this.router.navigateByUrl('/');
     if (this.clearTimeout) {
       clearTimeout(this.clearTimeout);

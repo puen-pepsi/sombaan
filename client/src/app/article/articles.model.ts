@@ -1,5 +1,6 @@
 import { genreDTO } from "../admin/genre/genres.model";
 import { tagDTO } from "../admin/tag/tags.model";
+import { Profile } from "../profile/profile.model";
 
 export interface articleCreationDTO{ 
     title: string;
@@ -22,17 +23,59 @@ export interface articlePutGetDTO{
 }
 export interface articleDTO{
     id:number;
+    slug:string;
     title: string;
     description : string;
     body:string;
-    create:Date;
+    createAt:Date;
     authorName:string;
+    authorPhoto:string;
+    authorFollowed:boolean;
+    liked:boolean;
+    likesCount:number;
     genres: genreDTO[];
     tags: tagDTO[];
     photos : photoDTO[];
 }
+export interface article{
+    id:number;
+    slug:string;
+    title: string;
+    description : string;
+    body:string;
+    createAt:Date;
+    // authorName:string;
+    // authorPhoto:string;
+    // authorFollowed:boolean;
+    liked:boolean;
+    likesCount:number;
+    genres: genreDTO[];
+    tags: tagDTO[];
+    photos : photoDTO[];
+    author :Profile;
+}
+export interface commentAriticleCreate{
+    content:string;
+    parentId?:number;
+}
+export interface commentArticleDto {
+    id: number;
+    content: string;
+    parentId:number;
+    articleId:number;
+    createdAt: string;
+    userName:string;
+    followed:boolean;
+    image:string;
+    liked:string[];
+  }
 
+export interface commentGetDto{
+    slug:string;
+    parentId?:number;
+}
 export interface photoDTO{
     id:number;
     url:string;
 }
+

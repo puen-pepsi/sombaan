@@ -69,11 +69,11 @@ export class FormArticleComponent implements OnInit {
     // console.log(this.form.value)
   }
   saveChanges(){
+    //this.selectedGenres[] => object {key,value}
     const genresIds = this.selectedGenres.map(value => value.key);
     this.form.get('genresIds').setValue(genresIds);
     const tagsIds = this.selectedTags.map(value => value);
     this.form.get('tagsIds').setValue(tagsIds);
     this.onSaveChanges.emit(this.form.value);
-
   }
 }

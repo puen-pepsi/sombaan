@@ -9,6 +9,7 @@ using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -46,6 +47,20 @@ namespace API.Controllers
 
             return dto;
         }
+        [HttpGet("{slug}")]
+        public async Task<ActionResult<ArticleDto>> getslug(string slug)
+        {
+            var userId  = User.GetUserId();
+            var article = await  _unitOfWork.ArticleRepository.GetArticleBySlug(slug,userId,true);
+            if(article == null){
+                return NotFound();
+            }
+
+
+            var dto = _mapper.Map<ArticleDto>(article);
+
+            return dto;
+        }
         [HttpGet("PostGet")]
         public async Task<ActionResult<ArticlePostGetDto>> PostGet()
         {
@@ -60,7 +75,6 @@ namespace API.Controllers
         [HttpPost]
         public async Task<ActionResult<int>> Post([FromForm] ArticleCreationDto articleCreationDto)
         {
-           
             var article = _mapper.Map<Article>(articleCreationDto);
             article.CreateAt = DateTime.Now;
             article.AuthorId = User.GetUserId();
@@ -152,16 +166,32 @@ namespace API.Controllers
             await _unitOfWork.Complete();
             return NoContent();
         }
+        
+       [Authorize]
+        [HttpPost("{slug}/favorite")]
+        public async Task<ActionResult> FavoriteBySlugAsync(string slug)
+        {
+            var article = await _unitOfWork.ArticleRepository.AddFavoriteAsync(slug, User.GetUserId());
+            return Ok();
+        }
 
+        [Authorize]
+        [HttpDelete("{slug}/favorite")]
+        public async Task<ActionResult> UnFavoriteBySlugAsync(string slug)
+        {
+            var article = await _unitOfWork.ArticleRepository.DeleteFavoriteAsync(slug, User.GetUserId());
+            return Ok();
+        }
         private async Task<List<ArticleTag>> getTag(List<string> tagList,Article article){
                var TagList = new List<ArticleTag>();
                if(tagList.Count == 0){
                    return TagList;
                }
-                var Alltag = await _unitOfWork.TagRepository.getTagsAll();
+                //var Alltag = await _unitOfWork.TagRepository.getTagsAll();
+                var dbTags = await _unitOfWork.TagRepository.getDbTags(tagList);
                 foreach (string tag in tagList)
                 {
-                    if(!Alltag.Exists(t => t.Name.ToLower().Trim() == tag.ToLower().Trim())){
+                    if(!dbTags.Exists(t => t.Name.ToLower().Trim() == tag.ToLower().Trim())){
                         var addTag = new Tag{Name = tag};
                             _unitOfWork.TagRepository.AddTag(addTag);
                         //Add article

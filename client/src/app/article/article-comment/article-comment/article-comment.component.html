@@ -1,0 +1,51 @@
+<div class="card">
+    <div class="card-block">
+      <p class="card-text">
+        {{ comment.content }}
+      </p>
+    </div>
+    <div class="card-footer">
+      <a class="comment-author" [routerLink]="['/profile', comment.userName]">
+        <img [src]="comment.image" class="comment-author-img" />
+      </a>
+      &nbsp;
+      <a class="comment-author" [routerLink]="['/profile', comment.userName]">
+        {{ comment.userName | titlecase}}
+      </a>
+      <span class="date-posted">
+        {{ comment.createdAt | date: 'longDate' }}
+      </span>
+      <span class="reply">
+        <button
+        mat-button color="primary"
+        (click)="togglePanel[i] = !togglePanel[i]">reply
+      </button>
+      </span>
+      <span class="mod-options" [hidden]="!canModify">
+        <button mat-icon-button (click)="deleteClicked(comment)"
+          aria-label="Delete">
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+      </span>
+      <span class="mod-options">
+        <app-like-button [likeCount]="comment.liked.length"
+        [isActive]="comment.liked.includes(user.username)"
+        [usersLike]="comment.liked"
+        (commentId)="addLike(comment.id)">
+        </app-like-button>
+      </span>
+    </div>
+  </div>
+<div>
+ <mat-action-list>
+   <div *ngIf="togglePanel[i]">
+
+    <app-article-comment-reply-list *ngIf="comment.id"
+        [user]="user"
+        [getreplycomment]="comment.id"
+        [parent]="{parentusername:comment.userName,parentId:comment.id}">
+    </app-article-comment-reply-list>
+   </div>
+
+ </mat-action-list>
+</div>

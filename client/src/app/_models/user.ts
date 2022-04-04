@@ -4,3 +4,4 @@ export interface User{
     photoUrl:string;
     roles:string[];
 }
+

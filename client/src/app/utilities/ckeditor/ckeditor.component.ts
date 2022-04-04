@@ -67,6 +67,11 @@ export class CkeditorComponent implements OnInit {
                             value: null
                         },
                         {
+                          name: 'resizeImage:25',
+                          label: '25%',
+                          value: '25'
+                        },
+                        {
                             name: 'resizeImage:50',
                             label: '50%',
                             value: '50'

@@ -1,9 +1,11 @@
-:host ::ng-deep .ck-editor__editable_inline {
+/* /* :host ::ng-deep .ck-editor__editable_inline {
     min-height: 300px;
     color:black;
+} */
+
+
+.ck-content{
+   overflow: auto;
 }
 
-.editor{
-    padding: 200px auto;
-    max-width: 820px;
-}
+

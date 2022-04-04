@@ -12,10 +12,15 @@ namespace API.Data
         public DataContext(DbContextOptions options) : base(options)
         {
         }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Connection> Connections { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<Comment> Comments { get; set; }
+        public DbSet<CommentArticle> CommentArticles { get; set; }
+        public DbSet<LikeCommentArticle> LikeCommentArticles { get; set; }
         public DbSet<Article> Articles { get; set; }
+        public DbSet<LikedArticle> LikedArticles { get; set; }
+        public DbSet<UserLink> FollowedUser { get; set; }
         public DbSet<PhotoArticle> ProtoArticles { get; set; }          
         public DbSet<ArticleTag> ArticleTags { get; set; }
         public DbSet<ArticleGenre> ArticleGenres { get; set; }
@@ -40,7 +45,24 @@ namespace API.Data
             //MTM
             builder.Entity<ArticleTag>()
                 .HasKey(k => new { k.ArticleId, k.TagId });
+            builder.Entity<LikedArticle>()
+                .HasKey(k=> new { k.ArticleId, k.UserId});
 
+            builder.Entity<UserLink>()
+                .HasKey(k => new { k.SourceUserId, k.FollowedUserId });
+
+            builder.Entity<UserLink>()
+                .HasOne(s => s.SourceUser)
+                .WithMany(l => l.FollowedUser)
+                .HasForeignKey(s => s.SourceUserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<UserLink>()
+                .HasOne(s => s.FollowedUser)
+                .WithMany(l => l.FollowedByUser)
+                .HasForeignKey(s => s.FollowedUserId)
+                .OnDelete(DeleteBehavior.Cascade);
+                
             // builder.Entity<ArticleTag>()
             //     .HasOne(a => a.Article)
             //     .WithMany(t => t.Taglist)

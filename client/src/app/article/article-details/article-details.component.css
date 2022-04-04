@@ -1,0 +1,14 @@
+.counter {
+    font-size: .8rem!important;
+}
+.comment-author-img{
+    display: inline-block;
+    vertical-align: middle;
+    height: 32px;
+    width: 32px;
+    border-radius: 30px;
+  }
+
+  .meta{
+      margin-right: 3px;
+  }
