@@ -19,7 +19,7 @@
                   </fieldset>
                 </form>
               </div>-->
-              <div > 
+              <div *ngIf="user" > 
                 <p>{{ parent | json}}</p>
                 <app-display-errors [errors]="commentFormErrors"></app-display-errors>
                 <form class="card comment-form" 

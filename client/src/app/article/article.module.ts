@@ -11,6 +11,9 @@ import { EditArticleComponent } from './edit-article/edit-article.component';
 import { ArticleCommentComponent } from './article-comment/article-comment/article-comment.component';
 import { ArticleCommentListComponent } from './article-comment-list/article-comment-list/article-comment-list.component';
 import { ArticleCommentReplyListComponent } from './article-comment-reply-list/article-comment-reply-list.component';
+import { ArticleRoutingModule } from './article-routing.module';
+import { ArticleListComponent } from './article-list/article-list.component';
+import { ArticleCardComponent } from './article-card/article-card.component';
 
 
 
@@ -24,17 +27,14 @@ import { ArticleCommentReplyListComponent } from './article-comment-reply-list/a
     ArticleCommentComponent,
     ArticleCommentListComponent,
     ArticleCommentReplyListComponent,
+    ArticleListComponent,
+    ArticleCardComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     UtilitiesModule,
-    RouterModule.forChild([
-      {path:'',component:ArticleFilterComponent},
-      {path:'create',component:CreateArticleComponent},
-      {path:'edit/:id',component:EditArticleComponent},
-      {path:'details/:slug',component:ArticleDetailsComponent}
-    ])
+    ArticleRoutingModule
   ]
 })
 export class ArticleModule { }

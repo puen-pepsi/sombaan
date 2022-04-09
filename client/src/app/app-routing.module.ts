@@ -1,23 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HtmlPageComponent } from './admin/html-page/html-page.component';
-import { BlogComponent } from './blog/blog.component';
+import { ArticleListComponent } from './article/article-list/article-list.component';
 
 const routes: Routes = [
   
-  {path:'',component:BlogComponent},
+  {path:'',component:ArticleListComponent},
   {path:'about/:link',component:HtmlPageComponent},
   {path:'authentication',
-   loadChildren: () => import('./authentication/authentication.module')
-   .then(m => m.AuthenticationModule) },
+       loadChildren: () => import('./authentication/authentication.module')
+      .then(m => m.AuthenticationModule) },
    {path:'admin',
-   loadChildren: () => import('./admin/admin.module')
-   .then(m => m.AdminModule) },
+      loadChildren: () => import('./admin/admin.module')
+      .then(m => m.AdminModule) },
+   {path: 'profile',
+      loadChildren: () => import('./profile/profile.module')
+      .then(m => m.ProfileModule)
+   },
    {path:'article',
-   loadChildren: () => import('./article/article.module')
-   .then(m => m.ArticleModule) },
+      loadChildren: () => import('./article/article.module')
+      .then(m => m.ArticleModule) },
 
-  //  {path: '**', redirectTo: ''}
 ];
 
 @NgModule({

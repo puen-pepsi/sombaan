@@ -11,7 +11,10 @@ export class ArticleService {
 
   constructor(private http:HttpClient) { }
   private apiUrl = environment.apiURL + 'articles';
-
+  
+  public getArticles():Observable<article[]>{
+    return this.http.get<article[]>(`${this.apiUrl}`);
+  }
   public getById(id:number) :Observable<articleDTO>{
     return this.http.get<articleDTO>(`${this.apiUrl}/${id}`);
   }

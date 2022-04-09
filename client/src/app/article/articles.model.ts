@@ -44,9 +44,6 @@ export interface article{
     description : string;
     body:string;
     createAt:Date;
-    // authorName:string;
-    // authorPhoto:string;
-    // authorFollowed:boolean;
     liked:boolean;
     likesCount:number;
     genres: genreDTO[];

@@ -5,8 +5,10 @@
     </ul>
     <div class="container-buttons">
         <button mat-stroked-button type="button"  (click)="selectAll()">
-            <mat-icon>fast_forward</mat-icon></button>
-        <button mat-stroked-button type="button" (click)="deSelectAll()"><<</button>
+            <mat-icon>navigate_next</mat-icon></button>
+        <button mat-stroked-button type="button" (click)="deSelectAll()">
+            <mat-icon>navigate_before</mat-icon>
+        </button>
     </div>
     <ul>
         <li *ngFor="let item of SelectedItems; let index = index"

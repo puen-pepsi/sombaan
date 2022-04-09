@@ -83,26 +83,38 @@ namespace API.Data
             var profileUser = await GetUserByUsernameAsync(profileusername);
 
             var userlink = new UserLink{
-                SourceUserId = userId,
-                FollowedUserId = profileUser.Id
+                SourceUserId = profileUser.Id,
+                FollowedUserId = userId
             };
             _context.FollowedUser.Add(userlink);
         
             await _context.SaveChangesAsync();
 
-            return new ProfileDto(profileUser.UserName, profileUser.Bio, profileUser.Email, true);
+            // return new ProfileDto(profileUser.UserName, profileUser.Bio, profileUser.Email, true);
+            return new ProfileDto{
+                Username= profileUser.UserName,
+                Bio=profileUser.Bio,
+                Image=profileUser.Photos.FirstOrDefault(x => x.IsMain)?.Url,
+                Following = profileUser.FollowedUser.Any()
+            };
         }
         public async Task<ProfileDto> UnFollowProfileAsync(string profileUsername, int userId)
         {
             var profileUser = await GetUserByUsernameAsync(profileUsername);
 
              var userlink = new UserLink{
-                SourceUserId = userId,
-                FollowedUserId = profileUser.Id
+                SourceUserId = profileUser.Id,
+                FollowedUserId = userId
             };
             _context.FollowedUser.Remove(userlink);
             await _context.SaveChangesAsync();
-            return new ProfileDto(profileUser.UserName, profileUser.Bio, profileUser.Email, false);
+            // return new ProfileDto(profileUser.UserName, profileUser.Bio, profileUser.Email, false);
+             return new ProfileDto{
+                Username= profileUser.UserName,
+                Bio=profileUser.Bio,
+                Image=profileUser.Photos.FirstOrDefault(x => x.IsMain)?.Url,
+                Following = profileUser.FollowedUser.Any()
+            };
         }
     }
 }

@@ -27,11 +27,13 @@ namespace API.Controllers
             if(!ModelState.IsValid){
                 return BadRequest();
             }
-            var article = await _unitOfWork.ArticleRepository.GetArticleBySlug(slug,0,false);
+            var article = await _unitOfWork.ArticleRepository.GetArticleBySlug(slug,null,false);
             if(article == null)
                 return NotFound();
+            var UserId = User.GetUserId();
+            if(UserId == null)return BadRequest("Not Login");
 
-            articleCommentCreateDto.UserCommentId = User.GetUserId();
+            articleCommentCreateDto.UserCommentId = UserId; 
             articleCommentCreateDto.ArticleId = article.Id;
             var comment = _mapper.Map<CommentArticle>(articleCommentCreateDto);
             _unitOfWork.ArticleRepository.AddArticleComment(article,comment);
@@ -45,13 +47,15 @@ namespace API.Controllers
         public async Task<ActionResult<List<ArticleCommentDto>>> GetCommentAsync(string slug,int? parentId =null)
         {
             //get comment without parentId
-            var result = await _unitOfWork.ArticleRepository.GetCommentsBySlugAsync(slug, User.GetUserId(),parentId);
+            var username = User.GetUsername();
+            var result = await _unitOfWork.ArticleRepository.GetCommentsBySlugAsync(slug, username,parentId);
             return _mapper.Map<List<ArticleCommentDto>>(result);
         }
         [HttpDelete("{slug}/{commentId}")]
         public async Task<ActionResult> deleteComment(string slug , int commentId)
         {
-            await _unitOfWork.ArticleRepository.RemoveCommentAsync(slug,commentId,User.GetUserId(),null);
+            var username = User.GetUsername();
+            await _unitOfWork.ArticleRepository.RemoveCommentAsync(slug,commentId,username,null);
             return Ok();
         }
 
@@ -60,14 +64,14 @@ namespace API.Controllers
         {
             var userId = User.GetUserId();
             var comment = await _unitOfWork.ArticleRepository.GetCommentAsync(commentId);
-            var existliked = await _unitOfWork.ArticleRepository.GetLikedCommentAsync(commentId,userId);
+            var existliked = await _unitOfWork.ArticleRepository.GetLikedCommentAsync(commentId,userId??default(int));
             if(existliked != null){
                 _unitOfWork.ArticleRepository.DeleteLikeComment(existliked);
             }else{
-                var currentUser = await _unitOfWork.UserRepository.GetUserByIdAsync(userId);
+                var currentUser = await _unitOfWork.UserRepository.GetUserByIdAsync(userId??default(int));
                 var userLiked = new LikeCommentArticle{
                     UserLikeComment = currentUser,
-                    UserLikeCommentId  = userId,
+                    UserLikeCommentId  = userId??default(int),
                     ParentId = commentId
                 };
                 comment.Liked.Add(userLiked); 

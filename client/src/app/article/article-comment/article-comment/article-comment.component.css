@@ -10,10 +10,14 @@
     padding: 1.25rem;
 }
 .card .card-footer {
+    
+    display: flex;
     border-top: 1px solid #e5e5e5;
     box-shadow: none!important;
     font-size: .8rem;
     font-weight: 300;
+    align-items: center;
+
 }
 .card-footer:last-child {
     border-radius: 0 0 0.25rem 0.25rem;
@@ -55,4 +59,8 @@
     color:lightslategrey;
     justify-items: center;
     font-size: 1.5rem;
+}
+
+.reply{
+    padding-left: 5rem;
 }

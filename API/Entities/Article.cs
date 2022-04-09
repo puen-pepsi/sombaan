@@ -31,7 +31,7 @@ namespace API.Entities
             Taglist = new Collection<ArticleTag>();
             Comments = new Collection<CommentArticle>();
             GenreList = new Collection<ArticleGenre>();
-            LikedArticles = new Collection<LikedArticle>();
+            // LikedArticles = new Collection<LikedArticle>();
         }
     }
 }

@@ -17,6 +17,7 @@ import { LabelMetaComponent } from './label-meta/label-meta.component';
 import { FollowButtonComponent } from './buttons/follow-button/follow-button.component';
 import { FavoriteButtonComponent } from './buttons/favorite-button/favorite-button.component';
 import { LikeButtonComponent } from './buttons/like-button/like-button.component';
+import { ChipListComponent } from './chip-list/chip-list.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { LikeButtonComponent } from './buttons/like-button/like-button.component
     FollowButtonComponent,
     FavoriteButtonComponent,
     LikeButtonComponent,
+    ChipListComponent,
   ],
   imports: [
     CommonModule,
@@ -58,7 +60,8 @@ import { LikeButtonComponent } from './buttons/like-button/like-button.component
     LabelMetaComponent,
     FollowButtonComponent,
     FavoriteButtonComponent,
-    LikeButtonComponent
+    LikeButtonComponent,
+    ChipListComponent
   ]
 })
 export class UtilitiesModule { }

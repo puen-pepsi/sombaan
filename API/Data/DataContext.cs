@@ -62,7 +62,7 @@ namespace API.Data
                 .WithMany(l => l.FollowedByUser)
                 .HasForeignKey(s => s.FollowedUserId)
                 .OnDelete(DeleteBehavior.Cascade);
-                
+
             // builder.Entity<ArticleTag>()
             //     .HasOne(a => a.Article)
             //     .WithMany(t => t.Taglist)

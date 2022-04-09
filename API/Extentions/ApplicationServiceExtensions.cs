@@ -5,6 +5,7 @@ using API.Helpers;
 using API.Interfaces;
 using API.Services;
 using API.SignalR;
+using Microsoft.AspNetCore.Http;
 // using API.SignalR;
 // using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -27,8 +28,15 @@ namespace API.Extensions
             // services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             // services.AddScoped<LogUserActivity>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+            // services.AddAutoMapper(configuration =>
+            // {
+            //     configuration.AddProfile<AutoMapperProfiles>();
+            // });
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+            services.AddTransient<UserNameResolver>();
             services.AddScoped<IFileStorageService, InAppStorageService>();
+
             services.AddHttpContextAccessor();
             services.AddDbContext<DataContext>(x => {           
                 x.UseSqlite(config.GetConnectionString

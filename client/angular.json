@@ -34,22 +34,9 @@
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-toastr/toastr.css",
               "./node_modules/@sweetalert2/ngx-sweetalert2",
-              "src/styles.css",
-              "src/assets/style.css",
-              "src/assets/construction.css",
-              "src/assets/css/animate.css",
-              "src/assets/css/bootstrap.css",
-              "src/assets/css/colors.css",
-              "src/assets/css/font-icons.css",
-              "src/assets/css/magnific-popup.css",
-              "src/assets/css/responsive.css",
-              "src/assets/css/swiper.css",
-              "src/assets/css/dark.css"        
+              "src/styles.css"
             ],
             "scripts": [
-              "src/assets/js/jquery.js",
-              "src/assets/js/plugins.js",
-              "src/assets/js/functions.js"
             ]
           },
           "configurations": {

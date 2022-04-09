@@ -1,13 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using API.Data;
 using API.DTOs;
 using API.Entities;
-using API.Extensions;
 using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
 
 namespace API.Helpers
 {
@@ -15,6 +10,7 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
+            // string CurrentUsername = null;
             CreateMap<AppUser, MemberDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src =>
                     src.Photos.FirstOrDefault(x => x.IsMain).Url));
@@ -38,16 +34,27 @@ namespace API.Helpers
                 .ForMember(dest => dest.GenreList,opt => opt.MapFrom(MapArticleGenre))
                 .ForMember(dest => dest.Taglist,opt => opt.Ignore());
             CreateMap<Article,ArticleDto>()
-                .ForMember(dest => dest.author,opt => opt.MapFrom(MapAuthorDto))
-                // .ForMember(dest => dest.author.Username,opt=> opt.MapFrom(x => x.Author.UserName))
-                // .ForMember(dest => dest.author.Image,
-                //         opt=>opt.MapFrom(x => x.Author.Photos.FirstOrDefault(x => x.IsMain).Url))
-                // .ForMember(dest=>  dest.author.Following,opt => opt.MapFrom(x=>x.Followed))
-                // .ForMember(dest=> dest.author.Bio,opt=> opt.MapFrom( x => x.Author.Bio))
-                .ForMember(dest => dest.Tags,opt => opt.MapFrom(MapTagDto))
-                .ForMember(dest => dest.Photos,opt=> opt.MapFrom(MapPhotoDto))
-                .ForMember(dest => dest.Genres,opt => opt.MapFrom(MapGenresDto));
-        }
+                .ForMember(dest => dest.Liked,opt => opt.MapFrom(src => src.LikedArticles.Any()))
+                .ForMember(dest => dest.Genres,opt => opt.MapFrom(src => src.GenreList))
+                .ForMember(dest => dest.Tags,opt => opt.MapFrom(src => src.Taglist))
+                .ForMember(dest => dest.Photos,opt=> opt.MapFrom(src => src.PhotoArticles))
+                .ForMember(dest => dest.Author,opt => opt.MapFrom(src => src.Author));
+            CreateMap<ArticleGenre, GenreDto>()
+                .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.GenreId))
+                .ForMember(dest => dest.Name,opt => opt.MapFrom(src => src.Genre.Name));
+            CreateMap<ArticleTag, TagDto>()
+                .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.TagId))
+                .ForMember(dest => dest.Name,opt => opt.MapFrom(src => src.Tag.Name));
+            CreateMap<PhotoArticle,PhotoDto>()
+                .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Url,opt => opt.MapFrom(src => src.Url))
+                .ForMember(dest => dest.IsMain,opt => opt.MapFrom(src => src.IsMain));
+            CreateMap<AppUser,ProfileDto>()
+                .ForMember(dest =>dest.Username,opt=>opt.MapFrom(y=>y.UserName))
+                .ForMember(dest=>dest.Bio,opt=>opt.MapFrom(y => y.Bio))
+                .ForMember(dest => dest.Image,opt=>opt.MapFrom(y=> y.Photos.FirstOrDefault(p => p.IsMain).Url))
+                .ForMember(dest => dest.Following,opt => opt.MapFrom(y=>y.FollowedUser.Any()));
+        }   
         private List<TagDto> MapTagDto(Article article,ArticleDto articledto)
         {
             var result = new List<TagDto>();
@@ -62,12 +69,18 @@ namespace API.Helpers
         }
         private ProfileDto MapAuthorDto(Article article ,ArticleDto articledto)
         {
-            return  new ProfileDto(
-                    article.Author.UserName,
-                    article.Author.Bio,
-                    article.Author.Photos.FirstOrDefault(x => x.IsMain).Url,
-                    article.Followed
-            );
+            // return  new ProfileDto(
+            //           article.Author.UserName,
+            //           article.Author.Bio,
+            //           article.Author.Photos.FirstOrDefault(x => x.IsMain).Url,
+            //           article.Followed
+            // );
+            return new ProfileDto(){
+                Username= article.Author.UserName,
+                Bio=article.Author.Bio,
+                Image=article.Author.Photos.FirstOrDefault(x => x.IsMain)?.Url,
+                Following = article.Author.FollowedUser.Any()
+            };
         }
         private List<PhotoDto> MapPhotoDto(Article article ,ArticleDto articledto)
         {

@@ -1,0 +1,117 @@
+.post {
+    max-width:250px;
+
+}
+.post:hover img{
+    transform:scale(1.2,1.2);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    opacity: 0.7;
+}
+.post img{
+    transform: scale(1.0,1,0);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+}
+.image_frame{
+    background-color: var(--subColor);
+    padding: 1px;
+}
+.image-wrapper{
+    max-width: 100%;
+    overflow: hidden;
+    position:relative;
+    object-fit: cover;
+    z-index: 1;
+}
+.image-wrapper img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.link-icons{
+    display: flex;
+    font-size: 16px;
+    gap:1px;
+    height: 50px;
+    position:absolute;
+    bottom: -30%;
+    left:0;
+    right:0;
+    margin-right:auto;
+    margin-left:auto;
+    opacity: 0;
+}
+.link-icons .icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--mainColor);
+    width: 100%;
+}
+.link-icons .icons i{
+    color: white;
+}
+
+.link-icons :hover{
+    color:var(--mainColor);
+    background-color: var(--bgColor);
+}
+/* .link-icons span i{
+    color: white;
+} */
+.image-wrapper:hover .link-icons{
+    bottom:0;
+    opacity: 1;
+}
+.animate{
+    transition: all 0.3s ease-in-out;
+}
+
+/* post-desc */
+.post-desc-wrapper {
+    background-color: white;
+    width: 100%;
+    float: none;
+}
+.post-desc{
+   padding:10px 20px 20px 20px; 
+}
+.post-meta {
+    display: flex;
+    align-items: baseline;
+    font-size: small;
+    color:var(--txtMeta);
+}
+.post-meta .autor-date .mat-icon{
+    font-size: 18px;
+}
+.post-excerpt {
+    color:var(--txtContent);
+    margin-bottom: 15px;
+}
+.post-footer {
+    display:flex;
+    /* justify-content: space-between; */
+    gap:2rem;
+    margin: 0 -20px -20px -20px;
+    padding: 7px 15px;
+    overflow: hidden;
+    line-height: 30px;
+    font-size:1rem;
+    background-color: var(--subColor);
+}
+
+.post-footer .mat-icon{
+    font-size: 1rem;
+}
+.readmore .mat-icon{
+    color:coral;
+}
+.icons .mat-icon{
+    color:white;
+}
+/* .mat-icon {
+    vertical-align: middle;
+} */

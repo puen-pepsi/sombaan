@@ -9,7 +9,7 @@ namespace API.DTOs
             public int? ParentId { get; set; } = null!;
             public DateTime CreatedAt { get; set; } = DateTime.Now;
             public int ArticleId { get; set; }
-            public int UserCommentId { get; set; }
+            public int? UserCommentId { get; set; }
 
     }
 }

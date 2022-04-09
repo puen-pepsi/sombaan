@@ -22,14 +22,14 @@ namespace API.Controllers
         [HttpPost("{followUsername}/follow")]
         public async Task<ActionResult<ProfileDto>> FollowUserAsync(string followUsername)
         {
-            var result = await _unitOfWork.UserRepository.FollowProfileAsync(followUsername, User.GetUserId());
+            var result = await _unitOfWork.UserRepository.FollowProfileAsync(followUsername, User.GetUserId()??default(int));
             return result;
         }
         [Authorize]
         [HttpDelete("{followUsername}/follow")]
         public async Task<ActionResult<ProfileDto>> UnfollowUserAsync(string followUsername)
         {
-            var result = await _unitOfWork.UserRepository.UnFollowProfileAsync(followUsername, User.GetUserId());
+            var result = await _unitOfWork.UserRepository.UnFollowProfileAsync(followUsername, User.GetUserId()??default(int));
             return result;
         }
     }

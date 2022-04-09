@@ -18,6 +18,7 @@ import { SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 import { MarkdownModule} from 'ngx-markdown';
 import { NavComponent } from './navigation/nav/nav.component';
 import { UtilitiesModule } from './utilities/utilities.module';
+import { NotFoundComponent } from './error/not-found/not-found.component';
 // import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
@@ -27,7 +28,8 @@ import { UtilitiesModule } from './utilities/utilities.module';
     SidenavListComponent,
     FooterComponent,
     BlogComponent,
-    NavComponent
+    NavComponent,
+    NotFoundComponent
 
   ],
   imports: [

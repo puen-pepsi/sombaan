@@ -1,9 +1,8 @@
 <div class="label-meta">
   <span>
-        <a routerLink="">
+    <a routerLink="">
       <img [src]="article.author.image" />
     </a>
-  
     <div class="info">
       <a class="author"
         routerLink="">
@@ -13,8 +12,9 @@
         {{ article.createAt | date: 'longDate' }}
       </span> 
     </div>
+    
   </span>
-
-  
+    <ng-content select="[genre]"></ng-content>
+    <span class="space"></span>
     <ng-content></ng-content>
   </div>

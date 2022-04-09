@@ -6,48 +6,40 @@
                 <div class="entry-title">
                   <h2>{{article.title | uppercase}}</h2>  
                 </div>
-                <app-label-meta [article]="article">
-                  <span [hidden]="!canModify">
-                    <a class="btn btn-sm btn-outline-secondary"
-                       [routerLink]="['/editor', article.slug]">
-                      <i class="ion-edit"></i> Edit Article
-                    </a>
-          
-                    <button class="btn btn-sm btn-outline-danger"
-                      [ngClass]="{disabled: isDeleting}"
-                      (click)="deleteArticle()">
-                      <i class="ion-trash-a"></i> Delete Article
-                    </button>
-                  </span>
-                  <span [hidden]="canModify">
-                    <app-follow-button
-                      [profile]="article.author"
-                      (toggle)="onToggleFollowing($event)">
-                    </app-follow-button>
-          
-                    <app-favorite-button
-                      [article]="article"
-                      (toggle)="onToggleFavorite($event)">
-                      {{ article.liked ? 'Unfavorite' : 'Favorite' }} Article <span class="counter">({{ article.likesCount }})</span>
-                    </app-favorite-button>
-                  </span>
-                </app-label-meta>
-                <!-- <ul class="entry-meta clearfix">
-                    <li><i class="icon-calendar3"></i> {{article.createAt | date:'mediumDate'}}</li>
-                    <li><a href="#"><i class="icon-user"></i>{{article.authorName}}</a></li>
-                    <li>
-                        <i class="icon-folder-open"></i>
-                        <a *ngFor="let genre of article.genres"
-                            href="#">
-                            {{genre.name}}
-                        </a>
-                    </li>
-                    <li><a href="#"><i class="icon-comments"></i> 43 Comments</a></li>
-                    <li><a href="#"><i class="icon-camera-retro"></i></a></li>
-                </ul> -->
-                <!-- <div class="entry-image" *ngFor="let image of article.photos" >
-                    <img [src]="image.url">
-                </div> -->
+                <div class="entry-meta">
+                  <app-label-meta [article]="article">
+                    <div genre *ngIf="article">
+                        <app-chip-list 
+                          [prefix]="''"
+                          [chiplist]="article.genres">
+                        </app-chip-list>
+                    </div>
+                    <span [hidden]="!canModify">
+                      <a class="btn btn-sm btn-outline-secondary"
+                         [routerLink]="['/editor', article.slug]">
+                        <i class="ion-edit"></i> Edit Article
+                      </a>
+            
+                      <button class="btn btn-sm btn-outline-danger"
+                        [ngClass]="{disabled: isDeleting}"
+                        (click)="deleteArticle()">
+                        <i class="ion-trash-a"></i> Delete Article
+                      </button>
+                    </span>
+                    <span [hidden]="canModify">
+                      <app-follow-button
+                        [profile]="article.author"
+                        (toggle)="onToggleFollowing($event)">
+                      </app-follow-button>
+            
+                      <app-favorite-button
+                        [article]="article"
+                        (toggle)="onToggleFavorite($event)">
+                        {{ article.liked ? 'Unfavorite' : 'Favorite' }} Article <span class="counter">({{ article.likesCount }})</span>
+                      </app-favorite-button>
+                    </span>
+                  </app-label-meta>
+                </div>
                 <div class="entry-image clearfix" *ngIf="article.photos">
                      <div class="portfolio-single-image masonry-thumbs grid-5" 
                         data-big="2" data-lightbox="gallery">
@@ -67,32 +59,11 @@
                       </div>
                 </div>
             </div>
-            <!-- <p>{{article | json}}</p> -->
-            <!-- comment -->
-            <!-- <div >
-                <app-display-errors [errors]="commentFormErrors"></app-display-errors>
-                <form class="card comment-form" 
-                  [formGroup]="commentForm"
-                  (ngSubmit)="addComment()">
-                  <fieldset [disabled]="isSubmitting">
-                    <div class="card-block">
-                      <textarea class="form-control"
-                        placeholder="Write a comment..."
-                        rows="3"
-                        formControlName ="content"
-                      ></textarea>
-                    </div>
-                    <div class="card-footer">
-                      <img [src]="user.photoUrl" class="comment-author-img" />
-                      <button class="btn btn-sm btn-primary" 
-                       [disabled]="commentForm.invalid"
-                       type="submit">
-                       Post Comment
-                      </button>
-                    </div>
-                  </fieldset>
-                </form>
-              </div> -->
+            <div *ngIf="article">
+              <app-chip-list 
+              [chiplist]="article.tags" 
+              [prefix]="'#'"></app-chip-list>
+            </div>
 
               <!-- commen list  -->
               <p>{{commentToGet | json}}</p>

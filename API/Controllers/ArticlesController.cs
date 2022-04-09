@@ -36,26 +36,42 @@ namespace API.Controllers
             _unitOfWork = unitOfWork;
 
         }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ArticlesDto>>> GetArtilcesAsync([FromQuery] UserParams userParams)
+        {
+            // var gender = await _unitOfWork.UserRepository.GetUserGender(User.GetUsername());
+            userParams.CurrentUsername = User.GetUsername();
+
+            // if (string.IsNullOrEmpty(userParams.Gender))
+            //     userParams.Gender = gender == "male" ? "female" : "male";
+
+            var articles = await _unitOfWork.ArticleRepository.GetArticlesAsync(userParams);
+
+            Response.AddPaginationHeader(articles.CurrentPage, articles.PageSize,
+                articles.TotalCount, articles.TotalPages);
+
+            return Ok(articles);
+        }
         [HttpGet("{id:int}")]
         public async Task<ActionResult<ArticleDto>> Get(int id)
-        {
+        {   
             var article = await  _unitOfWork.ArticleRepository.GetArticle(id);
             if(article == null){
                 return NotFound();
             }
+            
             var dto = _mapper.Map<ArticleDto>(article);
-
+            
             return dto;
         }
         [HttpGet("{slug}")]
         public async Task<ActionResult<ArticleDto>> getslug(string slug)
         {
-            var userId  = User.GetUserId();
-            var article = await  _unitOfWork.ArticleRepository.GetArticleBySlug(slug,userId,true);
+            var username = User.GetUsername()??"lisa";
+            var article = await  _unitOfWork.ArticleRepository.GetArticleBySlug(slug,username,true);
             if(article == null){
                 return NotFound();
             }
-
 
             var dto = _mapper.Map<ArticleDto>(article);
 
@@ -77,7 +93,7 @@ namespace API.Controllers
         {
             var article = _mapper.Map<Article>(articleCreationDto);
             article.CreateAt = DateTime.Now;
-            article.AuthorId = User.GetUserId();
+            article.AuthorId = User.GetUserId()??default(int);
             //Add Author
             
             var Taglist = new List<ArticleTag>();
@@ -171,7 +187,8 @@ namespace API.Controllers
         [HttpPost("{slug}/favorite")]
         public async Task<ActionResult> FavoriteBySlugAsync(string slug)
         {
-            var article = await _unitOfWork.ArticleRepository.AddFavoriteAsync(slug, User.GetUserId());
+            var username = User.GetUsername();
+            var article = await _unitOfWork.ArticleRepository.AddFavoriteAsync(slug,username);
             return Ok();
         }
 
@@ -179,7 +196,8 @@ namespace API.Controllers
         [HttpDelete("{slug}/favorite")]
         public async Task<ActionResult> UnFavoriteBySlugAsync(string slug)
         {
-            var article = await _unitOfWork.ArticleRepository.DeleteFavoriteAsync(slug, User.GetUserId());
+            var username = User.GetUsername();
+            var article = await _unitOfWork.ArticleRepository.DeleteFavoriteAsync(slug, username);
             return Ok();
         }
         private async Task<List<ArticleTag>> getTag(List<string> tagList,Article article){

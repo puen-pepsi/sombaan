@@ -8,7 +8,13 @@
     width: 32px;
     border-radius: 30px;
   }
-
-  .meta{
-      margin-right: 3px;
-  }
+.entry-image{
+    max-width: 100%;
+    overflow: hidden;
+}
+.entry-meta{
+    margin-bottom: 20px;
+}
+.meta{
+    margin-right:3px;
+}

@@ -20,7 +20,7 @@ export class ArticleDetailsComponent implements OnInit {
   //parent:ParentComment;
   // parent:ParentComment = {parentusername:"puen",parentId:2};
   article:article;
-  canModify: boolean;
+  canModify: boolean = false;
   commentToGet:commentGetDto;
 
   constructor(private articleservice : ArticleService,
@@ -33,13 +33,16 @@ export class ArticleDetailsComponent implements OnInit {
                }
   // commentForm : FormGroup;
   ngOnInit(): void {
+    console.log(this.user)
     this.route.params.subscribe( params => {
       this.articleservice.getBySlug(params["slug"]).subscribe( (article) => {
         this.article = article;
-        this.canModify = (this.user.username === this.article.author.username);
+        if(this.user)
+          this.canModify = (this.user.username === this.article.author.username);
         this.populateComments();
       })
     });
+    
     // this.commentForm = this.formBuilder.group({
     //   content: ['',{
     //     validators :[Validators.required]

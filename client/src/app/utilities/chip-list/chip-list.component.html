@@ -1,0 +1,10 @@
+<div>
+    <mat-chip-list>
+        <mat-chip 
+            [routerlink]="['/list']"
+            [queryParams]="{tag:chip.id}"
+            *ngFor="let chip of chiplist">
+            {{prefix}}{{chip.name | titlecase}}
+        </mat-chip>
+    </mat-chip-list>
+</div>

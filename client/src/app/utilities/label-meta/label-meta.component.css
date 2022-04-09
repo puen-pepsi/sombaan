@@ -1,9 +1,11 @@
 .label-meta {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content:flex-start;
     position: relative;
     font-weight: 300;
+    padding-top: 1rem;
   }
   .label-meta img {
     display: inline-block;
@@ -27,4 +29,7 @@
     color: #bbb;
     font-size: .8rem;
     display: block;
+  }
+  .space{
+    flex:1 1 auto;
   }
