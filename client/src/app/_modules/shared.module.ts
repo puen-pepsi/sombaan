@@ -8,7 +8,7 @@ import { TextInputComponent } from '../_forms/text-input/text-input.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker'
 // import { PaginationModule } from 'ngx-bootstrap/pagination';
 // import { ButtonsModule } from 'ngx-bootstrap/buttons';
-// import { TimeagoModule } from 'ngx-timeago';
+import { TimeagoModule } from 'ngx-timeago';
 // import { ModalModule } from 'ngx-bootstrap/modal';
 // import { ScrollSpyModule } from 'ng-spy';
 import { HasRoleDirective } from '../_directives/has-role.directive';
@@ -16,7 +16,7 @@ import { HasRoleDirective } from '../_directives/has-role.directive';
 // import { Ng2SearchPipeModule } from 'ng2-search-filter';
 // import { GetRoleDirective } from '../_directives/get-role.directive';
 import { SanitizeHtmlPipe } from '../Pipe/sanitize-html.pipe';
-// import { TruncatePipe } from 'src/pipe/truncate.pipe';
+import { TruncatePipe } from '../Pipe/truncate.pipe';
 // import { InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
@@ -26,7 +26,7 @@ import { MaterialModule } from '../material.module';
     HasRoleDirective,
     // GetRoleDirective,
     SanitizeHtmlPipe,
-    // TruncatePipe
+    TruncatePipe,
     TextInputComponent
   ],
   imports: [
@@ -45,12 +45,12 @@ import { MaterialModule } from '../material.module';
     BsDatepickerModule.forRoot(),
     // PaginationModule.forRoot(),
     // ButtonsModule.forRoot(),
-    // TimeagoModule.forRoot(),
     // ModalModule.forRoot(),
     // ScrollSpyModule,
     // IvyCarouselModule,
     // Ng2SearchPipeModule,
     // InfiniteScrollModule,
+    TimeagoModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
@@ -64,15 +64,15 @@ import { MaterialModule } from '../material.module';
     BsDatepickerModule,
     // PaginationModule,
     // ButtonsModule,
-    // TimeagoModule,
     // ModalModule,
     // ScrollSpyModule,
+    TimeagoModule,
     HasRoleDirective,
     // GetRoleDirective,
     // IvyCarouselModule,
     // Ng2SearchPipeModule,
     SanitizeHtmlPipe,
-    // TruncatePipe,
+    TruncatePipe,
     // InfiniteScrollModule,
     FormsModule,
     ReactiveFormsModule,

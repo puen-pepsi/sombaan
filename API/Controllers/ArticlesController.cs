@@ -37,15 +37,15 @@ namespace API.Controllers
 
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ArticlesDto>>> GetArtilcesAsync([FromQuery] UserParams userParams)
+        public async Task<ActionResult<IEnumerable<ArticlesDto>>> GetArtilcesAsync([FromQuery] ArticleParams articleParams)
         {
             // var gender = await _unitOfWork.UserRepository.GetUserGender(User.GetUsername());
-            userParams.CurrentUsername = User.GetUsername();
+            articleParams.CurrentUsername = User.GetUsername();
 
             // if (string.IsNullOrEmpty(userParams.Gender))
             //     userParams.Gender = gender == "male" ? "female" : "male";
 
-            var articles = await _unitOfWork.ArticleRepository.GetArticlesAsync(userParams);
+            var articles = await _unitOfWork.ArticleRepository.GetArticlesAsync(articleParams);
 
             Response.AddPaginationHeader(articles.CurrentPage, articles.PageSize,
                 articles.TotalCount, articles.TotalPages);

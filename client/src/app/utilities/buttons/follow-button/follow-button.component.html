@@ -4,7 +4,10 @@
                'btn-outline-secondary': !profile.following,
                'btn-secondary': profile.following}"
   (click)="toggleFollowing()">
-  <mat-icon>{{profile.following?'remove':'add'}}</mat-icon>
+  <!-- <mat-icon>{{profile.following?'remove':'add'}}</mat-icon> -->
+  <!-- <i class="{{profile.following?'fa-solid fa-minus':'fa-solid fa-plus'}}"></i> -->
+  <span *ngIf="profile.following"><i class="fa-solid fa-minus"></i></span>
+  <span *ngIf="!profile.following"><i class="fa-solid fa-plus"></i></span>
   &nbsp;
   {{ profile.following ? 'Unfollow' : 'Follow' }} {{ profile.username }}
 </button>

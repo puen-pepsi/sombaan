@@ -1,8 +1,30 @@
-<p>article-list works!</p>
-<p>article-list works!</p>
-<p>article-list works!</p>
-<p>article-list works!</p>
-<app-article-filter></app-article-filter>
 
-    <app-article-card></app-article-card>
+
+<div class="container">
+       <app-article-filter 
+              (genre)="genreFilter($event)"
+              (search)="searchFilter($event)"
+              (reset)="resetFilter()">
+       </app-article-filter>
+    <div class="row">
+           <div class="content col-md-9">
+            <div class="artilce-list">
+                   <app-article-card *ngFor="let article of articles"
+                     [article]="article">
+                    </app-article-card> 
+
+              <mat-paginator *ngIf="pagination"
+                     [length]="pagination?.totalItems"
+                     [pageSizeOptions]="[3]"
+                     [showFirstLastButtons]="true"
+                     [pageIndex]="pagination.currentPage-1"
+                     (page)="pageChanged($event)">
+              </mat-paginator>
+             </div>
+           </div>
+            <div class="aside col-md-3"></div> 
+    
+    </div>
+</div>
+    
 

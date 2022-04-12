@@ -34,9 +34,12 @@
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/ngx-toastr/toastr.css",
               "./node_modules/@sweetalert2/ngx-sweetalert2",
-              "src/styles.css"
+              "./node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "./src/styles.css"
+              
             ],
             "scripts": [
+              "./node_modules/@fortawesome/fontawesome-free/js/all.js"
             ]
           },
           "configurations": {

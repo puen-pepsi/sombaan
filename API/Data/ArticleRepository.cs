@@ -35,39 +35,45 @@ namespace API.Data
             .SingleOrDefaultAsync(x => x.Id == id);
 
         }
-         public async Task<PagedList<ArticleDto>> GetArticlesAsync(UserParams userParams)
+         public async Task<PagedList<ArticleDto>> GetArticlesAsync(ArticleParams articleParams)
         {
             var query = _context.Articles.AsQueryable();
             // var query = _context.Articles.Select( x => x);
-
-            // query = query.Where(a => a.GenreList.Select(x => x.GenreId)
-            //             .Contains(userParams.Genre));
-
+            if(articleParams.Genre != 0){
+                query = query.Where(a => a.GenreList.Select(x => x.GenreId)
+                            .Contains(articleParams.Genre));
+            }
+            
+            if(articleParams.search != null){
+                query = query.Where(s => s.Title.ToLower().Contains(articleParams.search) 
+                    || s.Body.ToLower().Contains(articleParams.search.ToLower())
+                    || s.Author.UserName.ToLower().Contains(articleParams.search.ToLower()));
+            }
             // query = query.Where(x => x.Taglist.Select(y => y.TagId)
-            //             .Contains(userParams.Tag));
+            //             .Contains(articleParams.Tag));
 
 
             //query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
 
-            query = userParams.OrderBy switch
+            query = articleParams.OrderBy switch
             {
                 "created" => query.OrderByDescending(u => u.CreateAt),
                 _ => query.OrderBy(u => u.Id)
             };
             query = query.Include(x => x.Author);
-            if (userParams.CurrentUsername is not null)
+            if (articleParams.CurrentUsername is not null)
             {
                 query = query.Include(x => x.Author)
                     .ThenInclude(x => x.FollowedUser
-                    .Where(fu => fu.FollowedUser.UserName == userParams.CurrentUsername));
+                    .Where(fu => fu.FollowedUser.UserName == articleParams.CurrentUsername));
             }
             
             query = query.Include(x => x.LikedArticles
-               .Where( y => y.UserName == userParams.CurrentUsername));
+               .Where( y => y.UserName == articleParams.CurrentUsername));
 
             return await PagedList<ArticleDto>.CreateAsync(query.ProjectTo<ArticleDto>(_mapper
-                .ConfigurationProvider,new { CurrentUsername = userParams.CurrentUsername }).AsNoTracking(), 
-                    userParams.PageNumber, userParams.PageSize);
+                .ConfigurationProvider,new { CurrentUsername = articleParams.CurrentUsername }).AsNoTracking(), 
+                    articleParams.PageNumber, articleParams.PageSize);
 
         }
         public async Task<Article> GetArticleBySlug(string slug, string username,bool includeRelated = false)
@@ -152,6 +158,10 @@ namespace API.Data
                 .Include( x => x.Liked)
                 .ToListAsync();
         }
+        public async Task<List<CommentArticle>> GetCommentsAllBySlug(string slug)
+        {
+            return await _context.CommentArticles.Where(x => x.Article.Slug == slug).ToListAsync();
+        }
         public async Task<List<CommentArticle>> GetReplyCommentsBySlugAsync(string slug,string username,int commentId)
         {
             return  await _context.CommentArticles.Where(x=>x.Article.Slug==slug && x.Id == commentId)
@@ -159,13 +169,13 @@ namespace API.Data
                             .Include(x => x.UserComment).ThenInclude(x => x.Photos.Where(x => x.IsMain))
                             .ToListAsync();
         }
-        public async Task RemoveCommentAsync(string slug, int commentId, string username,int? parentId)
+        public async Task RemoveCommentAsync(string slug, int commentId, string username)
         {
             var article = await GetArticleBySlug(slug, username,false);
 
-            var comments = await GetCommentsBySlugAsync(slug, username, parentId);
+            var comments = await GetCommentsAllBySlug(slug);
             var comment = comments.FirstOrDefault(x => x.Id == commentId);
-
+            article.TotalComments--;
             //comments.Remove(comment);
             _context.CommentArticles.Remove(comment);
             await _context.SaveChangesAsync();

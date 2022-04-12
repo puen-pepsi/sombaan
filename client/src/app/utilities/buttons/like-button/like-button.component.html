@@ -1,14 +1,14 @@
 <div class="like"
  (click)="onClick()">
     <span >
-        <!-- <i class="far fa-thumbs-up"></i> -->
-        <!-- <mat-icon class="material-icons-outlined" [class.highlighted]="isActive" >bakery_dining</mat-icon>   -->
         <mat-icon class="material-icons-outlined v-align-center"
          [class.highlighted]="isActive">thumb_up</mat-icon>
+         <!-- <i class="fa-regular fa-thumbs-up" [class.highlighted]="isActive"></i> -->
     </span>
     <span   [class.normal]="!isActive"
             [class.highlighted]="isActive"
             [matTooltip]="usersLike"
+            class="like-text"
             >{{(isActive)?"Liked":"Like"}} </span>
     <span [class.normal]="!isActive" 
             [class.highlighted]="isActive">{{likeCount>0?likeCount:''}}</span>

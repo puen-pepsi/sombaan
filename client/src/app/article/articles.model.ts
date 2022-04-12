@@ -1,6 +1,7 @@
 import { genreDTO } from "../admin/genre/genres.model";
 import { tagDTO } from "../admin/tag/tags.model";
 import { Profile } from "../profile/profile.model";
+import { User } from "../_models/user";
 
 export interface articleCreationDTO{ 
     title: string;
@@ -46,6 +47,7 @@ export interface article{
     createAt:Date;
     liked:boolean;
     likesCount:number;
+    totalComments:number;
     genres: genreDTO[];
     tags: tagDTO[];
     photos : photoDTO[];
@@ -76,3 +78,13 @@ export interface photoDTO{
     url:string;
 }
 
+export class ArticleParams{
+    genre :number;
+    search:string;
+    pageNumber = 1;
+    pageSize = 3;
+    constructor(user?:User){
+        this.genre =0;
+        this.search='';
+    }
+}

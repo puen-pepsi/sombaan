@@ -15,6 +15,7 @@ namespace API.Entities
         public AppUser Author { get; set; }
         public DateTime CreateAt { get; set; } = DateTime.Now;
         public DateTime UpdateAt { get; set; } = DateTime.Now;
+        public int TotalComments { get; set; } = 0;
         public int LikesCount { get; set; } = 0;
         public bool Liked { get; set; }
         public bool? Followed { get; set; } = false;

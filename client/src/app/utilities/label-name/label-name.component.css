@@ -1,33 +1,10 @@
-/* .img-circle {
-    border:1px solid white;
-    background-clip: content-box;
-    display: inline;
-}
-.rank{
-    display:flex;
-    flex-direction: row;
-}
-.label_name{
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-    margin-left: 5px;
-}
-.image img{
-  display: block;
-}
 
-.image{
-  position: relative;
+.label{
+  display: flex;
+  align-items: center;
 }
-.image .fa-crown{
-  position:absolute;
-  top:-9px;
-  right: -9px;
-  color:gold;
-} */
 .label-meta {
-  display: block;
+  display: inline;
   position: relative;
   font-weight: 300;
 }
@@ -39,18 +16,21 @@
   border-radius: 30px;
 }
 .label-meta .info {
-  margin: 0 1.5rem 0 0.3rem;
+  margin: 0 0.5rem 0 0.3rem;
+  padding-left: 3px;
   display: inline-block;
   vertical-align:middle;
   line-height: 1rem;
-  text-align: left;
+}
+.label-meta .info:empty {
+  content: "";
 }
 .label-meta .info .user {
-  display: block;
+  /* display: block; */
   font-weight: 500!important;
 }
 .label-meta .info .date {
   color: #bbb;
   font-size: .8rem;
-  display: block;
+  /* display: block; */
 }

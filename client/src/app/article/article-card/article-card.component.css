@@ -15,10 +15,11 @@
 }
 .image_frame{
     background-color: var(--subColor);
-    padding: 1px;
+    /* padding: 1px; */
 }
 .image-wrapper{
-    max-width: 100%;
+    max-width: 250px;
+    height: 180px;
     overflow: hidden;
     position:relative;
     object-fit: cover;
@@ -43,14 +44,14 @@
     margin-left:auto;
     opacity: 0;
 }
-.link-icons .icons {
+.link-icons button {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: var(--mainColor);
     width: 100%;
 }
-.link-icons .icons i{
+.mat-button {
     color: white;
 }
 
@@ -79,6 +80,7 @@
    padding:10px 20px 20px 20px; 
 }
 .post-meta {
+    margin:0px -15px 0 -15px;
     display: flex;
     align-items: baseline;
     font-size: small;
@@ -87,16 +89,19 @@
 .post-meta .autor-date .mat-icon{
     font-size: 18px;
 }
+.post-title{
+    padding-top: 1rem;
+}
 .post-excerpt {
     color:var(--txtContent);
     margin-bottom: 15px;
 }
 .post-footer {
     display:flex;
+    padding:0;
     /* justify-content: space-between; */
     gap:2rem;
     margin: 0 -20px -20px -20px;
-    padding: 7px 15px;
     overflow: hidden;
     line-height: 30px;
     font-size:1rem;
@@ -106,12 +111,36 @@
 .post-footer .mat-icon{
     font-size: 1rem;
 }
-.readmore .mat-icon{
+.readmore{
     color:coral;
 }
-.icons .mat-icon{
-    color:white;
-}
+
 /* .mat-icon {
     vertical-align: middle;
 } */
+.button-love .mat-icon{
+    width: 18px;
+    height: 18px;
+}
+
+.category{
+    margin:2px -15px 2px -15px;
+    display:flex;
+    justify-content: end;
+}
+.extent{
+    color:red;
+}
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.truncate-line{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+
+}

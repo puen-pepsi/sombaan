@@ -1,19 +1,73 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { article, articleCreationDTO, articleDTO, articlePostGetDTO, articlePutGetDTO, commentAriticleCreate, commentArticleDto } from './articles.model';
+import { User } from '../_models/user';
+import { AccountService } from '../_services/account.service';
+import { getPaginatedResult, getPaginationHeaders } from '../_services/paginationHelper';
+import { article, articleCreationDTO, articleDTO, ArticleParams, articlePostGetDTO, articlePutGetDTO, commentAriticleCreate, commentArticleDto } from './articles.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ArticleService {
+  article : article;
+  articles: article[]=[];
+  articleCache = new Map();
+  user : User;
+  articleParems : ArticleParams;
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,
+              private accountService:AccountService) { 
+                this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+                  this.user = user;
+                  this.articleParems = new ArticleParams(user);
+              })
+              }
   private apiUrl = environment.apiURL + 'articles';
   
+  public getArticleParams(){
+     this.articleParems.pageNumber = 1;
+      return this.articleParems;
+  }
+  public setArticleParams(params : ArticleParams){
+      this.articleParems = params;
+  }
+  public resetArticleParams(){
+      this.articleParems = new ArticleParams(this.user);
+      return this.articleParems;
+  }
   public getArticles():Observable<article[]>{
     return this.http.get<article[]>(`${this.apiUrl}`);
+  }
+  getArticlesPagination(articleParams:ArticleParams){
+    var response = this.articleCache.get(Object.values(articleParams).join('-'));
+    if(response){
+      return of(response);
+    }
+    let params = getPaginationHeaders(articleParams.pageNumber,articleParams.pageSize);
+        params = params.append('genre',articleParams.genre);
+        params = params.append('search',articleParams.search);
+    return getPaginatedResult<article[]>(this.apiUrl,params,this.http)
+        .pipe(map(response => {
+          //console.log(response);
+          this.articleCache.set(Object.values(articleParams).join('-'),response);
+          console.log(this.articleCache)
+          return response;
+        }))
+  }
+  getArticle(slug :string){
+    // const member = this.members.find(x=>x.username === username);
+    // if(member !== undefined) return of(member);
+    const article = [...this.articleCache.values()]
+      .reduce((arr,elem)=> arr.concat(elem.result),[])
+      .find((article:article)=> article.slug === slug);
+
+      if(article){
+        return of(article);
+      }
+    return this.http.get<article>(`${this.apiUrl}/${slug}`);
   }
   public getById(id:number) :Observable<articleDTO>{
     return this.http.get<articleDTO>(`${this.apiUrl}/${id}`);

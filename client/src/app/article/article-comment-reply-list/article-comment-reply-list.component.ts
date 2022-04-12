@@ -53,5 +53,10 @@ export class ArticleCommentReplyListComponent implements OnInit {
       this.commentFormErrors = errors;
     });
   }
+  onDeleteComment(comment){
+    this.commentsService.deleteComment(this.slug,comment.id).subscribe(success => {
+      this.commentreply = this.commentreply.filter((item) => item !== comment);
+    })
+  }
 
 }

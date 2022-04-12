@@ -39,6 +39,7 @@ namespace API.Helpers
                 .ForMember(dest => dest.Tags,opt => opt.MapFrom(src => src.Taglist))
                 .ForMember(dest => dest.Photos,opt=> opt.MapFrom(src => src.PhotoArticles))
                 .ForMember(dest => dest.Author,opt => opt.MapFrom(src => src.Author));
+                
             CreateMap<ArticleGenre, GenreDto>()
                 .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.GenreId))
                 .ForMember(dest => dest.Name,opt => opt.MapFrom(src => src.Genre.Name));

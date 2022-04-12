@@ -16,7 +16,7 @@
                     </div>
                     <span [hidden]="!canModify">
                       <a class="btn btn-sm btn-outline-secondary"
-                         [routerLink]="['/editor', article.slug]">
+                         [routerLink]="['/article/edit', article.id]">
                         <i class="ion-edit"></i> Edit Article
                       </a>
             
@@ -40,7 +40,7 @@
                     </span>
                   </app-label-meta>
                 </div>
-                <div class="entry-image clearfix" *ngIf="article.photos">
+                <!-- <div class="entry-image clearfix" *ngIf="article.photos">
                      <div class="portfolio-single-image masonry-thumbs grid-5" 
                         data-big="2" data-lightbox="gallery">
                         <a href="{{image.url}}" 
@@ -49,8 +49,11 @@
                             <img class="image_fade" [src]="image.url" alt="">
                         </a>   
                     </div>
-                </div>
-               
+                </div> -->
+                <ng-image-slider *ngIf="imageObject.length > 0"
+                  [imageSize]= "{width: '33%', height: '50%'}"
+                  [images]="imageObject" #nav>
+                </ng-image-slider>
                 <div class="entry-content notopmargin">
                     <div style="margin-top: 1rem">
                         <div>

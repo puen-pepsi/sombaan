@@ -1,35 +1,21 @@
-<!-- <ng-container>
-    <div class="rank">
-    <div class="image">
-            <img src="{{imageUrl??'../../../../../assets/user-icon.jpg'}}"
-            [ngStyle]="{'box-shadow':rank,'height':pHeight+'px'}"
-            alt="{{knownAs}}" [matTooltip]="tooltip"
-            class="img-circle rounded-circle">
-    </div>
-    <div class="label_name" *ngIf="userName">
-        <div class="knownAs">
-            <span class="name">{{userName | titlecase}}</span>
-            <ng-content select = [content]></ng-content>
-        </div>
-        
-    </div>
-</div>
-</ng-container> -->
-
-<div class="label-meta">
-    <!-- <a [routerLink]="['/profile', article.author.username]"> -->
+<div class="label">
+  <div class="label-meta">
     <a>
-      <img src ="{{imageUrl??'../../../../../assets/user-icon.jpg'}}" />
+      <img [ngStyle]="{'height':pHeight+'px','width':pHeight+'px'}" 
+         src ="{{imageUrl??'./assets/smiley-cyrus.jpeg'}}" />
     </a>
-  
-    <div class="info">
+    <div class="info" *ngIf="userName">
       <a class="user">
-        <!-- [routerLink]="['/profile', article.author.username]"> -->
         {{ userName | titlecase }}
       </a>
       <span class="date">
           <ng-content select="[content]"></ng-content>
       </span>
     </div>
-    <ng-content select="[extent]"></ng-content>
-  </div>
+   
+</div>
+<span>
+  <ng-content select="[extent]" class="extent"></ng-content>
+</span>
+</div>
+

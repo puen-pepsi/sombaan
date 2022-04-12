@@ -14,9 +14,7 @@ import { ArticleCommentReplyListComponent } from './article-comment-reply-list/a
 import { ArticleRoutingModule } from './article-routing.module';
 import { ArticleListComponent } from './article-list/article-list.component';
 import { ArticleCardComponent } from './article-card/article-card.component';
-
-
-
+import { NgImageSliderModule } from 'ng-image-slider';
 @NgModule({
   declarations: [
     ArticleFilterComponent,
@@ -34,7 +32,8 @@ import { ArticleCardComponent } from './article-card/article-card.component';
     CommonModule,
     SharedModule,
     UtilitiesModule,
-    ArticleRoutingModule
+    ArticleRoutingModule,
+    NgImageSliderModule,
   ]
 })
 export class ArticleModule { }

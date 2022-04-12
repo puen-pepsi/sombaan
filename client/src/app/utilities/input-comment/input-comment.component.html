@@ -36,12 +36,20 @@
                       <!-- <input [ngModel] ="parent.parentId"
                         formControlName ="parentId" > -->
                     <div class="card-footer">
-                      <img [src]="user.photoUrl" class="comment-author-img" />
-                      <button class="btn btn-sm btn-primary" 
+                      <span>
+                        <img [src]="user.photoUrl" class="comment-author-img" />
+                      </span>
+                      <!-- <button class="btn btn-sm btn-primary" 
                        [disabled]="commentForm.invalid"
                        type="submit">
                        Post Comment
+                      </button> -->
+                      <button mat-icon-button 
+                        type="submit"  
+                        class="btn btn-sm action-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
                       </button>
+                      
                     </div>
                   </fieldset>
                 </form>

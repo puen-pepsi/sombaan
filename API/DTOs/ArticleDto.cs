@@ -15,6 +15,7 @@ namespace API.DTOs
         public DateTime CreateAt { get; set; }
         public bool Liked { get; set; }
         public int LikesCount { get; set; }
+        public int TotalComments { get; set; }
         
         public List<GenreDto> Genres{get; set;}
         public List<PhotoDto> Photos{get;set;}

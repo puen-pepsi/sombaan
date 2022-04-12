@@ -19,6 +19,9 @@ import { MarkdownModule} from 'ngx-markdown';
 import { NavComponent } from './navigation/nav/nav.component';
 import { UtilitiesModule } from './utilities/utilities.module';
 import { NotFoundComponent } from './error/not-found/not-found.component';
+import { NgImageSliderModule } from 'ng-image-slider';
+import { TimeagoModule } from 'ngx-timeago';
+
 // import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
@@ -42,7 +45,8 @@ import { NotFoundComponent } from './error/not-found/not-found.component';
     UtilitiesModule,
     SweetAlert2Module.forRoot(),
     MarkdownModule.forRoot(),
-
+    TimeagoModule.forRoot(),
+    NgImageSliderModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},

@@ -17,7 +17,7 @@ export class FavoriteButtonComponent {
     private router: Router,
     private accountService: AccountService
   ) {}
-
+  @Input() pSize:number;
   @Input() article: articleDTO;
   @Output() toggle = new EventEmitter<boolean>();
   isSubmitting = false;

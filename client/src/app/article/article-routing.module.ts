@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from '../error/not-found/not-found.component';
+import { ArticleDetailedResolver } from '../_resolvers/article-detailed.resolver';
 import { ArticleDetailsComponent } from './article-details/article-details.component';
 import { ArticleFilterComponent } from './article-filter/article-filter.component';
 import { ArticleListComponent } from './article-list/article-list.component';
@@ -13,20 +14,9 @@ const routes: Routes = [
     {
       path: ':slug',
       component: ArticleDetailsComponent,
-      // resolve: {
-      //   profile: ProfileResolver
-      // },
-      children: [
-        // {
-        //   path: '',
-        //   component: ProfileArticlesComponent
-        // },
-        // {
-        //   path: 'favorites',
-        //   component: ProfileFavoritesComponent
-        // }
-      ]
-      
+      resolve: {
+        articledetail : ArticleDetailedResolver
+      }
     },   
 
 

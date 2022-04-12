@@ -18,6 +18,7 @@ import { FollowButtonComponent } from './buttons/follow-button/follow-button.com
 import { FavoriteButtonComponent } from './buttons/favorite-button/favorite-button.component';
 import { LikeButtonComponent } from './buttons/like-button/like-button.component';
 import { ChipListComponent } from './chip-list/chip-list.component';
+import { LayoutComponent } from './layout/layout.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { ChipListComponent } from './chip-list/chip-list.component';
     FavoriteButtonComponent,
     LikeButtonComponent,
     ChipListComponent,
+    LayoutComponent,
   ],
   imports: [
     CommonModule,
@@ -61,7 +63,8 @@ import { ChipListComponent } from './chip-list/chip-list.component';
     FollowButtonComponent,
     FavoriteButtonComponent,
     LikeButtonComponent,
-    ChipListComponent
+    ChipListComponent,
+    LayoutComponent
   ]
 })
 export class UtilitiesModule { }

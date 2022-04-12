@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { fromEvent } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
@@ -22,7 +23,8 @@ export class ArticleDetailsComponent implements OnInit {
   article:article;
   canModify: boolean = false;
   commentToGet:commentGetDto;
-
+  imageObject:Array<Object>=[];
+  imageWidth:string;
   constructor(private articleservice : ArticleService,
               private commentsService : CommentsService,
               private accountService :AccountService,
@@ -33,15 +35,24 @@ export class ArticleDetailsComponent implements OnInit {
                }
   // commentForm : FormGroup;
   ngOnInit(): void {
-    console.log(this.user)
-    this.route.params.subscribe( params => {
-      this.articleservice.getBySlug(params["slug"]).subscribe( (article) => {
-        this.article = article;
-        if(this.user)
+    // console.log(this.user)
+    // this.route.params.subscribe( params => {
+    //   this.articleservice.getBySlug(params["slug"]).subscribe( (article) => {
+    //     this.article = article;
+    //     this.getImages(article.photos);
+    //     if(this.user)
+    //       this.canModify = (this.user.username === this.article.author.username);
+    //     this.populateComments();
+    //   })
+    // });
+
+    this.route.data.subscribe( data => {
+      this.article = data['articledetail'];
+      this.getImages(this.article.photos);
+      if(this.user)
           this.canModify = (this.user.username === this.article.author.username);
         this.populateComments();
-      })
-    });
+    })
     
     // this.commentForm = this.formBuilder.group({
     //   content: ['',{
@@ -50,7 +61,13 @@ export class ArticleDetailsComponent implements OnInit {
     // }); 
   }
 
-  
+  getImages(photos:any){
+       photos.forEach(item => {
+         var temp = {image:item.url,thumbImage:item.url}
+          this.imageObject.push(temp)
+       });
+       this.imageWidth = "{width: '50%', height: '50%'}";
+  }
   populateComments() {
     this.commentToGet = {slug:this.article.slug}
   }

@@ -58,9 +58,12 @@
     cursor: pointer;
     color:lightslategrey;
     justify-items: center;
-    font-size: 1.5rem;
-}
 
+}
+.mat-icon-button .mat-icon{
+    height: 24px;
+    width:24px;
+}
 .reply{
     padding-left: 5rem;
 }

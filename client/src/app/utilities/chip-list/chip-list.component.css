@@ -1,0 +1,12 @@
+div.mat-chip-list-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  
+    
+  }
+  div.mat-chip-list-wrapper .mat-chip {
+    flex: 0 0 auto;
+    margin:2px;
+    font-weight: 200;
+  }

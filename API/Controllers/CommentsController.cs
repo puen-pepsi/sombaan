@@ -38,6 +38,8 @@ namespace API.Controllers
             var comment = _mapper.Map<CommentArticle>(articleCommentCreateDto);
             _unitOfWork.ArticleRepository.AddArticleComment(article,comment);
             comment.UserComment = await _unitOfWork.UserRepository.GetUserByIdAsync(comment.UserCommentId);
+            //Add TotalComments
+            article.TotalComments++;
             if(await _unitOfWork.Complete()){
                 return Ok(_mapper.Map<ArticleCommentDto>(comment));
             }
@@ -55,8 +57,9 @@ namespace API.Controllers
         public async Task<ActionResult> deleteComment(string slug , int commentId)
         {
             var username = User.GetUsername();
-            await _unitOfWork.ArticleRepository.RemoveCommentAsync(slug,commentId,username,null);
-            return Ok();
+            await _unitOfWork.ArticleRepository.RemoveCommentAsync(slug,commentId,username);
+             
+             return Ok();
         }
 
         [HttpPost("addlike/{commentId}")]

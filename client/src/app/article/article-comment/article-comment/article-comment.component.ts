@@ -38,6 +38,7 @@ export class ArticleCommentComponent implements OnInit {
     this.commentsService.addLikedComment(commentid).subscribe();
   }
   deleteClicked(comment) {
+    console.log(comment)
     this.deleteComment.emit(comment);
   }
 }

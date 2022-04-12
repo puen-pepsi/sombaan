@@ -1,6 +1,6 @@
 <div>
     <mat-chip-list>
-        <mat-chip 
+        <mat-chip [ngStyle]="{'min-height':minHeight+'px','font-size':fontSize+'px'}"
             [routerlink]="['/list']"
             [queryParams]="{tag:chip.id}"
             *ngFor="let chip of chiplist">
