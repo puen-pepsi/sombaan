@@ -11,6 +11,7 @@ namespace API.Helpers
         public AutoMapperProfiles()
         {
             // string CurrentUsername = null;
+            CreateMap<UserUpdateDto,AppUser>();
             CreateMap<AppUser, MemberDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src =>
                     src.Photos.FirstOrDefault(x => x.IsMain).Url));
@@ -21,13 +22,25 @@ namespace API.Helpers
             CreateMap<GenreDto, Genre>().ReverseMap();
             CreateMap<GenreCreateDto, Genre>();
             CreateMap<TagDto, Tag>().ReverseMap();
+            CreateMap<AreaCreateDto,Area>().ReverseMap();
+            CreateMap<AreaDto,Area>().ReverseMap();
+            CreateMap<CategoryTyeDto,CategoryType>().ReverseMap();
+            CreateMap<CategoryTypeCreateDto,CategoryType>().ReverseMap();
+            CreateMap<CategoryType,CategoryTypeAllDto>()
+                .ForMember(dest => dest.types,opt => opt.MapFrom(MapTypes));
+            CreateMap<TechnicianTypeDto,TechnicianType>();
+            CreateMap<TechnicianType,TechnicianTypeDto>()
+                .ForMember(dest => dest.CategoryTypeName,opt => opt.MapFrom(src => src.CategoryType.Name));
+            CreateMap<TechnicianTypeCreateDto,TechnicianType>().ReverseMap();
             CreateMap<TagCreateDto, Tag>();
-            CreateMap<CommentArticle, ArticleCommentDto>()
-                .ForMember(d => d.UserName, o => o.MapFrom(s => s.UserComment.UserName))
-                .ForMember(d => d.liked, o => o.MapFrom(s => s.Liked.Select(x => x.UserLikeComment.UserName)))
-                .ForMember(d => d.Followed,o=> o.MapFrom( f => f.UserComment.FollowedByUser.Any()))
-                .ForMember(d => d.Image, ex => ex.MapFrom(src => src.UserComment.Photos.FirstOrDefault(x => x.IsMain).Url));
-            CreateMap<ArticleCommentCreateDto,CommentArticle>().ReverseMap();    
+            CreateMap<TypeDto,TechnicianType>()
+                .ForMember(dest => dest.CategoryTypeId,opt => opt.Ignore()).ReverseMap();
+            CreateMap<AreaDto,Area>().ReverseMap();
+
+            CreateMap<TechnicianCreateDto,Technician>()
+                .ForMember(dest => dest.PictureUrl,opt => opt.Ignore())
+                .ForMember(dest => dest.AreaScopes,otp=>otp.MapFrom(MapAreaScope))
+                .ForMember(dest=> dest.TechType,opt => opt.MapFrom(MapTechType));
             CreateMap<ArticleCreationDto,Article>()
                 .ForMember(dest => dest.PhotoArticles,opt => opt.Ignore())
                 .ForMember(dest => dest.Slug,opt => opt.MapFrom(MapSlug))
@@ -39,13 +52,18 @@ namespace API.Helpers
                 .ForMember(dest => dest.Tags,opt => opt.MapFrom(src => src.Taglist))
                 .ForMember(dest => dest.Photos,opt=> opt.MapFrom(src => src.PhotoArticles))
                 .ForMember(dest => dest.Author,opt => opt.MapFrom(src => src.Author));
-                
             CreateMap<ArticleGenre, GenreDto>()
                 .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.GenreId))
                 .ForMember(dest => dest.Name,opt => opt.MapFrom(src => src.Genre.Name));
             CreateMap<ArticleTag, TagDto>()
                 .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.TagId))
                 .ForMember(dest => dest.Name,opt => opt.MapFrom(src => src.Tag.Name));
+            CreateMap<CommentArticle, ArticleCommentDto>()
+                .ForMember(d => d.UserName, o => o.MapFrom(s => s.UserComment.UserName))
+                .ForMember(d => d.liked, o => o.MapFrom(s => s.Liked.Select(x => x.UserLikeComment.UserName)))
+                .ForMember(d => d.Followed,o=> o.MapFrom( f => f.UserComment.FollowedByUser.Any()))
+                .ForMember(d => d.Image, ex => ex.MapFrom(src => src.UserComment.Photos.FirstOrDefault(x => x.IsMain).Url));
+            CreateMap<ArticleCommentCreateDto,CommentArticle>().ReverseMap();    
             CreateMap<PhotoArticle,PhotoDto>()
                 .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Url,opt => opt.MapFrom(src => src.Url))
@@ -63,6 +81,18 @@ namespace API.Helpers
                 foreach(var tag in article.Taglist){
                     result.Add(new TagDto(){
                         Id=tag.TagId,Name=tag.Tag.Name
+                    });
+                }
+            }
+            return result;
+        }
+        private List<TypeDto> MapTypes(CategoryType categoryType,CategoryTypeAllDto categoryTypeAllDto)
+        {
+            var result = new List<TypeDto>();
+            if(categoryType.TechnicianTypes != null){
+                foreach(var type in categoryType.TechnicianTypes){
+                    result.Add(new TypeDto(){
+                        Id=type.Id,Name=type.Name,CategoryId=type.CategoryTypeId
                     });
                 }
             }
@@ -105,6 +135,26 @@ namespace API.Helpers
                         });
                     }
                 }
+            return result;
+        }
+        private List<TechType> MapTechType(TechnicianCreateDto technicianCreateDto,Technician technician)
+        {
+            var result = new List<TechType>();
+            if(technicianCreateDto.TypeIds == null){return result;}
+            foreach( var id in technicianCreateDto.TypeIds)
+            {
+                result.Add(new TechType(){ TypeId = id});
+            }
+            return result;
+        }
+        private List<AreaScope> MapAreaScope(TechnicianCreateDto technicianCreateDto,Technician technician)
+        {
+            var result = new List<AreaScope>();
+            if(technicianCreateDto.AreaIds == null){return result;}
+            foreach( var id in technicianCreateDto.AreaIds)
+            {
+                result.Add(new AreaScope(){ AreaId = id});
+            }
             return result;
         }
         private List<ArticleGenre> MapArticleGenre(ArticleCreationDto articleCreationDto, Article article)

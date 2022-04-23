@@ -1,0 +1,6 @@
+<h2>Edit CategoryType</h2>
+
+<app-form-categorytype *ngIf="model" [model]="model" 
+(onSaveChanges)="saveChanges($event)"></app-form-categorytype>
+
+<mat-spinner *ngIf="!model"></mat-spinner>

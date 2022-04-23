@@ -43,12 +43,12 @@ export class ArticleListComponent implements OnInit {
   }
   genreFilter(event:number){
     this.articleParams.genre = event;
-    console.log(this.articleParams)
+    this.articleParams.pageNumber=1;
     this.loadArticles();
   }
   searchFilter(event:string){
     this.articleParams.search = event;
-    console.log(this.articleParams)
+    this.articleParams.pageNumber=1;
     this.loadArticles();
   }
   resetFilter(){

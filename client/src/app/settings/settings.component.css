@@ -1,0 +1,25 @@
+.container.page {
+    margin-top: 1.5rem;
+}
+.text-xs-center {
+    text-align: center!important;
+}
+fieldset {
+    min-width: 0;
+    padding: 0;
+    margin-top : 10px;
+    border: 0;
+}
+mat-form-field {
+    width: 100%;
+}
+button {
+    margin-right: 0.5rem;
+}
+
+:host ::ng-deep app-input-img .child-image{
+    width: 200px;
+    height: 200px;
+    border-radius: 200px;
+    object-fit: cover;
+}

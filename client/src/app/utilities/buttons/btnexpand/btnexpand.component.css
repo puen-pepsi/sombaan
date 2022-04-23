@@ -1,0 +1,48 @@
+/* button ex */
+.button {
+    /* background-color: rgb(255, 163, 110);
+    color: white; */
+    color:var(--txtMeta);
+    text-decoration: none;
+    /* border-radius: 60px; */
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    overflow:hidden;
+    width: auto;
+    max-width: 32px;
+     /** I'm animating max-width because width needs to be auto, and auto can't be animated **/
+    -webkit-transition: max-width 1s;
+    transition: max-width 1s;
+    
+    z-index: 10000;
+  }
+  
+  .button:hover {
+    max-width: 300px;
+    color:white;
+  }
+  .button:not(:hover){
+    /* background-color: transparent !important; */
+    /* transition: all 1.5s ; */
+    transition: background-color 2s linear,
+                max-width 1s ;
+  }
+  /*.button-backgroud{
+    background-color:blue;
+  } */
+  .icon {
+    font-family: "Font Awesome 5 Free";
+    font-size: 14px;
+    font-weight: 200;
+    margin-right: 10px;
+    padding: 0px 8px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .text {
+    white-space: nowrap;
+    padding-right: 15px;
+    color:white;
+  }

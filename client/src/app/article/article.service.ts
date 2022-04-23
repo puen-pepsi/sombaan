@@ -16,27 +16,27 @@ export class ArticleService {
   articles: article[]=[];
   articleCache = new Map();
   user : User;
-  articleParems : ArticleParams;
+  articleParams : ArticleParams = new ArticleParams;
 
   constructor(private http:HttpClient,
               private accountService:AccountService) { 
                 this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
                   this.user = user;
-                  this.articleParems = new ArticleParams(user);
+                  this.articleParams = new ArticleParams(user);
               })
               }
   private apiUrl = environment.apiURL + 'articles';
   
   public getArticleParams(){
-     this.articleParems.pageNumber = 1;
-      return this.articleParems;
+      this.articleParams.pageNumber = 1;
+      return this.articleParams;
   }
   public setArticleParams(params : ArticleParams){
-      this.articleParems = params;
+      this.articleParams = params;
   }
   public resetArticleParams(){
-      this.articleParems = new ArticleParams(this.user);
-      return this.articleParems;
+      this.articleParams = new ArticleParams(this.user);
+      return this.articleParams;
   }
   public getArticles():Observable<article[]>{
     return this.http.get<article[]>(`${this.apiUrl}`);
@@ -83,6 +83,7 @@ export class ArticleService {
   }
   public edit(id:number,articleCreationDTO:articleCreationDTO){
     const formData = this.BuildFormData(articleCreationDTO);
+    console.log(formData)
     return this.http.put(`${this.apiUrl}/${id}`,formData);
   }
   public create(articleCreationDTO : articleCreationDTO) : Observable<number>{

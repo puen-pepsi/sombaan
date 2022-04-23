@@ -1,0 +1,20 @@
+<form (submit)="saveChanges()" [formGroup]="form">
+    <mat-form-field appearance="legacy">
+        <mat-label>CategoryType</mat-label>
+        <mat-select [value]="categorytypes" formControlName="categoryTypeId"
+         (selectionChange)="onCategoryTypeChange($event)">
+            <mat-option *ngFor="let categorytype of categorytypes" [value]="categorytype.id">
+                {{categorytype.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Name*</mat-label>
+        <input formControlName="name" matInput />
+        <mat-error *ngIf="form.invalid">{{getErrorMessageFieldName()}}</mat-error>
+    </mat-form-field>
+    <div>
+        <button mat-flat-button color="primary" [disabled]="form.invalid">Save Changes</button>
+        <a mat-stroked-button routerLink="/admin/techniciantypes">Cancel</a>
+    </div>
+</form>

@@ -8,29 +8,40 @@
   position: relative;
   font-weight: 300;
 }
-.label-meta img {
+/* .label-meta img {
   display: inline-block;
   vertical-align: middle;
   height: 32px;
   width: 32px;
-  border-radius: 30px;
+  object-fit: cover;
+  border-radius: 32px;
+} */
+.child-image{
+  display: inline-block;
+  vertical-align: middle;
+  height: 32px;
+  width: 32px;
+  object-fit: cover;
+  border-radius: 32px;
 }
 .label-meta .info {
   margin: 0 0.5rem 0 0.3rem;
   padding-left: 3px;
   display: inline-block;
   vertical-align:middle;
-  line-height: 1rem;
+  text-align: left;
+  line-height: 0.8rem;
 }
 .label-meta .info:empty {
   content: "";
 }
 .label-meta .info .user {
   /* display: block; */
-  font-weight: 500!important;
+  font-weight: 400;
 }
 .label-meta .info .date {
   color: #bbb;
-  font-size: .8rem;
+  font-size: .7rem;
+  font-weight: 200;
   /* display: block; */
 }

@@ -18,6 +18,14 @@ namespace API.Controllers
             _unitOfWork = unitOfWork;
 
         }
+
+        [HttpGet("{username}")]
+        public async Task<ActionResult<ProfileDto>> GetProfileAsync(string username)
+        {
+            var Username = User.GetUsername();
+            var result = await _unitOfWork.UserRepository.GetProfileAsync(username, Username);
+            return result;
+        }
         [Authorize]
         [HttpPost("{followUsername}/follow")]
         public async Task<ActionResult<ProfileDto>> FollowUserAsync(string followUsername)

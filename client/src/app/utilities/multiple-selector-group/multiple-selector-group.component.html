@@ -1,0 +1,33 @@
+<div class="row">
+	<div class="col-md-2">
+		<mat-form-field>
+			<mat-select placeholder="Skill" [(ngModel)]="modelGroup" 
+			(selectionChange)="onChange($event)"
+					
+					[compareWith]="comparer"
+					multiple #itemSelect="ngModel">
+
+				<mat-option class="filter-option" disabled="disabled">
+					<button mat-button (click)="selectAll(itemSelect)">Select All</button>
+					<button mat-button (click)="deselectAll(itemSelect)">DeSelect All</button>
+				</mat-option>
+
+				<!-- Loop through each group via the groups array -->
+				<mat-optgroup *ngFor="let group of groups" [label]="group.name">
+					<mat-option *ngFor="let item of group.types" [value]="item">
+						{{item.name}}
+					</mat-option>
+				</mat-optgroup>
+			</mat-select>
+		</mat-form-field>
+	</div>
+	<div class="col-md-10">
+		<p>{{ modelGroup | json }}</p>
+		<mat-list *ngIf="modelGroup">
+			<mat-list-item *ngFor="let list of modelGroup">
+				<p>{{list.name}}</p>
+			</mat-list-item>
+		</mat-list>
+	</div>
+</div>
+

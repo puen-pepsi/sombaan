@@ -52,11 +52,12 @@ img {
     cursor: pointer;
 }
 mat-toolbar{
-    position: fixed;
-    z-index: 999;
-    font-weight: lighter;
-    box-shadow: 0 0px 4px 0px rgba(167, 166, 166, 0.4);
-    background-color: var(--subColor);
+    /* position: sticky; */
+    /* For macOS/iOS Safari */
+    /* position: -webkit-sticky;  */
+    /* top: 0; Sets the sticky toolbar to be on top */
+    /* box-shadow: 0 0px 4px 0px rgba(167, 166, 166, 0.4); */
+    background-color: white;
 }
 .mat-toolbar.dropdown-toggle {
     color:black;
@@ -104,3 +105,17 @@ mat-nav-list.list-horizontal {
       height: 25px;
       align-self: stretch;
   }
+
+.first-nav{
+    max-width:80%;
+    margin: 0 auto;
+}
+.mat-toolbar-single-row {
+    height: 80px;
+}
+.navigation-items .mat-list-item{
+    border-right: var(--subColor) solid 0.5px;
+}
+.navigation-items .mat-list-item:last-child{
+    border-right: none;
+}

@@ -16,6 +16,37 @@ namespace API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.4");
 
+            modelBuilder.Entity("API.Entities.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("AddressAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("District")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Postcode")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Subdistrict")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserAddressId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserAddressId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("API.Entities.AppRole", b =>
                 {
                     b.Property<int>("Id")
@@ -70,6 +101,9 @@ namespace API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("LastActive")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LineId")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
@@ -130,6 +164,35 @@ namespace API.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("API.Entities.Area", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Area");
+                });
+
+            modelBuilder.Entity("API.Entities.AreaScope", b =>
+                {
+                    b.Property<int>("AreaId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TechnicianId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("AreaId", "TechnicianId");
+
+                    b.HasIndex("TechnicianId");
+
+                    b.ToTable("AreaScopes");
                 });
 
             modelBuilder.Entity("API.Entities.Article", b =>
@@ -206,6 +269,20 @@ namespace API.Migrations
                     b.HasIndex("TagId");
 
                     b.ToTable("ArticleTags");
+                });
+
+            modelBuilder.Entity("API.Entities.CategoryType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CategoryTypes");
                 });
 
             modelBuilder.Entity("API.Entities.CommentArticle", b =>
@@ -410,6 +487,72 @@ namespace API.Migrations
                     b.ToTable("Tags");
                 });
 
+            modelBuilder.Entity("API.Entities.TechType", b =>
+                {
+                    b.Property<int>("TechnicianId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("TechnicianId", "TypeId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("TechTypes");
+                });
+
+            modelBuilder.Entity("API.Entities.Technician", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Bio")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PictureUrl")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Technicians");
+                });
+
+            modelBuilder.Entity("API.Entities.TechnicianType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CategoryTypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryTypeId");
+
+                    b.ToTable("TechnicianTypes");
+                });
+
             modelBuilder.Entity("API.Entities.UserLink", b =>
                 {
                     b.Property<int>("SourceUserId")
@@ -509,6 +652,17 @@ namespace API.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("API.Entities.Address", b =>
+                {
+                    b.HasOne("API.Entities.AppUser", "UserAddress")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("UserAddress");
+                });
+
             modelBuilder.Entity("API.Entities.AppUserRole", b =>
                 {
                     b.HasOne("API.Entities.AppRole", "Role")
@@ -526,6 +680,25 @@ namespace API.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("API.Entities.AreaScope", b =>
+                {
+                    b.HasOne("API.Entities.Area", "Area")
+                        .WithMany()
+                        .HasForeignKey("AreaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Technician", "Technician")
+                        .WithMany("AreaScopes")
+                        .HasForeignKey("TechnicianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Area");
+
+                    b.Navigation("Technician");
                 });
 
             modelBuilder.Entity("API.Entities.Article", b =>
@@ -659,6 +832,47 @@ namespace API.Migrations
                     b.Navigation("Article");
                 });
 
+            modelBuilder.Entity("API.Entities.TechType", b =>
+                {
+                    b.HasOne("API.Entities.Technician", "Technician")
+                        .WithMany("TechType")
+                        .HasForeignKey("TechnicianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.TechnicianType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Technician");
+
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("API.Entities.Technician", b =>
+                {
+                    b.HasOne("API.Entities.AppUser", "User")
+                        .WithOne("Technician")
+                        .HasForeignKey("API.Entities.Technician", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("API.Entities.TechnicianType", b =>
+                {
+                    b.HasOne("API.Entities.CategoryType", "CategoryType")
+                        .WithMany("TechnicianTypes")
+                        .HasForeignKey("CategoryTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CategoryType");
+                });
+
             modelBuilder.Entity("API.Entities.UserLink", b =>
                 {
                     b.HasOne("API.Entities.AppUser", "FollowedUser")
@@ -721,6 +935,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.AppUser", b =>
                 {
+                    b.Navigation("Addresses");
+
                     b.Navigation("FollowedByUser");
 
                     b.Navigation("FollowedUser");
@@ -728,6 +944,8 @@ namespace API.Migrations
                     b.Navigation("LikedArticles");
 
                     b.Navigation("Photos");
+
+                    b.Navigation("Technician");
 
                     b.Navigation("UserRoles");
                 });
@@ -745,6 +963,11 @@ namespace API.Migrations
                     b.Navigation("Taglist");
                 });
 
+            modelBuilder.Entity("API.Entities.CategoryType", b =>
+                {
+                    b.Navigation("TechnicianTypes");
+                });
+
             modelBuilder.Entity("API.Entities.CommentArticle", b =>
                 {
                     b.Navigation("Liked");
@@ -758,6 +981,13 @@ namespace API.Migrations
             modelBuilder.Entity("API.Entities.Tag", b =>
                 {
                     b.Navigation("ArticleATagList");
+                });
+
+            modelBuilder.Entity("API.Entities.Technician", b =>
+                {
+                    b.Navigation("AreaScopes");
+
+                    b.Navigation("TechType");
                 });
 #pragma warning restore 612, 618
         }

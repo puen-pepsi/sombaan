@@ -27,6 +27,7 @@
         [imageInfos]="model?.photoList"
         [previews]="photoPreview"
         (onUploadImage)="onUploadImage($event)"></app-input-multi-img>
+  <p>{{selectedGenres | json}}</p>
     <app-multiple-selector
         [NonSelectedItems]="nonSelectedGenres"
         [SelectedItems]="selectedGenres"

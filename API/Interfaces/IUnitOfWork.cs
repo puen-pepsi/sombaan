@@ -13,7 +13,11 @@ namespace API.Interfaces
         IGenericRepository<Genre> Genres{get;}
         IGenericRepository<Tag> Tags{get;}
         IGenericRepository<Article> Articles{get;}
-         IUserRepository UserRepository {get; }
+        IGenericRepository<Area> Areas{get;}
+        IGenericRepository<CategoryType> CategoryTypes{get;}
+        IGenericRepository<TechnicianType> TechnicianTypes{get;}
+        ITechnicianRepository TechnicianRepository{get;}
+        IUserRepository UserRepository {get; }
          IRepository Repository {get;}
         Task<bool> Complete();
         bool HasChanges();

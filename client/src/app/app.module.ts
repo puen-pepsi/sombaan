@@ -21,6 +21,11 @@ import { UtilitiesModule } from './utilities/utilities.module';
 import { NotFoundComponent } from './error/not-found/not-found.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { TimeagoModule } from 'ngx-timeago';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { HomeComponent } from './home/home.component';
+import { Nav2Component } from './navigation/nav2/nav2.component';
+import { TopsocialComponent } from './navigation/topsocial/topsocial.component';
+// import { LOADING_BAR_CONFIG } from '@ngx-loading-bar/core';
 
 // import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
@@ -32,7 +37,10 @@ import { TimeagoModule } from 'ngx-timeago';
     FooterComponent,
     BlogComponent,
     NavComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    HomeComponent,
+    Nav2Component,
+    TopsocialComponent,
 
   ],
   imports: [
@@ -40,17 +48,20 @@ import { TimeagoModule } from 'ngx-timeago';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    LoadingBarHttpClientModule,
     FlexLayoutModule,
     SharedModule,
     UtilitiesModule,
     SweetAlert2Module.forRoot(),
     MarkdownModule.forRoot(),
     TimeagoModule.forRoot(),
-    NgImageSliderModule
+    NgImageSliderModule,
+    
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},
     {provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true},
+    // {provide: LOADING_BAR_CONFIG, useValue: { latencyThreshold: 100 } }
   ],
   bootstrap: [AppComponent]
 })

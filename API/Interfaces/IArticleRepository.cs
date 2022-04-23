@@ -17,7 +17,6 @@ namespace API.Interfaces
         Task<List<CommentArticle>> GetCommentsBySlugAsync(string slug, string username,int? parentId);
         Task<List<CommentArticle>> GetCommentsAllBySlug(string slug);
         Task<LikedArticle> GetLikedArticleAsync(int userId, int articleId);
-        Task<bool> IsFollowingAsync(int userId, int followerUserId);
         Task RemoveCommentAsync(string slug, int commentId, string username);
         Task<LikedArticle> GetArticleFavoriteAsync(string username, int articleId);
         Task<Article> AddFavoriteAsync(string slug, string username);

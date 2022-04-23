@@ -47,7 +47,8 @@ namespace API.Data
             if(articleParams.search != null){
                 query = query.Where(s => s.Title.ToLower().Contains(articleParams.search) 
                     || s.Body.ToLower().Contains(articleParams.search.ToLower())
-                    || s.Author.UserName.ToLower().Contains(articleParams.search.ToLower()));
+                    || s.Author.UserName.ToLower().Contains(articleParams.search.ToLower())
+                    || s.Taglist.Select(x => x.Tag.Name).Contains(articleParams.search.ToLower()));
             }
             // query = query.Where(x => x.Taglist.Select(y => y.TagId)
             //             .Contains(articleParams.Tag));
@@ -180,11 +181,7 @@ namespace API.Data
             _context.CommentArticles.Remove(comment);
             await _context.SaveChangesAsync();
         }
-        public Task<bool> IsFollowingAsync(int userId, int followerUserId)
-        {
-            return _context.FollowedUser.AnyAsync(
-                x => x.SourceUserId == userId && x.FollowedUserId == followerUserId);
-        }
+
 
         public async Task<Article> AddFavoriteAsync(string slug, string username)
         {

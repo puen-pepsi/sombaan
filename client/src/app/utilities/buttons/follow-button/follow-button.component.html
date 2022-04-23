@@ -1,13 +1,25 @@
-<button mat-button
-  class="btn btn-sm action-btn"
-  [ngClass]="{ 'disabled': isSubmitting,
-               'btn-outline-secondary': !profile.following,
-               'btn-secondary': profile.following}"
-  (click)="toggleFollowing()">
+<!-- <button mat-stroked-button 
+  class=""
+  (click)="toggleFollowing()">-->
   <!-- <mat-icon>{{profile.following?'remove':'add'}}</mat-icon> -->
   <!-- <i class="{{profile.following?'fa-solid fa-minus':'fa-solid fa-plus'}}"></i> -->
-  <span *ngIf="profile.following"><i class="fa-solid fa-minus"></i></span>
+  <!-- <span *ngIf="profile.following"><i class="fa-solid fa-minus"></i></span>
   <span *ngIf="!profile.following"><i class="fa-solid fa-plus"></i></span>
   &nbsp;
   {{ profile.following ? 'Unfollow' : 'Follow' }} {{ profile.username }}
+</button>  -->
+<button *ngIf="profile.following" 
+  (click)="toggleFollowing()"
+  mat-flat-button color="primary" >
+  <span><i class="fa-solid fa-minus"></i></span>
+   <span class="p-1">UnFollow</span>  {{profile.username | titlecase}}
 </button>
+<button *ngIf="!profile.following" 
+  (click)="toggleFollowing()"
+  mat-stroked-button color="primary" >
+  <span><i class="fa-solid fa-plus"></i></span>
+   <span class="p-1">Follow</span>  {{profile.username | titlecase}}
+</button>
+<!-- [ngClass]="{ 'disabled': isSubmitting,
+'btn-outline-secondary': !profile.following,
+'btn-secondary': profile.following}" -->

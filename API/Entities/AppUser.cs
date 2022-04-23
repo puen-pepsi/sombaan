@@ -10,12 +10,16 @@ namespace API.Entities
         public string Bio { get; set; } = string.Empty;
         public DateTime Created { get; set; } = DateTime.UtcNow;
         public DateTime LastActive { get; set; } = DateTime.UtcNow;
-        public ICollection<Photo> Photos { get; set; }
-        public ICollection<AppUserRole> UserRoles { get; set; }
-        public ICollection<LikedArticle> LikedArticles { get; set; }
-
-        public ICollection<UserLink> FollowedByUser { get; set; }
-        public ICollection<UserLink> FollowedUser { get; set; }
+        public string LineId { get; set; }
+        //PhoneNumber identityUser
+        //technician
+        public virtual Technician Technician { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Photo> Photos { get; set; }
+        public virtual ICollection<AppUserRole> UserRoles { get; set; }
+        public virtual ICollection<LikedArticle> LikedArticles { get; set; }
+        public virtual ICollection<UserLink> FollowedByUser { get; set; }
+        public virtual ICollection<UserLink> FollowedUser { get; set; }
         public AppUser()
         {
             FollowedByUser  = new Collection<UserLink>();
@@ -23,6 +27,7 @@ namespace API.Entities
             LikedArticles = new Collection<LikedArticle>();
             UserRoles = new Collection<AppUserRole>();
             Photos = new Collection<Photo>();
+            Addresses = new Collection<Address>();
         }
 
     }

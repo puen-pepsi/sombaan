@@ -40,8 +40,8 @@
             <div class="post-meta">
                 <div class="author-date">
                     <app-label-name 
-                        [userName]="article.author.username"
-                        [pHeight]="20" >
+                        [imageUrl]="article.author.image"
+                        [userName]="article.author.username" >
                         <div extent>Published {{ article.createAt | timeago }} </div>
                     </app-label-name>
                     <!-- <span class="date">
@@ -69,6 +69,7 @@
                         <mat-icon>favorite_border</mat-icon>39
                       </button> -->
                       <app-favorite-button
+                      [hasBorder]="false"
                       [pSize]="18"
                       [article]="article">
                       <!-- (toggle)="onToggleFavorite($event)"> -->
@@ -77,15 +78,16 @@
                     <!-- <a href="#" class="mfn-love " data-id="2269"><span class="icons-wrapper"><i class="icon-heart-empty-fa"></i><i class="icon-heart-fa"></i></span><span class="label">38</span></a> -->
                 </div>
                 <div class="post-links">
-                    <button mat-icon-button color="primary"  >
-                        <i class="fa-regular fa-comment"></i> {{article.totalComments}}
+                    <button mat-icon-button >
+                        <i class="fa-regular fa-comment"></i>
+                            <span class="count">{{article.totalComments}}</span> 
                     </button>
                     <!-- <i class="icon-comment-empty-fa"></i><a href="content/blogger/article-1-2.html#comments" class="post-comments">4</a><i class="icon-doc-text"></i><a href="content/blogger/article-1-2.html" class="post-more">Read more</a> -->
                 </div>
                 <div class="readmore">
                     <button mat-icon-button [routerLink]="['/article' ,article.slug]">
                         <i class="fa-regular fa-note-sticky"></i>
-                        More..
+                        <span class="text">More..</span> 
                     </button>
                 </div>
             </div>

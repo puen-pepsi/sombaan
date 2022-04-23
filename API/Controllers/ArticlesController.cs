@@ -42,9 +42,6 @@ namespace API.Controllers
             // var gender = await _unitOfWork.UserRepository.GetUserGender(User.GetUsername());
             articleParams.CurrentUsername = User.GetUsername();
 
-            // if (string.IsNullOrEmpty(userParams.Gender))
-            //     userParams.Gender = gender == "male" ? "female" : "male";
-
             var articles = await _unitOfWork.ArticleRepository.GetArticlesAsync(articleParams);
 
             Response.AddPaginationHeader(articles.CurrentPage, articles.PageSize,

@@ -1,0 +1,106 @@
+
+        <mat-toolbar>
+        
+             <div fxHide.gt-xs>
+               <button mat-icon-button (click)="onToggleSidenav()">
+               <mat-icon>menu</mat-icon></button>
+           </div>
+           <div class="mr-5">som<span class="v-line">|</span>baan</div>
+           <div fxFlex="80" fxLayout fxLayoutAlign="flex-start" fxHide.xs>
+             <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+               <ng-container *ngIf="accountService.currentUser$ | async">
+                <mat-nav-list class="list-horizontal">
+                  <mat-list-item class="item-link"
+                    routerLink='' routerLinkActive='active'>
+                    <span class="text-space">Home</span>
+                  </mat-list-item>
+                  <mat-list-item class="item-link"
+                    routerLink='/article' routerLinkActive='active'>
+                    <span class="text-space">Article</span>
+                  </mat-list-item>
+                  <mat-list-item class="item-link" *appHasRole='["Admin","Moderator"]'
+                    routerLink='/admin' routerLinkActive='active'>
+                    <mat-icon>settings</mat-icon>
+                    <span class="text-space">Admin</span>
+                  </mat-list-item>
+        
+                </mat-nav-list>
+               </ng-container>
+               <ng-container *ngIf="(accountService.currentUser$|async)==null">
+                <mat-nav-list class="list-horizontal">
+                  <mat-list-item class="item-link"
+                    routerLink='' routerLinkActive='active'>
+                    <span class="text-space">Home</span>
+                  </mat-list-item>
+                  <mat-list-item class="item-link"
+                    routerLink='/article' routerLinkActive='active'>
+                    <span class="text-space">Article</span>
+                  </mat-list-item>
+                </mat-nav-list>
+               </ng-container>
+             </ul>
+           </div>
+        
+           <div fxFlex="fill" fxLayout fxLayoutAlign="flex-end">
+               <ul fxLayout fxLayoutGap="0px" class="navigation-items" >
+                <li class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
+                    <button mat-button
+                      #menuTrigger="matMenuTrigger"
+                      [matMenuTriggerFor]="beforeMenu">
+                      <app-label-name
+                        [imageUrl]='user.photoUrl'
+                        [knownAs]='user.knownAs'
+                        [userName]='user.username'
+                      >
+                        <div content >
+                            Liverpool
+                        </div>
+                      </app-label-name>
+                      <mat-icon fxHide.gt-sm >arrow_drop_down</mat-icon>
+                    </button>
+                    <mat-menu #beforeMenu="matMenu"
+                        [overlapTrigger]="false"
+                        xPosition="before">
+                      <span (mouseleave)="menuTrigger.closeMenu()">             
+                      <button mat-menu-item routerLink='/member/edit'>
+                        <mat-icon>edit_note</mat-icon>
+                        <span class="text-space" >Profile</span>
+                      </button>
+        
+                      <mat-divider></mat-divider>
+                      <button mat-menu-item (click)="logout()" >
+                        <mat-icon>input</mat-icon>
+                        <span class="text-space" >Logout</span>
+                      </button>
+                    </span>
+                    </mat-menu>
+        
+                  </li>
+        
+                <div *ngIf="(accountService.currentUser$|async)===null">
+                  <!-- <a routerLink='/authentication/login'><mat-icon>face</mat-icon> Log In</a>| -->
+                  <button mat-stroked-button (click)="loginWithGoogle()">
+                    <span class="p-2">
+                      <img src="https://img.icons8.com/color/24/000000/google-logo.png"/>
+                    </span>
+                  </button>
+                  <button mat-stroked-button routerLink='/authentication/login'>
+                    <span class="p-2">
+                      <mat-icon>face</mat-icon> Log In
+                    </span>
+                    </button>
+                  <!-- <a routerLink='/'> Register</a> -->
+                  <!-- <button class="btn" type="button" (click)="loginWithGoogle()">
+                    <img src="https://img.icons8.com/color/24/000000/google-logo.png"/>
+                  </button> -->
+        
+                </div>
+        
+               </ul>
+              </div>
+              <div >
+        
+              </div>
+        
+          
+        </mat-toolbar>

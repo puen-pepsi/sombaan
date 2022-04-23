@@ -78,9 +78,9 @@ export class AccountService {
     this.currentUserSource.next(null);
     this.presence.stopHubConnection();
     this.router.navigateByUrl('/');
-    if (this.clearTimeout) {
-      clearTimeout(this.clearTimeout);
-    }
+    // if (this.clearTimeout) {
+    //   clearTimeout(this.clearTimeout);
+    // }
   }
   public forgotPassword = (route: string, body: ForgotPasswordDto) => {
     return this.http.post(this.createCompleteRoute(route, this.baseUrl), body);

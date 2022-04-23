@@ -1,22 +1,67 @@
+/* ----------------------------------------------------------------
+	Top Bar
+-----------------------------------------------------------------*/
+/* #top-bar {
+	position: relative;
+	border-bottom: 1px solid #EEE;
+	height: 45px;
+	line-height: 44px;
+	font-size: 13px;
+}*/
 
 
-.mat-elevation-z5 {
-    position: relative;
-  }
-  
-  .sticky {
-    position: fixed;
-    top: 0px;
-  }
-  .fixed {
-    position: fixed;
-    width: 100%;
-    transition: 0.2s linear;
-    top: 144px;
+/* #top-bar .col_half { width: auto; } */
+
+/* Top Social
+-----------------------------------------------------------------*/
+
+#top-social,
+#top-social ul { margin: 0; }
+
+#top-social li,
+#top-social li a,
+#top-social li .ts-icon,
+#top-social li .ts-text {
+	display: block;
+	position: relative;
+	float: left;
+	width: auto;
+	overflow: hidden;
+	height: 44px;
+	line-height: 44px;
+} 
+
+#top-social li { border-left: 1px solid #EEE; }
+
+#top-social li:first-child { border-left: 0 !important; }
+
+#top-social li a {
+	float: none;
+	width: 40px;
+	font-weight: bold;
+	color: #666;
+	-webkit-transition: color .3s ease-in-out, background-color .3s ease-in-out, width .3s ease-in-out;
+	-o-transition: color .3s ease-in-out, background-color .3s ease-in-out, width .3s ease-in-out;
+	transition: color .3s ease-in-out, background-color .3s ease-in-out, width .3s ease-in-out;
 }
 
-.nofixed {
-    position: static;
-    transition: 0.2s linear;
-    top: 0px;
+#top-social li a:hover {
+	color: #FFF !important;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+
+/* #top-social li .ts-icon {
+	width: 40px;
+	text-align: center;
+	font-size: 14px;
+}*/
+
+/* .nobottommargin { margin-bottom: 0 !important; } */
+
+.mat-drawer-container {
+    background-color: var(--subColor);
+    /* color: rgba(0,0,0,.87); */
+}
+:host ::ng-deep app-btnexpand .button{
+  background-color: blue;
 }

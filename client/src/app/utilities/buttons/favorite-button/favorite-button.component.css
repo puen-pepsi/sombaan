@@ -18,6 +18,10 @@
     border-color: #5cb85c;
 } */
 
-.mat-button{
-    color:rgb(255, 136, 156);
+.mat-icon-button{
+    color:var(--Primary);
+}
+.count{
+    color:var(--txtMeta);
+    font-weight: 100;
 }

@@ -14,6 +14,8 @@ namespace API.Interfaces
         Task<AppUser> GetUserByUsernameAsync(string username);
         Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams);
         Task<MemberDto> GetMemberAsync(string username);
+        Task<ProfileDto> GetProfileAsync(string username,string UserName);
+        Task<bool> IsFollowingAsync(string sourceusername, string followerUserName);
         Task<ProfileDto> FollowProfileAsync(string profileusername, int userId);
         Task<ProfileDto> UnFollowProfileAsync(string profileUsername, int userId);
         // Task<string> GetUserGender(string username);

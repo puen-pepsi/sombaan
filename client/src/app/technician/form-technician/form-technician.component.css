@@ -1,0 +1,10 @@
+:host ::ng-deep app-input-markdown textarea{
+    height: 4rem;
+}
+.mat-form-field{
+    width: 50%;
+}
+.right-side{
+    display: flex;
+    flex-direction: column;
+}

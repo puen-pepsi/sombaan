@@ -11,7 +11,6 @@ import { AccountService } from 'src/app/_services/account.service';
   styleUrls: ['./favorite-button.component.css']
 })
 export class FavoriteButtonComponent {
-
   constructor(
     private articleService: ArticleService,
     private router: Router,
@@ -19,7 +18,9 @@ export class FavoriteButtonComponent {
   ) {}
   @Input() pSize:number;
   @Input() article: articleDTO;
+  @Input() hasBorder:boolean;
   @Output() toggle = new EventEmitter<boolean>();
+  isOver:boolean=false;
   isSubmitting = false;
 
   toggleFavorite() {

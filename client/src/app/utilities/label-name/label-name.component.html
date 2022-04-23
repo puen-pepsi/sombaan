@@ -1,8 +1,10 @@
 <div class="label">
   <div class="label-meta">
-    <a>
-      <img [ngStyle]="{'height':pHeight+'px','width':pHeight+'px'}" 
-         src ="{{imageUrl??'./assets/smiley-cyrus.jpeg'}}" />
+    <a href="/profile/{{userName}}">
+      <!-- <img [ngStyle]="{'height':pHeight+'px','width':pHeight+'px'}" 
+         src ="{{imageUrl??'./assets/smiley-cyrus.jpeg'}}" /> -->
+            <img  class="child-image"
+              src ="{{imageUrl??'./assets/smiley-cyrus.jpeg'}}" />
     </a>
     <div class="info" *ngIf="userName">
       <a class="user">
@@ -12,10 +14,9 @@
           <ng-content select="[content]"></ng-content>
       </span>
     </div>
-   
 </div>
 <span>
-  <ng-content select="[extent]" class="extent"></ng-content>
+  <ng-content select="[extent]"></ng-content>
 </span>
 </div>
 

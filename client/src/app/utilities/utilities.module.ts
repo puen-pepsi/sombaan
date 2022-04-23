@@ -19,6 +19,9 @@ import { FavoriteButtonComponent } from './buttons/favorite-button/favorite-butt
 import { LikeButtonComponent } from './buttons/like-button/like-button.component';
 import { ChipListComponent } from './chip-list/chip-list.component';
 import { LayoutComponent } from './layout/layout.component';
+import { BtnexpandComponent } from './buttons/btnexpand/btnexpand.component';
+import { MultipleSelectorGroupComponent } from './multiple-selector-group/multiple-selector-group.component';
+import { MultipleSelectorDropdownComponent } from './multiple-selector-dropdown/multiple-selector-dropdown.component';
 
 
 @NgModule({
@@ -39,6 +42,9 @@ import { LayoutComponent } from './layout/layout.component';
     LikeButtonComponent,
     ChipListComponent,
     LayoutComponent,
+    BtnexpandComponent,
+    MultipleSelectorGroupComponent,
+    MultipleSelectorDropdownComponent,
   ],
   imports: [
     CommonModule,
@@ -64,7 +70,10 @@ import { LayoutComponent } from './layout/layout.component';
     FavoriteButtonComponent,
     LikeButtonComponent,
     ChipListComponent,
-    LayoutComponent
+    LayoutComponent,
+    BtnexpandComponent,
+    MultipleSelectorGroupComponent,
+    MultipleSelectorDropdownComponent
   ]
 })
 export class UtilitiesModule { }

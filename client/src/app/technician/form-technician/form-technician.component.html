@@ -1,0 +1,62 @@
+<form 
+    (submit)="saveChanges()" 
+    [formGroup]="form" [style.fontSize.px]="14">
+    <div class="row">
+        <div class="col-md-4">
+            <app-input-img
+            [urlCurrentImage]="model?.pictureUrl"
+            (onImageSelected)="onUploadImage($event)"></app-input-img>
+        </div>
+        <div class="col-md-8 right-side">
+            <mat-form-field appearance="fill">
+                <mat-label>Full Name </mat-label>
+                <input formControlName="fullName"  matInput />
+                <mat-error>The title is required</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field appearance="fill">
+                <mat-label>Choose a Date of Birth</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+                <app-input-markdown 
+                    [markdownContent]="model?.bio"
+                    [label]="'bio'"
+                    (changeMarkdown)="changeMarkdown($event)">
+                </app-input-markdown>
+        </div>
+    </div>
+    <!-- <h4>Skill</h4>
+    <app-multiple-selector
+        [NonSelectedItems]="nonSelectedTypes"
+        [SelectedItems]="selectedTypes"
+    ></app-multiple-selector>
+    <h4>Area</h4>
+    <app-multiple-selector
+        [NonSelectedItems]="nonSelectedAreas"
+        [SelectedItems]="selectedAreas"
+    ></app-multiple-selector> -->
+    <p>{{ selectedTypes | json }}</p>
+    <app-multiple-selector-group
+        
+    (onChangeSelectItems)="onChangeMultiple($event)"
+    [groups]="groups">
+    </app-multiple-selector-group>    
+    <p>{{ selectedAreas | json }}</p>
+    <app-multiple-selector-dropdown
+        [placeHolder]="'Area'"
+        [groups]="nonSelectedAreas"
+        [SelectedItems]="selectedAreas"
+        (onChangeSelectItems)="onChageSelectedMultiDropdown($event)"
+        >
+    </app-multiple-selector-dropdown>
+    <div>
+        <button mat-flat-button color="primary" 
+        type="submit"
+        [disabled]="form.invalid">
+          Save Changes
+        </button>
+        <a mat-stroked-button routerLink="/">Cancel</a>
+      </div>
+</form>

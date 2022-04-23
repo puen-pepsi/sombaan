@@ -2,3 +2,11 @@ button{
     margin-top:0.5rem;
     margin-bottom: 1rem;
 }
+
+
+.child-image{
+    width: 200px;
+    height: 200px;
+    /* border-radius: 0; */
+    object-fit: cover;
+}

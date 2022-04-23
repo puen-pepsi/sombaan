@@ -1,10 +1,12 @@
 <!-- <mat-toolbar [ngStyle]="{'background-color':bgtool}"> -->
+<div class="first-nav">
 <mat-toolbar>
-   <div fxHide.gt-xs>
+
+     <div fxHide.gt-xs>
        <button mat-icon-button (click)="onToggleSidenav()">
        <mat-icon>menu</mat-icon></button>
    </div>
-   <div class="mr-5">sombaan</div>
+   <div class="mr-5"><span>som</span><span>baan</span></div>
    <div fxFlex="80" fxLayout fxLayoutAlign="flex-start" fxHide.xs>
      <ul fxLayout fxLayoutGap="10px" class="navigation-items">
        <ng-container *ngIf="accountService.currentUser$ | async">
@@ -28,7 +30,7 @@
        <ng-container *ngIf="(accountService.currentUser$|async)==null">
         <mat-nav-list class="list-horizontal">
           <mat-list-item class="item-link"
-            routerLink='/home' routerLinkActive='active'>
+            routerLink='' routerLinkActive='active'>
             <span class="text-space">Home</span>
           </mat-list-item>
           <mat-list-item class="item-link"
@@ -50,11 +52,10 @@
                 [imageUrl]='user.photoUrl'
                 [knownAs]='user.knownAs'
                 [userName]='user.username'
-                [pHeight]='35'
               >
-                <ng-container content>
+                <div content >
                     Liverpool
-                </ng-container>
+                </div>
               </app-label-name>
               <mat-icon fxHide.gt-sm >arrow_drop_down</mat-icon>
             </button>
@@ -101,4 +102,7 @@
       <div >
 
       </div>
+
+  
 </mat-toolbar>
+</div>

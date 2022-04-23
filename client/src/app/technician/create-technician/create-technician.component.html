@@ -1,0 +1,10 @@
+<div class="container">
+    <h2>Create Technician Profile</h2>
+    <app-form-technician 
+    *ngIf="nonSelectedTypes"
+    [nonSelectedTypes]="nonSelectedTypes"
+    [nonSelectedAreas]="nonSelectedAreas"
+    [groups]="groups"
+    (onSaveChanges)="saveChanges($event)"></app-form-technician>
+</div>
+

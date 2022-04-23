@@ -52,7 +52,21 @@ namespace API.Data
                     userParams.PageNumber, userParams.PageSize);
    
         }
-
+        public async Task<ProfileDto> GetProfileAsync(string username,string UserName)
+        {
+            var profileUser = await GetUserByUsernameAsync(username);
+            var isFollowing = false;
+            if (username is not null)
+            {
+                isFollowing = await IsFollowingAsync(username, UserName);
+            }
+            return  new ProfileDto(){
+                Username = username,
+                Image = profileUser.Photos.FirstOrDefault(x => x.IsMain).Url,
+                Bio = profileUser.Bio,
+                Following = isFollowing
+            };        
+        }
         public async Task<AppUser> GetUserByIdAsync(int id)
         {
             return await _context.Users
@@ -115,6 +129,14 @@ namespace API.Data
                 Image=profileUser.Photos.FirstOrDefault(x => x.IsMain)?.Url,
                 Following = profileUser.FollowedUser.Any()
             };
+        }
+
+        public Task<bool> IsFollowingAsync(string sourceusername, string followerUserName)
+        {
+                return _context.FollowedUser.AnyAsync(
+                x => x.SourceUser.UserName == sourceusername
+                     && x.FollowedUser.UserName == followerUserName);
+
         }
     }
 }

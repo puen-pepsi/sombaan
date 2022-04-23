@@ -1,0 +1,49 @@
+<div class="settings-page">
+    <div class="container page">
+      <div class="row">
+        <div class="col-md-6 offset-md-3 col-xs-12">
+  
+          <h1 class="text-xs-center">Your Settings</h1>
+  
+          <!-- <app-list-errors [errors]="errors"></app-list-errors> -->
+  
+          <form [formGroup]="settingsForm" (ngSubmit)="submitForm()">
+                 <app-input-img
+                  [isImage]="true"
+                  [urlCurrentImage]="user?.photoUrl"
+                  (onImageSelected)="onImageSelected($event)"></app-input-img>  
+              <mat-form-field appearance="fill">
+                <mat-label>User Name</mat-label>
+                <input formControlName="username"  matInput />
+                <mat-error>The title is required</mat-error>
+              </mat-form-field>              
+              <mat-form-field appearance="fill">
+                <mat-label>Bio</mat-label>
+                <textarea formControlName="bio"  
+                placeholder="Short bio about you..." matInput ></textarea>
+                <mat-error>The title is required</mat-error>
+              </mat-form-field>
+              <div>
+                <button mat-flat-button color="primary" 
+                type="submit"
+                [disabled]="settingsForm.invalid">
+                  Save Changes
+                </button>
+                <a mat-stroked-button routerLink="/">Cancel</a>
+              </div>
+
+
+          </form>
+  
+          <!-- Line break for logout button -->
+          <hr />
+  
+          <button class="btn btn-outline-danger"
+            (click)="logout()">
+            Or click here to logout.
+          </button>
+  
+        </div>
+      </div>
+    </div>
+  </div>

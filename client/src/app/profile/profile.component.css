@@ -1,0 +1,19 @@
+
+.profile-page .user-info {
+    text-align: center;
+    background: var(--subColor);
+    padding: 2rem 0 1rem;
+}
+.profile-page .user-info .user-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 100px;
+    margin-bottom: 1rem;
+}
+
+.profile-page .user-info .float-right {
+    float: right;
+    color: #999;
+    border: 1px solid #999;
+}

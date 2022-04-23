@@ -1,0 +1,6 @@
+<h2>Edit Area</h2>
+
+<app-form-areas *ngIf="model" [model]="model" 
+(onSaveChanges)="saveChanges($event)"></app-form-areas>
+
+<mat-spinner *ngIf="!model"></mat-spinner>

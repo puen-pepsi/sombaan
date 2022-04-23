@@ -14,6 +14,13 @@
     width: 32px;
     border-radius: 30px;
   }
+  .child-image {
+    display: inline-block;
+    vertical-align: middle;
+    height: 32px;
+    width: 32px;
+    border-radius: 32px;
+  }
   .label-meta .info {
     margin: 0 1.5rem 0 0.3rem;
     display: inline-block;

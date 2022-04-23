@@ -1,0 +1,14 @@
+<span>
+    <a href="#" class="button" 
+        [ngStyle]="{backgroundColor: ishovering==true  ? iColor : 'transparent' }"
+        (mouseover)="ishovering=true" (mouseleave)="ishovering=false">
+        <span class="icon"><i class="{{iCon}}"></i></span>
+        <span class="text">{{iText}}</span>
+    </a>	
+</span>
+
+<!-- [ngStyle]="{'background-color': iBackground}" -->
+<!-- 
+<div (mouseover)="ishovering=true" (mouseleave)="ishovering=false">
+    <span [ngStyle]="{backgroundColor: ishovering==true  ? 'lightgrey' : 'grey' }">hello {{ ishovering }}</span>
+</div> -->

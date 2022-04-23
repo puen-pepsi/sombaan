@@ -1,0 +1,6 @@
+<h2>Edit TechnicianType</h2>
+
+<app-form-techniciantype *ngIf="model" [model]="model" 
+(onSaveChanges)="saveChanges($event)"></app-form-techniciantype>
+
+<mat-spinner *ngIf="!model"></mat-spinner>

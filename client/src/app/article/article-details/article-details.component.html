@@ -33,6 +33,7 @@
                       </app-follow-button>
             
                       <app-favorite-button
+                        [hasBorder]="true"
                         [article]="article"
                         (toggle)="onToggleFavorite($event)">
                         {{ article.liked ? 'Unfavorite' : 'Favorite' }} Article <span class="counter">({{ article.likesCount }})</span>

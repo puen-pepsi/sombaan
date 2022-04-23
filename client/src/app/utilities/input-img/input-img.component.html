@@ -1,10 +1,14 @@
 <div>
+    
     <div>
-        <div *ngIf="imageBase64">
-            <img [src]="imageBase64" />
+        <div *ngIf="imageBase64"  >
+            <img [src]="imageBase64" class="child-image"/>
         </div>
-        <div *ngIf="urlCurrentImage">
-            <img [src]="urlCurentImage"/>
+        <div *ngIf="urlCurrentImage" >
+            <img [src]= "urlCurrentImage" class="child-image"/>
+        </div>
+        <div *ngIf="!urlCurrentImage && !imageBase64">
+            <img src = "../../../assets/smiley-cyrus.jpeg" class="child-image" />
         </div>
     </div>
     <button type="button" mat-raised-button (click)="fileInput.click()">Select Image</button>

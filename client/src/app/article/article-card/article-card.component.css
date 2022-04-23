@@ -1,6 +1,5 @@
 .post {
     max-width:250px;
-
 }
 .post:hover img{
     transform:scale(1.2,1.2);
@@ -98,23 +97,26 @@
 }
 .post-footer {
     display:flex;
-    padding:0;
-    /* justify-content: space-between; */
-    gap:2rem;
+    justify-content: space-evenly;
+    /* gap:2rem; */
     margin: 0 -20px -20px -20px;
     overflow: hidden;
     line-height: 30px;
     font-size:1rem;
-    background-color: var(--subColor);
+    background-color: var(--subToolbarColor);
 }
 
 .post-footer .mat-icon{
     font-size: 1rem;
 }
 .readmore{
-    color:coral;
+    color:var(--Primary);
 }
-
+.readmore .text{
+    padding-left: 4px;
+    font-weight: 100;
+    color:var(--txtMeta);
+}
 /* .mat-icon {
     vertical-align: middle;
 } */
@@ -143,4 +145,23 @@
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
 
+}
+
+:host ::ng-deep app-label-name .child-image{
+    width:20px;
+    height:20px;
+    border-radius: 20px;
+}
+
+:host ::ng-deep app-label-name .user{
+    font-weight: 100;
+    color:var(--txtMeta);
+}
+.post-links{
+    color:var(--Primary)
+}
+.post-links .count{
+    padding-left: 2px;
+    font-weight: 100;
+    color:var(--txtMeta);
 }

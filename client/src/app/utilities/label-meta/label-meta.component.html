@@ -1,7 +1,9 @@
 <div class="label-meta">
   <span>
     <a routerLink="">
-      <img [src]="article.author.image" />
+      <!-- <img [src]="article.author.image" /> -->
+      <img  class="child-image"
+      src ="{{article.author.image??'./assets/smiley-cyrus.jpeg'}}" />
     </a>
     <div class="info">
       <a class="author"

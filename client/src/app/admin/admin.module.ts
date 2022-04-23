@@ -16,6 +16,18 @@ import { HtmlPageComponent } from './html-page/html-page.component';
 import { CreateHtmlPageComponent } from './html-page/create-html-page/create-html-page.component';
 import { FormHtmlComponent } from './html-page/form-html/form-html.component';
 import { EditHtmlPageComponent } from './html-page/edit-html-page/edit-html-page.component';
+import { IndexAreaComponent } from './area/index-area.component';
+import { CreateAreasComponent } from './area/create-areas/create-areas.component';
+import { EditAreasComponent } from './area/edit-areas/edit-areas.component';
+import { FormAreasComponent } from './area/form-areas/form-areas.component';
+import { CreateCategorytypeComponent } from './categorytype/create-categorytype/create-categorytype.component';
+import { EditCategorytypeComponent } from './categorytype/edit-categorytype/edit-categorytype.component';
+import { IndexCategorytypeComponent } from './categorytype/index-categorytype.component';
+import { FormCategorytypeComponent } from './categorytype/form-categorytype/form-categorytype.component';
+import { IndexTechniciantypeComponent } from './techniciantype/index-techniciantype.component';
+import { FormTechniciantypeComponent } from './techniciantype/form-techniciantype/form-techniciantype.component';
+import { CreateTechnicianComponent } from './techniciantype/create-technician/create-technician.component';
+import { EditTechnicianComponent } from './techniciantype/edit-technician/edit-technician.component';
 @NgModule({
   declarations: [
     CreateGenreComponent,
@@ -30,6 +42,18 @@ import { EditHtmlPageComponent } from './html-page/edit-html-page/edit-html-page
     CreateHtmlPageComponent,
     FormHtmlComponent,
     EditHtmlPageComponent,
+    IndexAreaComponent,
+    CreateAreasComponent,
+    EditAreasComponent,
+    FormAreasComponent,
+    CreateCategorytypeComponent,
+    EditCategorytypeComponent,
+    IndexCategorytypeComponent,
+    FormCategorytypeComponent,
+    IndexTechniciantypeComponent,
+    FormTechniciantypeComponent,
+    CreateTechnicianComponent,
+    EditTechnicianComponent,
   ],
   imports: [
     CommonModule,
@@ -44,7 +68,16 @@ import { EditHtmlPageComponent } from './html-page/edit-html-page/edit-html-page
       {path:'tags/create',component:CreateTagComponent},
       {path:'tags/edit/:id',component:EditTagComponent},
       {path:'htmlpage/create',component:CreateHtmlPageComponent},
-      {path:'htmlpage/edit/:id',component:EditHtmlPageComponent}
+      {path:'htmlpage/edit/:id',component:EditHtmlPageComponent},
+      {path:'areas',component:IndexAreaComponent},
+      {path:'areas/create',component:CreateAreasComponent},
+      {path:'areas/edit/:id',component:EditAreasComponent},
+      {path:'categorytypes',component:IndexCategorytypeComponent},
+      {path:'categorytypes/create',component:CreateCategorytypeComponent},
+      {path:'categorytypes/edit/:id',component:EditCategorytypeComponent},
+      {path:'techniciantypes',component:IndexTechniciantypeComponent},
+      {path:'techniciantypes/create',component:CreateTechnicianComponent},
+      {path:'techniciantypes/edit/:id',component:EditTechnicianComponent},
     ])
     
 

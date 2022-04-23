@@ -1,24 +1,4 @@
-            <!-- comment -->
-            <!-- <div >
-                <app-display-errors [errors]="commentFormErrors"></app-display-errors>
-                <form class="card comment-form" (ngSubmit)="addComment()">
-                  <fieldset [disabled]="isSubmitting">
-                    <div class="card-block">
-                      <textarea class="form-control"
-                        placeholder="Write a comment..."
-                        rows="3"
-                        [formControl]="commentControl"
-                      ></textarea>
-                    </div>
-                    <div class="card-footer">
-                      <img [src]="currentUser.image" class="comment-author-img" />
-                      <button class="btn btn-sm btn-primary" type="submit">
-                       Post Comment
-                      </button>
-                    </div>
-                  </fieldset>
-                </form>
-              </div>-->
+
               <div *ngIf="user" > 
                 <p>{{ parent | json}}</p>
                 <app-display-errors [errors]="commentFormErrors"></app-display-errors>
@@ -36,9 +16,13 @@
                       <!-- <input [ngModel] ="parent.parentId"
                         formControlName ="parentId" > -->
                     <div class="card-footer">
-                      <span>
+                      <!-- <span>
                         <img [src]="user.photoUrl" class="comment-author-img" />
-                      </span>
+                      </span> -->
+                      <app-label-name
+                        [userName]="user.username"
+                         [imageUrl]="user.photoUrl">
+                        </app-label-name>
                       <!-- <button class="btn btn-sm btn-primary" 
                        [disabled]="commentForm.invalid"
                        type="submit">

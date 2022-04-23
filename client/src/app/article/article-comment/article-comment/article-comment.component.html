@@ -5,7 +5,7 @@
       </p>
     </div>
     <div class="card-footer">
-      <a class="comment-author" [routerLink]="['/profile', comment.userName]">
+      <!-- <a class="comment-author" [routerLink]="['/profile', comment.userName]">
         <img [src]="comment.image" class="comment-author-img" />
       </a>
       &nbsp;
@@ -14,8 +14,17 @@
       </a>
       <span class="date-posted">
         {{ comment.createdAt | date: 'longDate' }}
-      </span>
-      <span>
+      </span> -->
+      <div class="left-content">
+                 <app-label-name 
+          [userName]="comment.userName"
+          [imageUrl]="comment.image" >
+          <div content class="small-text">TEST</div>
+          <div extent><span class="date-posted">
+            {{ comment.createdAt | date: 'longDate' }}
+          </span></div>
+        </app-label-name>
+          <span>
         <button
         mat-button color="primary"
         (click)="togglePanel[i] = !togglePanel[i]">reply
@@ -27,6 +36,10 @@
           <mat-icon>delete_forever</mat-icon>
         </button>
       </span>
+      </div>
+
+
+      <div class="space"></div>
       <span class="mod-options">
         <app-like-button *ngIf="user"
         [likeCount]="comment.liked.length"

@@ -25,6 +25,13 @@ namespace API.Data
         public DbSet<ArticleTag> ArticleTags { get; set; }
         public DbSet<ArticleGenre> ArticleGenres { get; set; }
         public DbSet<HtmlPage> HtmlPages { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Technician> Technicians { get; set; }
+        public DbSet<Area> Area { get; set; }
+        public DbSet<CategoryType> CategoryTypes { get; set; }
+        public DbSet<TechnicianType> TechnicianTypes { get; set; }
+        public DbSet<TechType> TechTypes { get; set; }
+        public DbSet<AreaScope> AreaScopes { get; set; }
         
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -77,6 +84,10 @@ namespace API.Data
 
             builder.Entity<ArticleGenre>()
                 .HasKey(x => new{x.ArticleId,x.GenreId});
+            builder.Entity<TechType>()
+                .HasKey( x => new {x.TechnicianId,x.TypeId});
+            builder.Entity<AreaScope>()
+                .HasKey( x=> new {x.AreaId,x.TechnicianId});
 
         }
     }

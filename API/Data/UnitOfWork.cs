@@ -14,6 +14,9 @@ namespace API.Data
         private readonly IConfiguration _config;
         private IGenericRepository<Genre> _genres;
         private IGenericRepository<Tag> _tags;
+        private IGenericRepository<Area> _Areas;
+        private IGenericRepository<CategoryType> _CategoryTypes;
+        private IGenericRepository<TechnicianType> _TechnicianTypes;
         private IGenericRepository<Article> _articles;
 
         public UnitOfWork(DataContext context, IMapper mapper, IConfiguration config)
@@ -36,6 +39,14 @@ namespace API.Data
         public ITagRepository TagRepository =>  new TagRepository(_context,_mapper);
 
         public IHtmlpageRepository HtmlpageRepository =>  new HtmlPageRepository(_context,_mapper);
+
+        public IGenericRepository<Area> Areas => _Areas ??= new GenericRepository<Area>(_context);
+
+        public IGenericRepository<CategoryType> CategoryTypes => _CategoryTypes ??= new GenericRepository<CategoryType>(_context);
+
+        public IGenericRepository<TechnicianType> TechnicianTypes => _TechnicianTypes??= new GenericRepository<TechnicianType>(_context);
+
+        public ITechnicianRepository TechnicianRepository =>  new TechnicianRepository(_context,_mapper);
 
         public async Task<bool> Complete()
         {

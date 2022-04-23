@@ -25,7 +25,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 @NgModule({
     imports: [
         MatSliderModule,
@@ -53,7 +54,9 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatMenuModule,
         MatTooltipModule,
         MatSlideToggleModule,
-        MatTabsModule
+        MatTabsModule,
+        MatDatepickerModule,
+        MatMomentDateModule
     ],
     exports: [
         MatSliderModule,
@@ -81,7 +84,9 @@ import {MatTabsModule} from '@angular/material/tabs';
         MatMenuModule,
         MatTooltipModule,
         MatSlideToggleModule,
-        MatTabsModule
+        MatTabsModule,
+        MatDatepickerModule,
+        MatMomentDateModule
     ]
 })
 export class MaterialModule { }
