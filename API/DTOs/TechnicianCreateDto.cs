@@ -9,9 +9,10 @@ namespace API.DTOs
     public class TechnicianCreateDto
     {
         public int UserId { get; set; }
-        public int Id { get; set; }
         public string FullName { get; set; }
         public string Bio{get;set;}
+        public string PhoneNumber { get; set; }
+        public string LineId { get; set; }
         public DateTime CreateAt { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public IFormFile PictureUrl { get; set; }

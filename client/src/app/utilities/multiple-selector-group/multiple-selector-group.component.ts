@@ -14,7 +14,7 @@ export class MultipleSelectorGroupComponent {
   @Input() groups:GroupDto[];
   @Input() SelectedItems : any[];
   // @Input() SelectedItems:multipleSelectorModel[]=[];
-  modelGroup =[{ "id": 3, "name": "เดินไฟฟ้า", "categoryId": 2 }]; // the selected values
+  // modelGroup =[{ "id": 3, "name": "เดินไฟฟ้า", "categoryId": 2 }]; // the selected values
   constructor() { }
 
   selectAll(select: NgModel) {

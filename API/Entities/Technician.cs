@@ -12,6 +12,8 @@ namespace API.Entities
         public string FullName { get; set; }
         public string Bio { get; set; }
         public DateTime? DateOfBirth { get; set; }
+        public string PhoneNumber { get; set; }
+        public string LineId { get; set; }
         public DateTime CreateAt { get; set; }
         public string PictureUrl { get; set; }
         public ICollection<TechType> TechType { get; set; }

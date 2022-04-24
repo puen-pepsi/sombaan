@@ -10,8 +10,9 @@
 				<mat-option class="filter-option" disabled="disabled">
 					<button mat-button (click)="selectAll(itemSelect)">Select All</button>
 					<button mat-button (click)="deselectAll(itemSelect)">DeSelect All</button>
+					
 				</mat-option>
-
+				<mat-divider></mat-divider>
 				<!-- Loop through each group via the groups array -->
 					<mat-option *ngFor="let item of groups" [value]="item">
 						{{item.value}}

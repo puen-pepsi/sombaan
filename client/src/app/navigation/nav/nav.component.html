@@ -19,6 +19,10 @@
             routerLink='/article' routerLinkActive='active'>
             <span class="text-space">Article</span>
           </mat-list-item>
+          <mat-list-item class="item-link"
+            routerLink='/technician' routerLinkActive='active'>
+            <span class="text-space">Technician</span>
+          </mat-list-item>
           <mat-list-item class="item-link" *appHasRole='["Admin","Moderator"]'
             routerLink='/admin' routerLinkActive='active'>
             <mat-icon>settings</mat-icon>
@@ -36,6 +40,10 @@
           <mat-list-item class="item-link"
             routerLink='/article' routerLinkActive='active'>
             <span class="text-space">Article</span>
+          </mat-list-item>
+          <mat-list-item class="item-link"
+          routerLink='/technician' routerLinkActive='active'>
+          <span class="text-space">Technician</span>
           </mat-list-item>
         </mat-nav-list>
        </ng-container>

@@ -66,11 +66,6 @@ namespace API.Controllers
             return NoContent();
 
         }
-        [HttpGet("Category")]
-        public async Task<List<CategoryTypeAllDto>> getCategory()
-        {
-            var categoryList =  await _unitOfWork.CategoryTypes.GetAll(null,null,new List<string> {"TechnicianTypes"});
-            return _mapper.Map<List<CategoryTypeAllDto>>(categoryList);
-        } 
+
     }
 }

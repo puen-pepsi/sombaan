@@ -35,16 +35,6 @@ export class ArticleDetailsComponent implements OnInit {
                }
   // commentForm : FormGroup;
   ngOnInit(): void {
-    // console.log(this.user)
-    // this.route.params.subscribe( params => {
-    //   this.articleservice.getBySlug(params["slug"]).subscribe( (article) => {
-    //     this.article = article;
-    //     this.getImages(article.photos);
-    //     if(this.user)
-    //       this.canModify = (this.user.username === this.article.author.username);
-    //     this.populateComments();
-    //   })
-    // });
 
     this.route.data.subscribe( data => {
       this.article = data['articledetail'];
@@ -54,11 +44,6 @@ export class ArticleDetailsComponent implements OnInit {
         this.populateComments();
     })
     
-    // this.commentForm = this.formBuilder.group({
-    //   content: ['',{
-    //     validators :[Validators.required]
-    //   }]
-    // }); 
   }
 
   getImages(photos:any){

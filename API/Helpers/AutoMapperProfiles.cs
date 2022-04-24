@@ -33,15 +33,29 @@ namespace API.Helpers
                 .ForMember(dest => dest.CategoryTypeName,opt => opt.MapFrom(src => src.CategoryType.Name));
             CreateMap<TechnicianTypeCreateDto,TechnicianType>().ReverseMap();
             CreateMap<TagCreateDto, Tag>();
-            CreateMap<TypeDto,TechnicianType>()
-                .ForMember(dest => dest.CategoryTypeId,opt => opt.Ignore()).ReverseMap();
+            CreateMap<TypeDto,TechnicianType>().ReverseMap();
             CreateMap<AreaDto,Area>().ReverseMap();
 
             CreateMap<TechnicianCreateDto,Technician>()
+                .ForMember(dest => dest.UserId,opt=>opt.Ignore())
+                .ForMember(dest => dest.CreateAt,opt => opt.Ignore())
                 .ForMember(dest => dest.PictureUrl,opt => opt.Ignore())
                 .ForMember(dest => dest.AreaScopes,otp=>otp.MapFrom(MapAreaScope))
                 .ForMember(dest=> dest.TechType,opt => opt.MapFrom(MapTechType));
+            CreateMap<Technician,TechnicianDto>()
+                // .ForMember(dest => dest.Areas,otp=>otp.MapFrom(MapAreaScope))
+                // .ForMember(dest=> dest.Types,opt => opt.MapFrom(MapTechType));
+                .ForMember(dest => dest.Areas,otp=>otp.MapFrom(src=> src.AreaScopes))
+                .ForMember(dest=> dest.Types,opt => opt.MapFrom(src => src.TechType));
+            CreateMap<TechType,TypeDto>()
+                .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.TypeId))
+                .ForMember(dest => dest.Name,opt => opt.MapFrom(src => src.Type.Name));
+            CreateMap<AreaScope,AreaDto>()
+                .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.AreaId))
+                .ForMember(dest => dest.Name,opt => opt.MapFrom(src => src.Area.Name));
+
             CreateMap<ArticleCreationDto,Article>()
+                .ForMember(dest => dest.AuthorId ,opt => opt.Ignore())
                 .ForMember(dest => dest.PhotoArticles,opt => opt.Ignore())
                 .ForMember(dest => dest.Slug,opt => opt.MapFrom(MapSlug))
                 .ForMember(dest => dest.GenreList,opt => opt.MapFrom(MapArticleGenre))
@@ -92,12 +106,13 @@ namespace API.Helpers
             if(categoryType.TechnicianTypes != null){
                 foreach(var type in categoryType.TechnicianTypes){
                     result.Add(new TypeDto(){
-                        Id=type.Id,Name=type.Name,CategoryId=type.CategoryTypeId
+                        Id=type.Id,Name=type.Name
                     });
                 }
             }
             return result;
         }
+
         private ProfileDto MapAuthorDto(Article article ,ArticleDto articledto)
         {
             // return  new ProfileDto(
@@ -157,6 +172,16 @@ namespace API.Helpers
             }
             return result;
         }
+         private List<AreaDto> MapAreaScope(Technician technician,TechnicianDto technicianDto)
+        {
+            var result = new List<AreaDto>();
+            if(technician.AreaScopes == null){return result;}
+            foreach( var area in technician.AreaScopes)
+            {
+                result.Add(new AreaDto(){ Id = area.AreaId,Name =area.Area.Name });
+            }
+            return result;
+        }
         private List<ArticleGenre> MapArticleGenre(ArticleCreationDto articleCreationDto, Article article)
         {
             var result = new List<ArticleGenre>();
@@ -166,6 +191,19 @@ namespace API.Helpers
             foreach (var id in articleCreationDto.GenresIds)
             {
                 result.Add(new ArticleGenre() { GenreId = id });
+            }
+
+            return result;
+        }
+         private List<TypeDto> MapTechType(Technician technician, TechnicianDto technicianDto)
+        {
+            var result = new List<TypeDto>();
+
+            if (technician.TechType == null) { return result; }
+
+            foreach (var type in technician.TechType)
+            {
+                result.Add(new TypeDto() { Id = type.TypeId,Name = type.Type.Name });
             }
 
             return result;

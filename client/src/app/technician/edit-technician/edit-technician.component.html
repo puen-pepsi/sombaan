@@ -1,1 +1,12 @@
-<p>edit-technician works!</p>
+<div class="container">
+    <h2>Edit Technician Profile</h2>
+    <app-form-technician 
+    [model]="model"
+    *ngIf="model"
+    [selectedTypes]="selectedTypes"
+    [selectedAreas]="selectedAreas"
+    [nonSelectedTypes]="nonSelectedTypes"
+    [nonSelectedAreas]="nonSelectedAreas"
+    [groups]="groups"
+    (onSaveChanges)="saveChanges($event)"></app-form-technician>
+</div>

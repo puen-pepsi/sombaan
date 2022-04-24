@@ -152,7 +152,6 @@ namespace API.Controllers
             }
 
             article = _mapper.Map(articleCreationDto, article);
-            article.AuthorId = 1;
             //remove ole photolist
             if(article.PhotoArticles != null && articleCreationDto.PhotoList == null){
                 foreach(var file in article.PhotoArticles){

@@ -8,13 +8,21 @@ import { EditTechnicianComponent } from './edit-technician/edit-technician.compo
 import { MaterialModule } from '../material.module';
 import { SharedModule } from '../_modules/shared.module';
 import { UtilitiesModule } from '../utilities/utilities.module';
+import { TechnicianCardComponent } from './technician-card/technician-card.component';
+import { TechnicianDetailsComponent } from './technician-details/technician-details.component';
+import { TechnicianListComponent } from './technician-list/technician-list.component';
+import { TechnicianFilterComponent } from './technician-filter/technician-filter.component';
 
 
 @NgModule({
   declarations: [
     FormTechnicianComponent,
     CreateTechnicianComponent,
-    EditTechnicianComponent
+    EditTechnicianComponent,
+    TechnicianCardComponent,
+    TechnicianDetailsComponent,
+    TechnicianListComponent,
+    TechnicianFilterComponent
   ],
   imports: [
     CommonModule,

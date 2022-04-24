@@ -23,7 +23,7 @@ export class ArticleService {
                 this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
                   this.user = user;
                   this.articleParams = new ArticleParams(user);
-              })
+                })
               }
   private apiUrl = environment.apiURL + 'articles';
   
@@ -51,7 +51,6 @@ export class ArticleService {
         params = params.append('search',articleParams.search);
     return getPaginatedResult<article[]>(this.apiUrl,params,this.http)
         .pipe(map(response => {
-          //console.log(response);
           this.articleCache.set(Object.values(articleParams).join('-'),response);
           console.log(this.articleCache)
           return response;

@@ -7,7 +7,6 @@
 .mat-button{
     font-size: 12px;
 }
-
 :host ::ng-deep .mat-form-field-infix {
     height: 34px;
 }

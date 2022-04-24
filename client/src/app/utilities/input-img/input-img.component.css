@@ -10,3 +10,12 @@ button{
     /* border-radius: 0; */
     object-fit: cover;
 }
+.image-panel{
+    display: flex;
+    margin-bottom: 3rem;
+}
+.image-button{
+    width: 100%;
+    align-self:end;
+    padding-left: 2rem;
+}

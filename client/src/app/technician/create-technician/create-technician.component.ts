@@ -11,7 +11,7 @@ import { TechnicianService } from '../technician.service';
   styleUrls: ['./create-technician.component.css']
 })
 export class CreateTechnicianComponent implements OnInit {
-  nonSelectedTypes : multipleSelectorModel[];
+  nonSelectedTypes : any[];
   selectedTypes : multipleSelectorModel[];
   nonSelectedAreas : multipleSelectorModel[];
   selectedAreas : multipleSelectorModel[];
@@ -20,16 +20,14 @@ export class CreateTechnicianComponent implements OnInit {
               private route : Router) { }
 
   ngOnInit(): void {
-    this.technicianService.getGroups().subscribe( res => {
-      this.groups = res;
-    })
+    // this.technicianService.getGroups().subscribe( res => {
+    //   this.groups = res;
+    // })
     this.technicianService.postget().subscribe(res => {
       this.nonSelectedAreas = res.areas.map(area => {
         return <multipleSelectorModel>{key:area.id,value:area.name}
       });
-      this.nonSelectedTypes = res.types.map(type => {
-        return <multipleSelectorModel>{key:type.id,value:type.name};
-      })
+      this.nonSelectedTypes = res.groupTypes;
     });
   }
   saveChanges(technicianCreateDto : TechnicianCreateDto){

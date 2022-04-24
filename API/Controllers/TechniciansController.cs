@@ -24,16 +24,42 @@ namespace API.Controllers
             _unitOfWork = unitOfWork;
 
         }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TechnicianDto>>> GetTechniciansAsync([FromQuery] TechnicianParams technicianParams)
+        {
+            // var gender = await _unitOfWork.UserRepository.GetUserGender(User.GetUsername());
+            technicianParams.CurrentUsername = User.GetUsername();
+
+            var articles = await _unitOfWork.TechnicianRepository.GetTechnicianAsync(technicianParams);
+
+            Response.AddPaginationHeader(articles.CurrentPage, articles.PageSize,
+                articles.TotalCount, articles.TotalPages);
+
+            return Ok(articles);
+        }
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<TechnicianDto>> Get(int id)
+        {   
+            var technician = await  _unitOfWork.TechnicianRepository.GetTechnician(id);
+            if(technician == null){
+                return NotFound();
+            }
+            
+            var dto = _mapper.Map<TechnicianDto>(technician);
+            
+            return dto;
+        }
         [HttpGet("PostGet")]
         public async Task<ActionResult<TechnicianPostGetDto>> PostGet()
         {
-
-            var types = await _unitOfWork.TechnicianTypes.GetAll();
+            var groupTypes = await getCategory();
             var areas = await _unitOfWork.Areas.GetAll();
-            var typesDto = _mapper.Map<List<TypeDto>>(types);
             var areasDto = _mapper.Map<List<AreaDto>>(areas);
 
-            return new TechnicianPostGetDto() { Types = typesDto, Areas = areasDto };
+            return new TechnicianPostGetDto() { 
+                GroupTypes = groupTypes,
+                Areas = areasDto
+            };
         }
         [HttpPost]
         public async Task<ActionResult<int>> Post([FromForm] TechnicianCreateDto technicianCreateDto)
@@ -52,5 +78,50 @@ namespace API.Controllers
             }
             return BadRequest("Can not Create Technician");
         }
+         [HttpGet("putget/{id:int}")]
+        public async Task<ActionResult<TechnicianPutGetDto>> PutGet(int id)
+        {
+            var technicianResult = await Get(id);
+            if (technicianResult.Result is NotFoundResult) { return NotFound(); }
+
+            var techinician = technicianResult.Value;
+
+            var postgetDto = await PostGet();
+
+            var response = new TechnicianPutGetDto();
+            response.Technician = techinician;
+            response.SelectedTypes = techinician.Types;
+            response.GroupTypes = postgetDto.Value.GroupTypes;
+            response.SelectedAreas = techinician.Areas;
+            response.Areas = postgetDto.Value.Areas;
+            return response;
+        }
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(int id, [FromForm] TechnicianCreateDto technicianCreateDto)
+        {
+            var technician = await _unitOfWork.TechnicianRepository.GetTechnician(id);
+
+            if (technician == null)
+            {
+                return NotFound();
+            }
+
+            technician = _mapper.Map(technicianCreateDto, technician);
+             
+            if (technicianCreateDto.PictureUrl != null)
+            {
+                technician.PictureUrl = await _fileStorageService.EditFile(container, technicianCreateDto.PictureUrl,
+                    technician.PictureUrl);
+            }
+
+            await _unitOfWork.Complete();
+            return NoContent();
+        }
+        [HttpGet("Category")]
+        public async Task<List<CategoryTypeAllDto>> getCategory()
+        {
+            var categoryList =  await _unitOfWork.CategoryTypes.GetAll(null,null,new List<string> {"TechnicianTypes"});
+            return _mapper.Map<List<CategoryTypeAllDto>>(categoryList);
+        } 
     }
 }

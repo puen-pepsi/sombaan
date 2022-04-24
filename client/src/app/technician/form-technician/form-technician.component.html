@@ -10,15 +10,30 @@
         <div class="col-md-8 right-side">
             <mat-form-field appearance="fill">
                 <mat-label>Full Name </mat-label>
-                <input formControlName="fullName"  matInput />
-                <mat-error>The title is required</mat-error>
+                <input formControlName="fullName"  matInput required />
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error>The Full Name is required</mat-error>
             </mat-form-field>
             
             <mat-form-field appearance="fill">
                 <mat-label>Choose a Date of Birth</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+                <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" required>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Phone number</mat-label>
+                <input matInput formControlName="phoneNumber" required>
+                <mat-icon matSuffix>phone</mat-icon>
+                <mat-hint>Include area code</mat-hint>
+                <mat-error>try again</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>LineId</mat-label>
+                <input matInput formControlName="lineId" >
+                <mat-icon matSuffix>chat</mat-icon>
+                <mat-hint>Include area code</mat-hint>
+                <mat-error>Invalid LineId</mat-error>
               </mat-form-field>
                 <app-input-markdown 
                     [markdownContent]="model?.bio"
@@ -38,10 +53,10 @@
         [SelectedItems]="selectedAreas"
     ></app-multiple-selector> -->
     <p>{{ selectedTypes | json }}</p>
-    <app-multiple-selector-group
-        
+    <app-multiple-selector-group  
     (onChangeSelectItems)="onChangeMultiple($event)"
-    [groups]="groups">
+    [SelectedItems]="selectedTypes"
+    [groups]="nonSelectedTypes">
     </app-multiple-selector-group>    
     <p>{{ selectedAreas | json }}</p>
     <app-multiple-selector-dropdown

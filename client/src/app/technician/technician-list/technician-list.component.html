@@ -1,0 +1,21 @@
+<div class="container">
+    <app-technician-filter></app-technician-filter>
+    <div class="row">
+        <div class="content col-md-9">
+            <div class="technician-list">
+                   <app-technician-card *ngFor="let technician of technicians"
+                     [technician]="technician">
+                    </app-technician-card> 
+             </div>
+           </div>
+            <div class="aside col-md-3"></div> 
+            <mat-paginator *ngIf="pagination"
+            [length]="pagination?.totalItems"
+            [pageSizeOptions]="[3]"
+            [showFirstLastButtons]="true"
+            [pageIndex]="pagination.currentPage-1"
+            (page)="pageChanged($event)">
+     </mat-paginator>
+    </div>
+</div>
+

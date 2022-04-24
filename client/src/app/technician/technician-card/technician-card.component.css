@@ -1,0 +1,31 @@
+.example-card {
+    min-width: 350px;
+    max-width: 350px;
+    margin-bottom: 8px;
+  }
+  .mat-card-title {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+  .mat-card-subtitle, .mat-card-content {
+    margin-bottom: 2px;
+}
+img{
+    object-fit: cover;
+}
+.card-content{
+  margin-top: 1rem;
+}
+.description{
+  justify-content: end;
+}
+.mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
+  color: var(--txtSubtitle);
+}
+.mat-list-base .mat-list-item, .mat-list-base .mat-list-option {
+  color : var(--txtMeta);
+  height: 34px;
+}
+.mat-expansion-panel-body {
+  padding: 0 24px 0;
+}

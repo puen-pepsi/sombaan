@@ -1,6 +1,5 @@
-<div>
-    
-    <div>
+<div class="image-panel">
+    <div class="image-thumb">
         <div *ngIf="imageBase64"  >
             <img [src]="imageBase64" class="child-image"/>
         </div>
@@ -10,9 +9,13 @@
         <div *ngIf="!urlCurrentImage && !imageBase64">
             <img src = "../../../assets/smiley-cyrus.jpeg" class="child-image" />
         </div>
+        
     </div>
-    <button type="button" mat-raised-button (click)="fileInput.click()">Select Image</button>
+    
+    <div class="image-button">
+           <button type="button" mat-raised-button (click)="fileInput.click()">Select Image</button>
     <input type="file" hidden #fileInput accept="image/png, image/jpeg" 
-        (change)="change($event)" />
-
+        (change)="change($event)" /> <mat-divider></mat-divider>
+    </div>
+    
 </div>

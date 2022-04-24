@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { GroupDto } from 'src/app/utilities/multiple-selector-group/multiple-group.model';
+import { GroupDto, TypeDto } from 'src/app/utilities/multiple-selector-group/multiple-group.model';
 import { multipleSelectorModel } from 'src/app/utilities/multiple-selector/multiple-selector.model';
-import { TechnicianCreateDto } from '../technician.model';
+import { TechnicianCreateDto, TechnicianDto } from '../technician.model';
 
 @Component({
   selector: 'app-form-technician',
@@ -11,13 +11,13 @@ import { TechnicianCreateDto } from '../technician.model';
 })
 export class FormTechnicianComponent implements OnInit {
   @Output()  onSaveChanges = new EventEmitter<TechnicianCreateDto>();
-  @Input() model: TechnicianCreateDto;
-  @Input() selectedTypes: multipleSelectorModel[] = [];
-  @Input() nonSelectedTypes : multipleSelectorModel[] = [];
-  @Input() selectedAreas: multipleSelectorModel[] 
-      = [{ "key": 2, "value": "ลาดพร้าว" }, { "key": 4, "value": "ห้วยขวาง" } ];
+  @Input() model: TechnicianDto;
+  @Input() selectedTypes: TypeDto[] = [];
+  @Input() nonSelectedTypes : GroupDto[] = [];
+  @Input() selectedAreas: multipleSelectorModel[] = [];
+      // = [{ "key": 2, "value": "ลาดพร้าว" }, { "key": 4, "value": "ห้วยขวาง" } ];
   @Input() nonSelectedAreas : multipleSelectorModel[] = [];
-  @Input() groups:GroupDto[]=[];
+  // @Input() groups:GroupDto[]=[];
   // @Input()
   // photoPreview: photoDTO[]=[];
   // nonSelectedGenres: multipleSelectorModel[] = [
@@ -28,7 +28,7 @@ export class FormTechnicianComponent implements OnInit {
   // allTags:string[]=[
   //   'Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'
   // ]
-  date : any;
+  phoneNumberReg = /((\+66|0)(\d{1,2}\-?\d{3}\-?\d{3,4}))/;
   constructor(private formBuilder : FormBuilder) { }
   form : FormGroup;
   ngOnInit(): void {
@@ -37,6 +37,11 @@ export class FormTechnicianComponent implements OnInit {
         validators :[Validators.required]
       }],
       dateOfBirth:'',
+      phoneNumber:['',{
+        validators:[Validators.required,
+          Validators.pattern(this.phoneNumberReg)]
+      }],
+      lineId:'',
       bio:'',
       pictureUrl:'',
       typeIds: '',
@@ -46,17 +51,18 @@ export class FormTechnicianComponent implements OnInit {
       this.form.patchValue(this.model);
     }
   }
-  onChangeMultiple(event){
+  onChangeMultiple(event:TypeDto[]){
     this.selectedTypes = [];
-   
-    for(let item of event){
-        this.selectedTypes.push({key:item.id,value:item.name});
-    }
+    this.selectedTypes = event;
   }
  
-  onChageSelectedMultiDropdown(event){
+  onChageSelectedMultiDropdown(event : multipleSelectorModel[]){
     this.selectedAreas = [];
-    this.selectedAreas = event;
+    
+    for(let item of event)
+    {
+      this.selectedAreas.push({key:item.key,value:item.value})
+    }
   }
   changeMarkdown(bio:string){
     this.form.get('bio').setValue(bio);
@@ -65,7 +71,7 @@ export class FormTechnicianComponent implements OnInit {
     this.form.get('pictureUrl').setValue(images);
   }
   saveChanges(){
-    const typeIds = this.selectedTypes.map(value => value.key);
+    const typeIds = this.selectedTypes.map(value => value.id);
     this.form.get('typeIds').setValue(typeIds);
     const areaIds = this.selectedAreas.map(value => value.key);
     this.form.get('areaIds').setValue(areaIds);
