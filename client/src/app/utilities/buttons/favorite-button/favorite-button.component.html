@@ -1,15 +1,13 @@
 
-<button mat-icon-button (mouseover)="isOver==true" (mouseleave)="isOver==false"
-  class="btn btn-sm action-btn like"
- [ngClass]="{ 'disabled' : isSubmitting,
-              'btn-outline-primary': !article.liked && hasBorder,
-              'btn-primary': article.liked && hasBorder }"
+<button mat-flat-button color="accent" *ngIf="article.liked"
  (click)="toggleFavorite()">
- <span *ngIf="article.liked "><i class="fa-solid fa-heart"></i></span>
- <span *ngIf="!article.liked" >
-    <i class="fa-regular fa-heart"></i></span>
-  <span class="count">
-      <ng-content></ng-content>
-  </span>
+ <span><i class="fa-regular fa-heart"></i></span>
+ {{'Unfavorite'}} Article <span class="counter">({{ article.likesCount }})</span>
 </button>
-
+<button mat-stroked-button *ngIf="!article.liked"
+ (click)="toggleFavorite()">
+  <span>
+    <i class="fa-regular fa-heart"></i>
+  </span>
+  {{'Favorite' }} Article <span class="counter">({{ article.likesCount }})</span>
+</button>

@@ -18,9 +18,7 @@ export class FavoriteButtonComponent {
   ) {}
   @Input() pSize:number;
   @Input() article: articleDTO;
-  @Input() hasBorder:boolean;
   @Output() toggle = new EventEmitter<boolean>();
-  isOver:boolean=false;
   isSubmitting = false;
 
   toggleFavorite() {

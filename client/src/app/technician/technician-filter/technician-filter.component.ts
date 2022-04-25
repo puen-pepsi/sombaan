@@ -1,7 +1,8 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { areaDto } from 'src/app/admin/area/areas.model';
-import { TypeDto } from 'src/app/utilities/multiple-selector-group/multiple-group.model';
+import { GroupDto, TypeDto } from 'src/app/utilities/multiple-selector-group/multiple-group.model';
+import { multipleSelectorModel } from 'src/app/utilities/multiple-selector/multiple-selector.model';
 import { TechnicianService } from '../technician.service';
 
 @Component({
@@ -10,35 +11,54 @@ import { TechnicianService } from '../technician.service';
   styleUrls: ['./technician-filter.component.css']
 })
 export class TechnicianFilterComponent implements OnInit {
-  @Output() type = new EventEmitter<number>();
-  @Output() area = new EventEmitter<number>();
-  @Output() search = new EventEmitter<string>();
+  @Output() submitfilterform = new EventEmitter<any>();
   @Output() reset = new EventEmitter();
   @ViewChild('search',{static:true}) seachTerm:ElementRef;
+  @Input() selectedTypes: TypeDto[] = [];
+  @Input() nonSelectedTypes : GroupDto[] = [];
+  @Input() selectedAreas: number;
+  @Input() nonSelectedAreas: multipleSelectorModel[]=[];
   constructor(private formbuilder : FormBuilder,
               private technicianService:TechnicianService) { }
   form : FormGroup;
-  types : TypeDto[];
-  areas : areaDto[];
   ngOnInit(): void {
     this.form = this.formbuilder.group({
       search:'',
-      type:0,
-      area:0,
+      types:'',
+      areas:''
     })
   }
-  onTypeChange(event){
-    this.type.emit(event.value);
-  }
 
-  onAreaChange(event){
-    this.area.emit(event.value);
+  onTypeChange(event){
+   
   }
+  onChangeMultiple(event){
+    this.selectedTypes = [];
+    this.selectedTypes = event;
+  }
+  // onAreaChange(event){
+  //   this.selectedAreas = [];
+  //   this.selectedAreas = event;
+  // }
   onSearch(event){
-    this.search.emit(event.target.value)
+    // this.search.emit(event.target.value)
   }
   resetFilter(){
+    this.form.reset();
+    this.selectedAreas=0;
+    this.selectedTypes=[];
     this.seachTerm.nativeElement.value='';
     this.reset.emit();
+  }
+  saveChanges(){
+    if(this.selectedTypes.length > 0){
+      const types = this.selectedTypes.map(value => value.id)
+      this.form.get('types').setValue(types);
+    }
+    // if(this.selectedAreas.length > 0){
+    //   const areas = this.selectedAreas.map(value => value.key)
+    //   this.form.get('areas').setValue(areas);
+    // }
+    this.submitfilterform.emit(this.form.value);
   }
 }

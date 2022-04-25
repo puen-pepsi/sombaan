@@ -37,6 +37,7 @@ export class ArticleFilterComponent implements OnInit {
     this.search.emit(event.target.value)
   }
   resetFilter(){
+    this.form.reset();
     this.seachTerm.nativeElement.value='';
     this.reset.emit();
   }

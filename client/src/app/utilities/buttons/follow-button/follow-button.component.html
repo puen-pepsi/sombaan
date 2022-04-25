@@ -16,7 +16,7 @@
 </button>
 <button *ngIf="!profile.following" 
   (click)="toggleFollowing()"
-  mat-stroked-button color="primary" >
+  mat-stroked-button >
   <span><i class="fa-solid fa-plus"></i></span>
    <span class="p-1">Follow</span>  {{profile.username | titlecase}}
 </button>

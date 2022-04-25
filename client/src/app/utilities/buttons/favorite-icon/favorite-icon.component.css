@@ -1,0 +1,7 @@
+.count{
+    color:var(--txtMeta);
+    font-weight: 100;
+}
+.mat-icon-button{
+    color:var(--Primary);
+}

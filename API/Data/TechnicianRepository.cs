@@ -37,13 +37,19 @@ namespace API.Data
             // var query = _context.Technicians.Select( x => x);
             query = query.Include(x => x.TechType);
             query = query.Include(x => x.AreaScopes);
-            if(technicianParams.Type != 0){
-                query = query.Where(a => a.TechType.Select(x => x.TypeId)
-                            .Contains(technicianParams.Type));
+            if(technicianParams.Types != null){
+                // query = query.Where(a => a.TechType.Select(x => x.TypeId)
+                //             .Contains(technicianParams.Types));
+                // query = query.Where( t => t.TechType
+                //         .Any(c => technicianParams.Types.Contains(c.TypeId)));
+                technicianParams.Types.ForEach(ele => {
+                    query = query.Where(a => a.TechType.Select(x => x.TypeId)
+                            .Contains(ele));
+                });     
             }
-              if(technicianParams.Area != 0){
-                query = query.Where(a => a.AreaScopes.Select(x => x.AreaId)
-                            .Contains(technicianParams.Area));
+              if(technicianParams.Areas != 0){
+                query = query.Where( a => a.AreaScopes.Select(x => x.AreaId)
+                     .Contains(technicianParams.Areas));
             }
             if(!string.IsNullOrEmpty(technicianParams.search)){
                 query = query.Where(s => s.FullName.ToLower().Contains(technicianParams.search) 

@@ -54,9 +54,16 @@
     ></app-multiple-selector> -->
     <p>{{ selectedTypes | json }}</p>
     <app-multiple-selector-group  
-    (onChangeSelectItems)="onChangeMultiple($event)"
-    [SelectedItems]="selectedTypes"
-    [groups]="nonSelectedTypes">
+      (onChangeSelectItems)="onChangeMultiple($event)"
+      [SelectedItems]="selectedTypes"
+      [groups]="nonSelectedTypes">
+      <div class="col-md-10">
+            <mat-list *ngIf="selectedTypes">
+              <mat-list-item *ngFor="let list of selectedTypes">
+                <p>{{list.name}}</p>
+              </mat-list-item>
+            </mat-list>
+      </div>
     </app-multiple-selector-group>    
     <p>{{ selectedAreas | json }}</p>
     <app-multiple-selector-dropdown
@@ -65,6 +72,13 @@
         [SelectedItems]="selectedAreas"
         (onChangeSelectItems)="onChageSelectedMultiDropdown($event)"
         >
+        <div class="col-md-10">
+          <mat-list *ngIf="selectedAreas">
+            <mat-list-item *ngFor="let list of selectedAreas">
+              <p>{{list.value}}</p>
+            </mat-list-item>
+          </mat-list>
+        </div>
     </app-multiple-selector-dropdown>
     <div>
         <button mat-flat-button color="primary" 

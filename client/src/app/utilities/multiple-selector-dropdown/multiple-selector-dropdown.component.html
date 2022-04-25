@@ -20,12 +20,15 @@
 			</mat-select>
 		</mat-form-field>
 	</div>
-	<div class="col-md-10">
-        <p>{{SelectedItems | json}}</p>
-		<mat-list *ngIf="SelectedItems">
-			<mat-list-item *ngFor="let list of SelectedItems">
-				<p>{{list.value}}</p>
-			</mat-list-item>
-		</mat-list>
-	</div>
+	<ng-content>
+
+	</ng-content>
+			<!-- <div class="col-md-10">
+			<p>{{SelectedItems | json}}</p>
+			<mat-list *ngIf="SelectedItems">
+				<mat-list-item *ngFor="let list of SelectedItems">
+					<p>{{list.value}}</p>
+				</mat-list-item>
+			</mat-list>
+		</div> -->
 </div>

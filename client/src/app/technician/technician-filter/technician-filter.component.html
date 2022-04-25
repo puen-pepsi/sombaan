@@ -1,30 +1,51 @@
-<div class="filter">
-   <div style="font-size: 12px;font-weight: 400;">Filter by:</div>
-   <form [formGroup]="form" [style.fontSize.px]="12">
-       
+
+    <form (submit)="saveChanges()" 
+        [formGroup]="form" [style.fontSize.px]="12" class="form-filter">
+       <span class="label-filter">Filter by:</span>
        <mat-form-field appearance="legacy">
            <mat-label>Search</mat-label>
            <input formControlName="search" matInput #search
                 (keyup)="onSearch($event)">
            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
        </mat-form-field>
-       <mat-form-field appearance="legacy">
+       <!-- <mat-form-field appearance="legacy">
            <mat-label>Skill</mat-label>
            <mat-select formControlName="genreId" (selectionChange)="onTypeChange($event)">
                <mat-option *ngFor="let type of types" [value]="type.id">
                    {{type.name}}
                </mat-option>
            </mat-select>
-       </mat-form-field>
-       <mat-form-field appearance="legacy">
+       </mat-form-field> -->
+       <app-multiple-selector-group  
+            (onChangeSelectItems)="onChangeMultiple($event)"
+            [SelectedItems]="selectedTypes"
+            [groups]="nonSelectedTypes">
+       </app-multiple-selector-group>   
+       <!-- <mat-form-field appearance="legacy">
         <mat-label>Area</mat-label>
         <mat-select formControlName="area" (selectionChange)="onAreaChange($event)">
             <mat-option *ngFor="let area of areas" [value]="area.id">
                 {{area.name}}
             </mat-option>
         </mat-select>
+        </mat-form-field> -->
+        <mat-form-field appearance="legacy">
+            <mat-label>Areas</mat-label>
+            <mat-select formControlName="areas" >
+                <mat-option *ngFor="let area of nonSelectedAreas" [value]="area.key">
+                    {{area.value}}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
-       <button mat-button (click)="resetFilter()">Show All</button>
-   </form>   
-   </div>
+        <!-- <app-multiple-selector-dropdown
+            (onChangeSelectItems)="onAreaChange($event)"
+            [placeHolder]="'Areas'"
+            [SelectedItems]="selectedAreas"
+            [groups]="nonSelectedAreas">
+        </app-multiple-selector-dropdown> -->
+        <button mat-stroked-button type="submit">Show</button>
+       <button mat-stroked-button (click)="resetFilter()">Reset</button>
+   </form>  
+
+ 
    

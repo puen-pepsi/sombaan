@@ -1,0 +1,17 @@
+
+<button mat-icon-button *ngIf="article.liked"
+
+ (click)="toggleFavorite()">
+     <span><i class="fa-solid fa-heart"></i></span>
+  <span class="count">
+    {{ article.likesCount }}
+  </span>
+</button>
+<button mat-icon-button *ngIf="!article.liked"
+
+ (click)="toggleFavorite()">
+     <span><i class="fa-regular fa-heart"></i></span>
+  <span class="count">
+    {{ article.likesCount }}
+  </span>
+</button>

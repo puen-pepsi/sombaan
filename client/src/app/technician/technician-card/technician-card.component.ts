@@ -14,7 +14,7 @@ export class TechnicianCardComponent implements OnInit {
   from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
   originally bred for hunting.`;
   ngOnInit(): void {
-    console.log(this.technician)
+    // console.log(this.technician)
 
   }
 

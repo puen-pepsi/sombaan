@@ -1,0 +1,13 @@
+.mat-stroked-button{
+    color: #3f51b5;
+}
+.mat-stroked-button:hover {
+    background-color:#3f51b5;
+    color:white;
+}
+.mat-stroked-button:hover .mat-icon{
+    color:white
+}
+.mat-flat-button{
+    opacity: 0.8;
+}

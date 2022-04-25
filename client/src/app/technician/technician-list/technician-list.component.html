@@ -1,5 +1,9 @@
 <div class="container">
-    <app-technician-filter></app-technician-filter>
+  <app-technician-filter
+  (submitfilterform)="submitFilter($event)"
+  [nonSelectedAreas]="nonSelectedAreas"
+  [nonSelectedTypes]="nonSelectedTypes">
+</app-technician-filter>
     <div class="row">
         <div class="content col-md-9">
             <div class="technician-list">
@@ -8,8 +12,10 @@
                     </app-technician-card> 
              </div>
            </div>
-            <div class="aside col-md-3"></div> 
-            <mat-paginator *ngIf="pagination"
+        <div class="aside col-md-3">
+
+        </div> 
+     <mat-paginator *ngIf="pagination"
             [length]="pagination?.totalItems"
             [pageSizeOptions]="[3]"
             [showFirstLastButtons]="true"

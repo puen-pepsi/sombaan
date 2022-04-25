@@ -68,13 +68,11 @@
                     <!-- <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
                         <mat-icon>favorite_border</mat-icon>39
                       </button> -->
-                      <app-favorite-button
-                      [hasBorder]="false"
-                      [pSize]="18"
+                      <app-favorite-icon
                       [article]="article">
                       <!-- (toggle)="onToggleFavorite($event)"> -->
                      <span class="counter"> {{article.likesCount}}</span>
-                    </app-favorite-button>
+                    </app-favorite-icon>
                     <!-- <a href="#" class="mfn-love " data-id="2269"><span class="icons-wrapper"><i class="icon-heart-empty-fa"></i><i class="icon-heart-fa"></i></span><span class="label">38</span></a> -->
                 </div>
                 <div class="post-links">

@@ -22,6 +22,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { BtnexpandComponent } from './buttons/btnexpand/btnexpand.component';
 import { MultipleSelectorGroupComponent } from './multiple-selector-group/multiple-selector-group.component';
 import { MultipleSelectorDropdownComponent } from './multiple-selector-dropdown/multiple-selector-dropdown.component';
+import { FavoriteIconComponent } from './buttons/favorite-icon/favorite-icon.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { MultipleSelectorDropdownComponent } from './multiple-selector-dropdown/
     BtnexpandComponent,
     MultipleSelectorGroupComponent,
     MultipleSelectorDropdownComponent,
+    FavoriteIconComponent,
   ],
   imports: [
     CommonModule,
@@ -73,7 +75,8 @@ import { MultipleSelectorDropdownComponent } from './multiple-selector-dropdown/
     LayoutComponent,
     BtnexpandComponent,
     MultipleSelectorGroupComponent,
-    MultipleSelectorDropdownComponent
+    MultipleSelectorDropdownComponent,
+    FavoriteIconComponent
   ]
 })
 export class UtilitiesModule { }

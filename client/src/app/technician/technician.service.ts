@@ -1,11 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TransitionCheckState } from '@angular/material/checkbox';
 import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { techniciantypeCreationDTO } from '../admin/techniciantype/technician.model';
-import { GroupDto } from '../utilities/multiple-selector-group/multiple-group.model';
 import { formatDateFormData } from '../utilities/utils';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
@@ -26,7 +23,7 @@ export class TechnicianService {
               private accountService:AccountService) { 
                 this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
                     this.user =user;
-                    this.technicianParams = new TechnicianParams(user);
+                    this.technicianParams = new TechnicianParams(user??null);
                 })
               }
   public getTechnicianParams(){
@@ -37,18 +34,25 @@ export class TechnicianService {
     this.technicianParams = params;
   }
   public resetTechnicianParams(){
-    this.technicianParams = new TechnicianParams(this.user);
+    this.technicianParams = new TechnicianParams(this.user??null);
     return this.technicianParams;
   }
   getTechnicianPagination(technicianParams:TechnicianParams){
+    console.log(technicianParams)
     var response = this.technicianCache.get(Object.values(technicianParams).join('-'));
     if(response){
       return of(response);
     }
     let params = getPaginationHeaders(technicianParams.pageNumber,technicianParams.pageSize);
-        params = params.append('type',technicianParams.type);
-        params = params.append('area',technicianParams.area);
-        params = params.append('search',technicianParams.search);
+    if(technicianParams.types){
+      technicianParams.types.forEach(id =>{
+        params = params.append('types',id);
+      })
+    }
+    if(technicianParams.areas)params = params.append('areas', technicianParams.areas);
+    if(technicianParams.search)params = params.append('search',technicianParams.search);
+        console.log(params)
+        
     return getPaginatedResult<TechnicianDto[]>(this.apiUrl,params,this.http)
         .pipe(map(response => {
           this.technicianCache.set(Object.values(technicianParams).join('-'),response);

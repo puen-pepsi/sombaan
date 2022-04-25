@@ -3,10 +3,8 @@
 		<mat-form-field>
 			<mat-select placeholder="Skill" [(ngModel)]="SelectedItems" 
 			(selectionChange)="onChange($event)"
-					
 					[compareWith]="comparer"
 					multiple #itemSelect="ngModel">
-
 				<mat-option class="filter-option" disabled="disabled">
 					<button mat-button (click)="selectAll(itemSelect)">Select All</button>
 					<button mat-button (click)="deselectAll(itemSelect)">DeSelect All</button>
@@ -21,13 +19,16 @@
 			</mat-select>
 		</mat-form-field>
 	</div>
-	<div class="col-md-10">
+	<ng-content>
+
+	</ng-content>
+	<!-- <div class="col-md-10">
 		<p>{{ SelectedItems | json }}</p>
 		<mat-list *ngIf="SelectedItems">
 			<mat-list-item *ngFor="let list of SelectedItems">
 				<p>{{list.name}}</p>
 			</mat-list-item>
 		</mat-list>
-	</div>
+	</div> -->
 </div>
 

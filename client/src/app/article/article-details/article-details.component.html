@@ -31,12 +31,10 @@
                         [profile]="article.author"
                         (toggle)="onToggleFollowing($event)">
                       </app-follow-button>
-            
+
                       <app-favorite-button
-                        [hasBorder]="true"
                         [article]="article"
                         (toggle)="onToggleFavorite($event)">
-                        {{ article.liked ? 'Unfavorite' : 'Favorite' }} Article <span class="counter">({{ article.likesCount }})</span>
                       </app-favorite-button>
                     </span>
                   </app-label-meta>

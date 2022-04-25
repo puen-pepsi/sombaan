@@ -1,0 +1,28 @@
+.example-card {
+    max-width: 720px;
+    margin-bottom: 8px;
+  }
+  img{
+      object-fit: cover;
+  }
+  .mat-card-subtitle{
+    margin-left: 1rem;
+    margin-bottom: 2px;
+}
+  .example-small-box, .example-large-box {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  
+  .example-small-box {
+    height: max-content;
+    width: 100%;
+  }
+  
+  .example-large-box {
+    height: max-content;
+    width: 100%;
+  }

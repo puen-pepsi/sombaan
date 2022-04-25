@@ -18,10 +18,23 @@
     border-color: #5cb85c;
 } */
 
-.mat-icon-button{
-    color:var(--Primary);
+.mat-stroked-button{
+    color:#ff4081;
+}
+.mat-stroked-button:hover {
+    background-color:#ff4081;
+    color:white;
+}
+.mat-stroked-button:hover .mat-icon{
+    color:white
+}
+.mat-flat-button{
+    opacity: 0.8;
 }
 .count{
-    color:var(--txtMeta);
+    color:var(--txtPink);
     font-weight: 100;
+}
+.mat-icon-button:hover .mat-button-focus-overlay {
+    opacity: 1 !important;
 }

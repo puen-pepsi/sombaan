@@ -37,14 +37,15 @@ export interface TechnicianPutGetDTO{
     areas: areaDto[];
 }
 export class TechnicianParams{
-    type :number;
-    area :number;
+    types :number[];
+    areas :number;
     search:string;
     pageNumber = 1;
     pageSize = 3;
     constructor(user?:User){
-        this.type =0;
-        this.area =0;
+        this.types =[];
+        this.areas =0;
         this.search='';
     }
+
 }
