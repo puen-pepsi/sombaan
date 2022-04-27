@@ -8,10 +8,13 @@
           <!-- <app-list-errors [errors]="errors"></app-list-errors> -->
   
           <form [formGroup]="settingsForm" (ngSubmit)="submitForm()">
-                 <app-input-img
+              <div class="thumbnail">
+                  <app-input-img
                   [isImage]="true"
                   [urlCurrentImage]="user?.photoUrl"
-                  (onImageSelected)="onImageSelected($event)"></app-input-img>  
+                  (onImageSelected)="onImageSelected($event)"></app-input-img> 
+              </div>
+ 
               <mat-form-field appearance="fill">
                 <mat-label>User Name</mat-label>
                 <input formControlName="username"  matInput />

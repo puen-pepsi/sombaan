@@ -1,11 +1,12 @@
-<div class="row">
-	<div class="col-md-2">
+<div class="multi-dropdown">
+	<div class="selector">
 		<mat-form-field>
 			<mat-select placeholder="{{placeHolder}}" 
             [(ngModel)]="SelectedItems"
             (selectionChange)="onChange($event)"
             [compareWith]="comparer"
-            multiple #itemSelect="ngModel">
+			multiple
+            #itemSelect="ngModel">
 
 				<mat-option class="filter-option" disabled="disabled">
 					<button mat-button (click)="selectAll(itemSelect)">Select All</button>
@@ -20,9 +21,10 @@
 			</mat-select>
 		</mat-form-field>
 	</div>
-	<ng-content>
+	<div class="list">
+			<ng-content></ng-content>
+	</div>
 
-	</ng-content>
 			<!-- <div class="col-md-10">
 			<p>{{SelectedItems | json}}</p>
 			<mat-list *ngIf="SelectedItems">

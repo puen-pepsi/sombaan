@@ -54,6 +54,7 @@ export class FormTechnicianComponent implements OnInit {
   onChangeMultiple(event:TypeDto[]){
     this.selectedTypes = [];
     this.selectedTypes = event;
+    // console.log(this.selectedTypes)
   }
  
   onChageSelectedMultiDropdown(event : multipleSelectorModel[]){

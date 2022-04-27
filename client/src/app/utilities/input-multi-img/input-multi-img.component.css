@@ -3,29 +3,52 @@
   margin: 20px auto;
   max-width: 821px;
 }
-.preview {
-    max-width: 200px;
-    min-width: 200px;
-  }
+
   .preview-list{
     position: relative;
     display: flex;
     flex-wrap: wrap;
     gap:5px;
   }
-  .preview-item img {
+
+
+  .preview-item{
     position: relative;
+    max-width: 200px;
+    min-width: 200px;
+    width:100%;
+    overflow: hidden;
+  }
+  .preview-item img {
     width: 100%;
     height: auto;
+    object-fit: cover;
+  }
+  .preview-item:hover img{
+    transform:scale(1.2,1.2);
+    transition-duration: 500ms;
+    transition-timing-function: ease-out;
+    opacity: 0.7;
+}
+  .preview-item:hover .mat-mini-fab{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color:#4a4a4a ;
+    opacity: 1;
   }
   .preview-item .mat-mini-fab {
-    color: white;
-    font-size: 16px;
-    padding: 12px 24px;
-    border: none;
+    position:absolute;
+    bottom: 0;
+    opacity: 0;
+    text-align: center;
+    color: rgb(255, 255, 255);
+
     cursor: pointer;
   }
-  .example-button-container {
-    display: flex;
-    justify-content: center;
+  :host ::ng-deep .mat-mini-fab {
+    background-color: #4a4a4a;
   }
+  

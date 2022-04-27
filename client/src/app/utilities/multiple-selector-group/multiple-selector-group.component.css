@@ -12,3 +12,15 @@
   .mat-option{
       padding:0.5rem 2rem;
   }
+
+  .multi-group{
+    display: flex;
+    flex-wrap: wrap;
+    width:100%;
+  }
+  .selector{
+    min-width:40%;
+  }
+  .list{
+    min-width:60%;
+  }

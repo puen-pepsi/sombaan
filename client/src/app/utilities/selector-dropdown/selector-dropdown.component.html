@@ -1,0 +1,36 @@
+<div class="multi-dropdown">
+	<div class="selector">
+		<mat-form-field>
+			<mat-select placeholder="{{placeHolder}}" 
+            [(ngModel)]="SelectedItems"
+			#itemSelect="ngModel"
+			[compareWith]="comparer"
+            (selectionChange)="onChange()">
+
+				<!-- <mat-option class="filter-option" disabled="disabled">
+					<button mat-button (click)="selectAll(itemSelect)">Select All</button>
+					<button mat-button (click)="deselectAll(itemSelect)">DeSelect All</button>
+					
+				</mat-option> -->
+				<mat-divider></mat-divider>
+				<!-- Loop through each group via the groups array -->
+					<mat-option *ngFor="let item of groups" [value]="item">
+						{{item.value}}
+					</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+	<div class="list">
+			<ng-content></ng-content>
+	</div>
+
+			<!-- <div class="col-md-10">
+			<p>{{SelectedItems | json}}</p>
+			<mat-list *ngIf="SelectedItems">
+				<mat-list-item *ngFor="let list of SelectedItems">
+					<p>{{list.value}}</p>
+				</mat-list-item>
+			</mat-list>
+		</div> -->
+</div>
+

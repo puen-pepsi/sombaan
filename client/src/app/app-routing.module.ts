@@ -27,6 +27,9 @@ const routes: Routes = [
          {path:'technician',
             loadChildren: () => import('./technician/technician.module')
             .then(m => m.TechnicianModule) },
+         {path:'maintenance',
+            loadChildren: () => import('./maintenance/maintenance.module')
+            .then(m => m.MaintenanceModule) },
          {path:'settings',
          loadChildren: () => import('./settings/settings.module')
          .then(m => m.SettingsModule) },

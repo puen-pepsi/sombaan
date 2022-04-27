@@ -15,6 +15,7 @@ namespace API.Entities
         //technician
         public virtual Technician Technician { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Maintenance> Maintenances { get; set; }
         public virtual ICollection<Photo> Photos { get; set; }
         public virtual ICollection<AppUserRole> UserRoles { get; set; }
         public virtual ICollection<LikedArticle> LikedArticles { get; set; }

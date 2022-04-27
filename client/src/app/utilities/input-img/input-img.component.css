@@ -1,7 +1,3 @@
-button{
-    margin-top:0.5rem;
-    margin-bottom: 1rem;
-}
 
 
 .child-image{
@@ -11,11 +7,18 @@ button{
     object-fit: cover;
 }
 .image-panel{
-    display: flex;
+    position: relative;
     margin-bottom: 3rem;
+    width:200px;
+    height: 200px;
 }
-.image-button{
+.image-thumb{
+    position:relative;
     width: 100%;
-    align-self:end;
-    padding-left: 2rem;
+    height: 100%;
+}
+.mat-icon-button{
+    position:absolute;
+    bottom: 0;
+    right: 0;
 }

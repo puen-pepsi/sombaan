@@ -18,7 +18,6 @@ export class FavoriteButtonComponent {
   ) {}
   @Input() pSize:number;
   @Input() article: articleDTO;
-  @Output() toggle = new EventEmitter<boolean>();
   isSubmitting = false;
 
   toggleFavorite() {
@@ -31,16 +30,18 @@ export class FavoriteButtonComponent {
 
         // Favorite the article if it isn't favorited yet
         if (!this.article.liked) {
-          return this.articleService.favorite(this.article.slug).subscribe( () => {
-            this.isSubmitting = false;
-              this.toggle.emit(true);
+          this.isSubmitting = false;
+          this.article.liked = true;
+          this.article.likesCount++;  
+          return this.articleService.favorite(this.article).subscribe( () => {
+            
           })
-
-              
         }else{
-          return this.articleService.unfavorite(this.article.slug).subscribe(()=>{
-            this.isSubmitting = false;
-            this.toggle.emit(false);
+          this.isSubmitting = false;
+          this.article.liked = false;
+          this.article.likesCount == 0 ? 0: this.article.likesCount--;
+          return this.articleService.unfavorite(this.article).subscribe(()=>{
+            
           })
         }
   }

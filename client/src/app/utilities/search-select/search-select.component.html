@@ -1,0 +1,24 @@
+<form [formGroup]="stateForm">
+    <mat-form-field appearance="fill">
+        <!-- <mat-select placeholder="Skill" 
+                [(ngModel)]="SelectedItems" 
+                (ngModelChange)="ngModelChange($event)"
+                [compareWith]="comparer"
+                multiple #itemSelect="ngModel">
+
+       </mat-select> -->
+      <mat-label>States Group</mat-label>
+      <input type="text"
+             matInput
+             formControlName="stateGroup"
+             required
+             [matAutocomplete]="autoGroup">
+        <mat-autocomplete #autoGroup="matAutocomplete">
+            <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.name">
+                <mat-option *ngFor="let item of group.types" [value]="item">
+                    {{item.name}}
+                </mat-option>
+            </mat-optgroup>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>

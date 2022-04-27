@@ -10,7 +10,7 @@ import { article } from '../articles.model';
 export class ArticleCardComponent implements OnInit {
   @Input() article:article;
   @ViewChild('nav') slider: NgImageSliderComponent;
-  genre = [{ "id": 2, "name": "electric" }, { "id": 3, "name": "floor" }];
+  // genre = [{ "id": 2, "name": "electric" }, { "id": 3, "name": "floor" }];
   imageObject:Array<Object>=[];
   constructor() { }
 
@@ -28,5 +28,15 @@ export class ArticleCardComponent implements OnInit {
       var temp = {image:item.url,thumbImage:item.url}
        this.imageObject.push(temp)
     });
+  }
+  onToggleFavorite(favorited: boolean) {
+    console.log(favorited)
+    // this.article.liked = favorited;
+
+    // if (favorited) {
+    //   this.article.likesCount++;
+    // } else {
+    //   this.article.likesCount--;
+    // }
   }
 }

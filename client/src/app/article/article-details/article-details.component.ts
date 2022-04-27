@@ -59,13 +59,13 @@ export class ArticleDetailsComponent implements OnInit {
   onToggleFollowing(following: boolean) {
     this.article.author.following = following;
   }
-  onToggleFavorite(favorited: boolean) {
-    this.article.liked = favorited;
+  // onToggleFavorite(favorited: boolean) {
+  //   this.article.liked = favorited;
 
-    if (favorited) {
-      this.article.likesCount++;
-    } else {
-      this.article.likesCount--;
-    }
-  }
+  //   if (favorited) {
+  //     this.article.likesCount++;
+  //   } else {
+  //     this.article.likesCount--;
+  //   }
+  // }
 }

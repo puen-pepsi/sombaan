@@ -87,7 +87,6 @@ export class TechnicianService {
 
   private BuildFormData(technicianCreateDto: TechnicianCreateDto): FormData {
     const formData = new FormData();
-    console.log(technicianCreateDto)
     formData.append('fullName', technicianCreateDto.fullName);
     formData.append('bio', technicianCreateDto.bio);
     if(technicianCreateDto.dateOfBirth)

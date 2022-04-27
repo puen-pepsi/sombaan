@@ -61,14 +61,14 @@ namespace API.Controllers
                 Areas = areasDto
             };
         }
-        [HttpPost]
+       [HttpPost]
         public async Task<ActionResult<int>> Post([FromForm] TechnicianCreateDto technicianCreateDto)
         {
             var technician = _mapper.Map<Technician>(technicianCreateDto);
             technician.CreateAt = DateTime.Now;
             technician.UserId = User.GetUserId()??default(int);
             if (technicianCreateDto.PictureUrl != null)
-            {
+            { 
                 technician.PictureUrl = await _fileStorageService.SaveFile(container,technicianCreateDto.PictureUrl);
             }
             _unitOfWork.TechnicianRepository.addTechnician(technician);

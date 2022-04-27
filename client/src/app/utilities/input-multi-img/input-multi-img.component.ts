@@ -18,7 +18,7 @@ export class InputMultiImgComponent implements OnInit {
   selectedFiles:any[]=[];
   // progressInfos: any[] = [];
   // message: string[] = [];
-
+  
   constructor() { }
 
   ngOnInit(): void {

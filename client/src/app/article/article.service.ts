@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Profile } from '../profile/profile.model';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
 import { getPaginatedResult, getPaginationHeaders } from '../_services/paginationHelper';
@@ -91,12 +92,17 @@ export class ArticleService {
   }
   
 
-  favorite(slug): Observable<article> {
-    return this.http.post<article>(`${this.apiUrl}/${slug}/favorite`,null);
+  favorite(article) {
+    return this.http.post(`${this.apiUrl}/${article.slug}/favorite`,null).pipe(
+      map(()=> {
+        const index = this.articles.indexOf(article);
+        this.articles[index] = article;
+      })
+    );
   }
 
-  unfavorite(slug){
-    return this.http.delete(`${this.apiUrl}/${slug}/favorite`);
+  unfavorite(article){
+    return this.http.delete(`${this.apiUrl}/${article.slug}/favorite`);
   }
 
   private BuildFormData(article: articleCreationDTO): FormData {

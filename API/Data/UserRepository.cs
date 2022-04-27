@@ -103,7 +103,7 @@ namespace API.Data
             _context.FollowedUser.Add(userlink);
         
             await _context.SaveChangesAsync();
-
+      
             // return new ProfileDto(profileUser.UserName, profileUser.Bio, profileUser.Email, true);
             return new ProfileDto{
                 Username= profileUser.UserName,

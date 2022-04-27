@@ -18,6 +18,7 @@ export class MultipleSelectorGroupComponent {
   constructor() { }
 
   selectAll(select: NgModel) {
+    
     let values: any[] = []; // array which will contain all values
     // this.SelectedItems = [];
     // loop through all groups and add their items' values to the array
@@ -34,11 +35,13 @@ export class MultipleSelectorGroupComponent {
 
   deselectAll(select: NgModel) {
     select.update.emit([]);
+    // this.onChangeSelectItems.emit(null);
   }
-  onChange(event: MatSelectChange) {
-
-     this.onChangeSelectItems.emit(event.value);
-
+  // onChange(event: MatSelectChange) {
+  //    this.onChangeSelectItems.emit(event.value);
+  // }
+  ngModelChange(event){
+    this.onChangeSelectItems.emit(event);
   }
   // getAllTypes(){
   //   this.allTypes = [];

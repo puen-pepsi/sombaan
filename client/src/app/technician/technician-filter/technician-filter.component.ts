@@ -35,6 +35,7 @@ export class TechnicianFilterComponent implements OnInit {
   onChangeMultiple(event){
     this.selectedTypes = [];
     this.selectedTypes = event;
+    console.log(this.selectedTypes)
   }
   // onAreaChange(event){
   //   this.selectedAreas = [];

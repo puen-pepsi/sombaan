@@ -1,0 +1,3 @@
+:host ::ng-deep app-input-markdown textarea{
+    height: 4rem;
+}

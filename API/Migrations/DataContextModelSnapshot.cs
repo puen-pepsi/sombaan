@@ -421,6 +421,48 @@ namespace API.Migrations
                     b.ToTable("LikedArticles");
                 });
 
+            modelBuilder.Entity("API.Entities.Maintenance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AreaId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Maintenances");
+                });
+
+            modelBuilder.Entity("API.Entities.MaintenanceTypes", b =>
+                {
+                    b.Property<int>("MaintenanceId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("MaintenanceId", "TypeId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("MaintenanceTypes");
+                });
+
             modelBuilder.Entity("API.Entities.Photo", b =>
                 {
                     b.Property<int>("Id")
@@ -469,6 +511,28 @@ namespace API.Migrations
                     b.HasIndex("ArticleId");
 
                     b.ToTable("ProtoArticles");
+                });
+
+            modelBuilder.Entity("API.Entities.PictureWithDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("MaintenanceId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PictureUrl")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaintenanceId");
+
+                    b.ToTable("pictureWithDetails");
                 });
 
             modelBuilder.Entity("API.Entities.Tag", b =>
@@ -816,6 +880,44 @@ namespace API.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("API.Entities.Maintenance", b =>
+                {
+                    b.HasOne("API.Entities.Area", "Area")
+                        .WithMany("Maintenances")
+                        .HasForeignKey("AreaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.AppUser", "User")
+                        .WithMany("Maintenances")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Area");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("API.Entities.MaintenanceTypes", b =>
+                {
+                    b.HasOne("API.Entities.Maintenance", "Maintenance")
+                        .WithMany("Types")
+                        .HasForeignKey("MaintenanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.TechnicianType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Maintenance");
+
+                    b.Navigation("Type");
+                });
+
             modelBuilder.Entity("API.Entities.Photo", b =>
                 {
                     b.HasOne("API.Entities.AppUser", "AppUser")
@@ -836,6 +938,17 @@ namespace API.Migrations
                         .IsRequired();
 
                     b.Navigation("Article");
+                });
+
+            modelBuilder.Entity("API.Entities.PictureWithDetails", b =>
+                {
+                    b.HasOne("API.Entities.Maintenance", "Maintenance")
+                        .WithMany("Pictures")
+                        .HasForeignKey("MaintenanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Maintenance");
                 });
 
             modelBuilder.Entity("API.Entities.TechType", b =>
@@ -949,11 +1062,18 @@ namespace API.Migrations
 
                     b.Navigation("LikedArticles");
 
+                    b.Navigation("Maintenances");
+
                     b.Navigation("Photos");
 
                     b.Navigation("Technician");
 
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("API.Entities.Area", b =>
+                {
+                    b.Navigation("Maintenances");
                 });
 
             modelBuilder.Entity("API.Entities.Article", b =>
@@ -982,6 +1102,13 @@ namespace API.Migrations
             modelBuilder.Entity("API.Entities.Group", b =>
                 {
                     b.Navigation("Connections");
+                });
+
+            modelBuilder.Entity("API.Entities.Maintenance", b =>
+                {
+                    b.Navigation("Pictures");
+
+                    b.Navigation("Types");
                 });
 
             modelBuilder.Entity("API.Entities.Tag", b =>

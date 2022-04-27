@@ -1,10 +1,10 @@
 
-<button mat-flat-button color="accent" *ngIf="article.liked"
+<button mat-flat-button color="accent" *ngIf="article.liked" [disabled]="isSubmitting"
  (click)="toggleFavorite()">
  <span><i class="fa-regular fa-heart"></i></span>
  {{'Unfavorite'}} Article <span class="counter">({{ article.likesCount }})</span>
 </button>
-<button mat-stroked-button *ngIf="!article.liked"
+<button mat-stroked-button *ngIf="!article.liked"  [disabled]="isSubmitting"
  (click)="toggleFavorite()">
   <span>
     <i class="fa-regular fa-heart"></i>

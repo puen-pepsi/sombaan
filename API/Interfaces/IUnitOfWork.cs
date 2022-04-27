@@ -17,6 +17,7 @@ namespace API.Interfaces
         IGenericRepository<CategoryType> CategoryTypes{get;}
         IGenericRepository<TechnicianType> TechnicianTypes{get;}
         ITechnicianRepository TechnicianRepository{get;}
+        IMaintenanceRepository MaintenanceRepository{get;}
         IUserRepository UserRepository {get; }
          IRepository Repository {get;}
         Task<bool> Complete();

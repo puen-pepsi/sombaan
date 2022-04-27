@@ -48,6 +48,8 @@ namespace API.Data
 
         public ITechnicianRepository TechnicianRepository =>  new TechnicianRepository(_context,_mapper);
 
+        public IMaintenanceRepository MaintenanceRepository => new MaintenanceRepository(_context,_mapper);
+
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;

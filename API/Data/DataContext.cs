@@ -32,7 +32,9 @@ namespace API.Data
         public DbSet<TechnicianType> TechnicianTypes { get; set; }
         public DbSet<TechType> TechTypes { get; set; }
         public DbSet<AreaScope> AreaScopes { get; set; }
-        
+        public DbSet<Maintenance> Maintenances {get;set;}
+        public DbSet<MaintenanceTypes> MaintenanceTypes {get;set;}
+        public DbSet<PictureWithDetails> pictureWithDetails{get;set;}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -88,7 +90,8 @@ namespace API.Data
                 .HasKey( x => new {x.TechnicianId,x.TypeId});
             builder.Entity<AreaScope>()
                 .HasKey( x=> new {x.AreaId,x.TechnicianId});
-
+            builder.Entity<MaintenanceTypes>()
+                .HasKey( x=> new {x.MaintenanceId,x.TypeId});
         }
     }
 }

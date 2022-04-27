@@ -1,0 +1,57 @@
+<form 
+    (submit)="saveChanges()" 
+    [formGroup]="form" [style.fontSize.px]="14">
+    <div class="row">
+        <!-- <div class="col-md-4">
+            <app-input-img
+            [urlCurrentImage]="model?.pictureUrl"
+            (onImageSelected)="onUploadImage($event)"></app-input-img>
+        </div> -->
+        <div class="col-md-8 right-side">
+            <app-input-markdown 
+                [markdownContent]="model?.description"
+                [label]="'Description'"
+                (changeMarkdown)="changeMarkdown($event)">
+            </app-input-markdown>
+                <!-- <p>{{ selectedTypes | json }}</p> -->
+                <app-multiple-selector-group  
+                  (onChangeSelectItems)="onChangeMultiple($event)"
+                  [SelectedItems]="selectedTypes"
+                  [groups]="nonSelectedTypes">
+                  <div class="col-md-10">
+                        <mat-list *ngIf="selectedTypes">
+                          <mat-list-item *ngFor="let list of selectedTypes">
+                            <p>{{list.name}}</p>
+                          </mat-list-item>
+                        </mat-list>
+                  </div>
+                </app-multiple-selector-group>    
+                <!-- <p>{{ selectedAreas | json }}</p> -->
+                <app-selector-dropdown
+                    [placeHolder]="'Area'"
+                    [groups]="nonSelectedAreas"
+                    [SelectedItems]="selectedAreas"
+                    (onChangeSelectItems)="onChageSelectedDropdown($event)"
+                    >
+                      <!-- <mat-list *ngIf="selectedAreas">
+                        <mat-list-item *ngFor="let list of selectedAreas">
+                          <p>{{list.value}}</p>
+                        </mat-list-item>
+                      </mat-list> -->
+                </app-selector-dropdown>
+                <app-input-multi-img
+                    [imageInfos]="model?.pictureUrl"
+                (onUploadImage)="onUploadImage($event)"></app-input-multi-img>
+                <div>
+                    <button mat-flat-button color="primary" 
+                    type="submit"
+                    [disabled]="form.invalid">
+                      Save Changes
+                    </button>
+                    <a mat-stroked-button routerLink="/">Cancel</a>
+                  </div>
+        </div>
+    </div>
+
+   
+</form>

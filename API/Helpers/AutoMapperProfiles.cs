@@ -35,7 +35,11 @@ namespace API.Helpers
             CreateMap<TagCreateDto, Tag>();
             CreateMap<TypeDto,TechnicianType>().ReverseMap();
             CreateMap<AreaDto,Area>().ReverseMap();
-
+            CreateMap<MaintenanceCreateDto,Maintenance>()
+                .ForMember(dest=>dest.Pictures,opt=>opt.Ignore())
+                .ForMember(dest=>dest.CreateAt,opt=>opt.Ignore())
+                .ForMember(dest=>dest.AreaId ,opt=>opt.MapFrom(src => src.AreaIds[0]))
+                .ForMember(dest=>dest.Types ,opt=>opt.MapFrom(MapMainTypes));
             CreateMap<TechnicianCreateDto,Technician>()
                 .ForMember(dest => dest.UserId,opt=>opt.Ignore())
                 .ForMember(dest => dest.CreateAt,opt => opt.Ignore())
@@ -88,6 +92,16 @@ namespace API.Helpers
                 .ForMember(dest => dest.Image,opt=>opt.MapFrom(y=> y.Photos.FirstOrDefault(p => p.IsMain).Url))
                 .ForMember(dest => dest.Following,opt => opt.MapFrom(y=>y.FollowedUser.Any()));
         }   
+        private List<MaintenanceTypes> MapMainTypes(MaintenanceCreateDto maintenanceCreateDto,Maintenance maintenance)
+        {
+            var result = new List<MaintenanceTypes>();
+              if(maintenanceCreateDto.TypeIds == null){return result;}
+                foreach( var id in maintenanceCreateDto.TypeIds)
+                {
+                    result.Add(new MaintenanceTypes(){ TypeId = id});
+                }
+                return result;
+        }
         private List<TagDto> MapTagDto(Article article,ArticleDto articledto)
         {
             var result = new List<TagDto>();

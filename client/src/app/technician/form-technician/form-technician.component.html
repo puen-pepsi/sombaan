@@ -40,6 +40,40 @@
                     [label]="'bio'"
                     (changeMarkdown)="changeMarkdown($event)">
                 </app-input-markdown>
+                <!-- <p>{{ selectedTypes | json }}</p> -->
+                <app-multiple-selector-group  
+                  (onChangeSelectItems)="onChangeMultiple($event)"
+                  [SelectedItems]="selectedTypes"
+                  [groups]="nonSelectedTypes">
+                  <div class="col-md-10">
+                        <mat-list *ngIf="selectedTypes">
+                          <mat-list-item *ngFor="let list of selectedTypes">
+                            <p>{{list.name}}</p>
+                          </mat-list-item>
+                        </mat-list>
+                  </div>
+                </app-multiple-selector-group>    
+                <!-- <p>{{ selectedAreas | json }}</p> -->
+                <app-multiple-selector-dropdown
+                    [placeHolder]="'Area'"
+                    [groups]="nonSelectedAreas"
+                    [SelectedItems]="selectedAreas"
+                    (onChangeSelectItems)="onChageSelectedMultiDropdown($event)"
+                    >
+                      <mat-list *ngIf="selectedAreas">
+                        <mat-list-item *ngFor="let list of selectedAreas">
+                          <p>{{list.value}}</p>
+                        </mat-list-item>
+                      </mat-list>
+                </app-multiple-selector-dropdown>
+                <div>
+                    <button mat-flat-button color="primary" 
+                    type="submit"
+                    [disabled]="form.invalid">
+                      Save Changes
+                    </button>
+                    <a mat-stroked-button routerLink="/">Cancel</a>
+                  </div>
         </div>
     </div>
     <!-- <h4>Skill</h4>
@@ -52,40 +86,5 @@
         [NonSelectedItems]="nonSelectedAreas"
         [SelectedItems]="selectedAreas"
     ></app-multiple-selector> -->
-    <p>{{ selectedTypes | json }}</p>
-    <app-multiple-selector-group  
-      (onChangeSelectItems)="onChangeMultiple($event)"
-      [SelectedItems]="selectedTypes"
-      [groups]="nonSelectedTypes">
-      <div class="col-md-10">
-            <mat-list *ngIf="selectedTypes">
-              <mat-list-item *ngFor="let list of selectedTypes">
-                <p>{{list.name}}</p>
-              </mat-list-item>
-            </mat-list>
-      </div>
-    </app-multiple-selector-group>    
-    <p>{{ selectedAreas | json }}</p>
-    <app-multiple-selector-dropdown
-        [placeHolder]="'Area'"
-        [groups]="nonSelectedAreas"
-        [SelectedItems]="selectedAreas"
-        (onChangeSelectItems)="onChageSelectedMultiDropdown($event)"
-        >
-        <div class="col-md-10">
-          <mat-list *ngIf="selectedAreas">
-            <mat-list-item *ngFor="let list of selectedAreas">
-              <p>{{list.value}}</p>
-            </mat-list-item>
-          </mat-list>
-        </div>
-    </app-multiple-selector-dropdown>
-    <div>
-        <button mat-flat-button color="primary" 
-        type="submit"
-        [disabled]="form.invalid">
-          Save Changes
-        </button>
-        <a mat-stroked-button routerLink="/">Cancel</a>
-      </div>
+   
 </form>

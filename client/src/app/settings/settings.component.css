@@ -4,6 +4,11 @@
 .text-xs-center {
     text-align: center!important;
 }
+.thumbnail{
+    width: 100%;
+    display:flex;
+    justify-content: center;
+}
 fieldset {
     min-width: 0;
     padding: 0;

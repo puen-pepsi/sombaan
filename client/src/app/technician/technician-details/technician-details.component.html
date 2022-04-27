@@ -7,29 +7,10 @@
           <img mat-card-lg-image src="{{technician.pictureUrl}}" >
         </mat-card-title-group>
         <mat-card-content class="card-content">
-            <!-- <mat-tab-group>
-                <mat-tab label="Skill | Experience">
-                    <mat-list>
-                        <mat-list-item *ngFor="let list of technician.types">
-                            <p>{{list.name}}</p>
-                        </mat-list-item>
-                        <mat-divider></mat-divider>
-                    </mat-list>
-                </mat-tab>
-                <mat-tab label="Areas">
-                    <mat-list>
-                        <mat-list-item *ngFor="let list of technician.areas">
-                            <p>{{list.name}}</p>
-                        </mat-list-item>
-                        <mat-divider></mat-divider>
-                    </mat-list>
-                 </mat-tab>
-                <mat-tab label="Third"> Content 3 </mat-tab>
-              </mat-tab-group>-->
         
         <mat-tab-group dynamicHeight>
             <mat-tab label="Skill | Experience">
-              <div class="example-small-box mat-elevation-z4">
+              <div class="example-small-box mat-elevation-z0">
                 <mat-list>
                     <mat-list-item *ngFor="let list of technician.types">
                         <p>{{list.name}}</p>
@@ -39,7 +20,7 @@
               </div>
             </mat-tab>
             <mat-tab label="Areas">
-              <div class="example-large-box mat-elevation-z4">
+              <div class="example-large-box mat-elevation-z0">
                 <mat-list>
                     <mat-list-item *ngFor="let list of technician.areas">
                         <p>{{list.name}}</p>
