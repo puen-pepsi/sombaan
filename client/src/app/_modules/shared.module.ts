@@ -20,6 +20,7 @@ import { TruncatePipe } from '../Pipe/truncate.pipe';
 // import { InfiniteScrollModule} from 'ngx-infinite-scroll';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
+import { MatTextComponent } from '../_forms/mat-text/mat-text.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MaterialModule } from '../material.module';
     // GetRoleDirective,
     SanitizeHtmlPipe,
     TruncatePipe,
-    TextInputComponent
+    TextInputComponent,
+    MatTextComponent
   ],
   imports: [
     CommonModule,

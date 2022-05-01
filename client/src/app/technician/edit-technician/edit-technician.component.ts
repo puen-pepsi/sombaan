@@ -31,7 +31,7 @@ export class EditTechnicianComponent implements OnInit {
         });
 
         this.nonSelectedTypes = putGetDTO.groupTypes;
-  
+
         this.selectedAreas = putGetDTO.selectedAreas.map(area => {
           return <multipleSelectorModel>{key: area.id, value: area.name}
         });

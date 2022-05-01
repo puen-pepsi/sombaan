@@ -35,6 +35,10 @@ namespace API.Data
         public DbSet<Maintenance> Maintenances {get;set;}
         public DbSet<MaintenanceTypes> MaintenanceTypes {get;set;}
         public DbSet<PictureWithDetails> pictureWithDetails{get;set;}
+        public DbSet<Province> Provinces { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<Amphure> Amphures { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

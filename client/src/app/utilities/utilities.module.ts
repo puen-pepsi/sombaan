@@ -25,6 +25,7 @@ import { MultipleSelectorDropdownComponent } from './multiple-selector-dropdown/
 import { FavoriteIconComponent } from './buttons/favorite-icon/favorite-icon.component';
 import { SearchSelectComponent } from './search-select/search-select.component';
 import { SelectorDropdownComponent } from './selector-dropdown/selector-dropdown.component';
+import { SingleSelectorComponent } from './single-selector/single-selector.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { SelectorDropdownComponent } from './selector-dropdown/selector-dropdown
     FavoriteIconComponent,
     SearchSelectComponent,
     SelectorDropdownComponent,
+    SingleSelectorComponent,
   ],
   imports: [
     CommonModule,
@@ -82,7 +84,8 @@ import { SelectorDropdownComponent } from './selector-dropdown/selector-dropdown
     MultipleSelectorDropdownComponent,
     FavoriteIconComponent,
     SearchSelectComponent,
-    SelectorDropdownComponent
+    SelectorDropdownComponent,
+    SingleSelectorComponent
   ]
 })
 export class UtilitiesModule { }

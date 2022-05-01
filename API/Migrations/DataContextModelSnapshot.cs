@@ -47,6 +47,33 @@ namespace API.Migrations
                     b.ToTable("Addresses");
                 });
 
+            modelBuilder.Entity("API.Entities.Amphure", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name_en")
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name_th")
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProvinceId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProvinceId");
+
+                    b.ToTable("Amphures");
+                });
+
             modelBuilder.Entity("API.Entities.AppRole", b =>
                 {
                     b.Property<int>("Id")
@@ -333,6 +360,33 @@ namespace API.Migrations
                     b.ToTable("Connections");
                 });
 
+            modelBuilder.Entity("API.Entities.District", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AmphureId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name_en")
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name_th")
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ZipCode")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AmphureId");
+
+                    b.ToTable("Districts");
+                });
+
             modelBuilder.Entity("API.Entities.Genre", b =>
                 {
                     b.Property<int>("Id")
@@ -535,6 +589,31 @@ namespace API.Migrations
                     b.ToTable("pictureWithDetails");
                 });
 
+            modelBuilder.Entity("API.Entities.Province", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Code")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("GeographyId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name_en")
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name_th")
+                        .HasMaxLength(150)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Provinces");
+                });
+
             modelBuilder.Entity("API.Entities.Tag", b =>
                 {
                     b.Property<int>("Id")
@@ -733,6 +812,17 @@ namespace API.Migrations
                     b.Navigation("UserAddress");
                 });
 
+            modelBuilder.Entity("API.Entities.Amphure", b =>
+                {
+                    b.HasOne("API.Entities.Province", "Province")
+                        .WithMany()
+                        .HasForeignKey("ProvinceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Province");
+                });
+
             modelBuilder.Entity("API.Entities.AppUserRole", b =>
                 {
                     b.HasOne("API.Entities.AppRole", "Role")
@@ -844,6 +934,17 @@ namespace API.Migrations
                     b.HasOne("API.Entities.Group", null)
                         .WithMany("Connections")
                         .HasForeignKey("GroupName");
+                });
+
+            modelBuilder.Entity("API.Entities.District", b =>
+                {
+                    b.HasOne("API.Entities.Amphure", "Amphure")
+                        .WithMany()
+                        .HasForeignKey("AmphureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Amphure");
                 });
 
             modelBuilder.Entity("API.Entities.LikeCommentArticle", b =>

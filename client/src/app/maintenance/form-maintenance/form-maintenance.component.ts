@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GroupDto, TypeDto } from 'src/app/utilities/multiple-selector-group/multiple-group.model';
 import { MultipleSelectorComponent } from 'src/app/utilities/multiple-selector/multiple-selector.component';
 import { multipleSelectorModel } from 'src/app/utilities/multiple-selector/multiple-selector.model';
-import { MaintenanceCreateDto } from '../maintenance.model';
+import { MaintenanceCreateDto, MaintenanceDto, PictureWithDesDto } from '../maintenance.model';
 
 @Component({
   selector: 'app-form-maintenance',
@@ -14,11 +14,11 @@ export class FormMaintenanceComponent implements OnInit {
   @Output() onSaveChanges = new EventEmitter<MaintenanceCreateDto>();
   @Input() selectedTypes: TypeDto[] = [];
   @Input() nonSelectedTypes : GroupDto[] = [];
-  @Input() selectedAreas: multipleSelectorModel[] = [];
+  @Input() selectedAreas: multipleSelectorModel;
       // = [{ "key": 2, "value": "ลาดพร้าว" }, { "key": 4, "value": "ห้วยขวาง" } ];
   @Input() nonSelectedAreas : multipleSelectorModel[] = [];
-  // @Input() 
-  model: MaintenanceCreateDto;
+  @Input() photoPreview:string[]=[];
+  @Input()  model: MaintenanceCreateDto;
   constructor(private formBuilder : FormBuilder) { }
   form : FormGroup;
   ngOnInit(): void {
@@ -50,10 +50,13 @@ export class FormMaintenanceComponent implements OnInit {
     this.selectedAreas[0] = {key:event.key,value:event.value};
     // console.log(this.selectedAreas[0])
   }
+  onChangeSingleSelect(value:multipleSelectorModel){
+    this.selectedAreas= {key:value.key,value:value.value};
+  }
   saveChanges(){
     const typeIds = this.selectedTypes.map(value => value.id);
     this.form.get('typeIds').setValue(typeIds);
-    const areaIds = this.selectedAreas.map(value => value.key);
+    const areaIds = this.selectedAreas.key;
     this.form.get('areaIds').setValue(areaIds);
     this.onSaveChanges.emit(this.form.value);
   }

@@ -12,8 +12,7 @@ namespace API.DTOs
         public string Description { get; set; }
         public virtual List<IFormFile> Pictures {get;set;}
         
-        [ModelBinder(BinderType = typeof(TypeBinder<List<int>>))]
-        public List<int> AreaIds { get;set;}
+        public int AreaIds { get;set;}
 
         [ModelBinder(BinderType = typeof(TypeBinder<List<int>>))]
         public List<int> TypeIds { get; set; }

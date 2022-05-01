@@ -5,6 +5,10 @@ mat-form-field{
 textarea {
     height: 300px;
 }
-.preview :empty{
-    min-height: 4rem;
+
+:host ::ng-deep  .mat-tab-body.mat-tab-body-active{
+    min-height: 5rem;
+}
+.preview{
+    padding: 20px
 }

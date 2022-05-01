@@ -1,0 +1,53 @@
+<form [formGroup]="form"
+    (submit)="saveChanges()" 
+     [style.fontSize.px]="14">
+            <mat-form-field appearance="fill">
+                <mat-label>Address</mat-label>
+                <input formControlName="addressAt"  matInput required />
+                <mat-icon matSuffix>location_on</mat-icon>
+                <mat-error>The Full Name is required</mat-error>
+            </mat-form-field>
+            
+            <!-- <mat-form-field>
+              <mat-label>Province</mat-label>
+              <mat-select placeholder="province" formControlName="province"
+               (selectionChange)="getAmphureByProvince($event.value)">
+                <mat-option *ngFor="let item of ProvinceList" [value]="item">{{item.name_th}}</mat-option>
+              </mat-select>
+            </mat-form-field> -->
+            <app-single-selector *ngIf="DistrictList"
+                [placeHolder]="'SubDistrict'"
+                (onSelectChange)="onSubDistrictChange($event)"
+                [lists]="DistrictList">
+            </app-single-selector>
+            <app-single-selector *ngIf="AmphureList"
+            [placeHolder]="'District'"
+            (onSelectChange)="onAmphureChange($event)"
+            [lists]="AmphureList">
+        </app-single-selector>
+            <app-single-selector 
+                [placeHolder]="'Province'"
+                (onSelectChange)="onProvinceChange($event)"
+                [lists]="ProvinceList">
+            </app-single-selector>
+
+
+            <mat-form-field appearance="standard" >
+              <mat-label>Zip Code</mat-label>
+              <input formControlName="postcode"  matInput  />
+              <!-- <mat-icon matSuffix>explore</mat-icon> -->
+              <mat-error>This Field is required</mat-error>
+          </mat-form-field>
+                <div>
+                    <button mat-flat-button color="primary" 
+                    type="submit"
+                    [disabled]="form.invalid">
+                      Save Changes
+                    </button>
+                    <a mat-stroked-button routerLink="/">Cancel</a>
+                  </div>
+   
+</form>
+
+<p>{{form.value | json}}</p>
+<p>{{DistrictList | json}}</p>

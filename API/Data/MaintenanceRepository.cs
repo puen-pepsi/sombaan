@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using API.Entities;
 using API.Interfaces;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
@@ -20,9 +21,14 @@ namespace API.Data
             _context.Maintenances.Add(maintenance);
         }
 
-        public Task<Maintenance> GetMaintenance(int id)
+        public async Task<Maintenance> GetMaintenance(int id)
         {
-            throw new System.NotImplementedException();
+            return await _context.Maintenances
+                        .Include(x=>x.Area)
+                        .Include(a=> a.User)
+                        .Include(t=>t.Types).ThenInclude( y => y.Type)
+                        .Include(p=>p.Pictures)
+                        .SingleOrDefaultAsync(m => m.Id==id);
         }
     }
 }

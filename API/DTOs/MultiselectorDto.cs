@@ -1,6 +1,6 @@
 namespace API.DTOs
 {
-    public class TypesDto
+    public class MultiselectorDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

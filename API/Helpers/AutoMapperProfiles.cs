@@ -9,56 +9,40 @@ namespace API.Helpers
     public class AutoMapperProfiles : Profile
     {
         public AutoMapperProfiles()
-        {
-            // string CurrentUsername = null;
+        { // string CurrentUsername = null;
+            CreateMap<Province,MultiselectorDto>()
+                .ForMember(dest=>dest.Id,opt=>opt.MapFrom(src=>src.Id))
+                .ForMember(dest=>dest.Name,opt=>opt.MapFrom(src=>src.Name_th));
+             CreateMap<Amphure,MultiselectorDto>()
+                .ForMember(dest=>dest.Id,opt=>opt.MapFrom(src=>src.Id))
+                .ForMember(dest=>dest.Name,opt=>opt.MapFrom(src=>src.Name_th));
+             CreateMap<District,DistrictDto>()
+                .ForMember(dest=>dest.Id,opt=>opt.MapFrom(src=>src.Id))
+                .ForMember(dest=>dest.Name,opt=>opt.MapFrom(src=>src.Name_th))
+                .ForMember(dest=>dest.ZipCode,opt=>opt.MapFrom(src=>src.ZipCode));
+            CreateMap<AddressCreateDto,Address>();
+           //User
             CreateMap<UserUpdateDto,AppUser>();
             CreateMap<AppUser, MemberDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src =>
                     src.Photos.FirstOrDefault(x => x.IsMain).Url));
             CreateMap<Photo, PhotoDto>();
             CreateMap<RegisterDto, AppUser>();
+            CreateMap<AppUser,ProfileDto>()
+                .ForMember(dest =>dest.Username,opt=>opt.MapFrom(y=>y.UserName))
+                .ForMember(dest=>dest.Bio,opt=>opt.MapFrom(y => y.Bio))
+                .ForMember(dest => dest.Image,opt=>opt.MapFrom(y=> y.Photos.FirstOrDefault(p => p.IsMain).Url))
+                .ForMember(dest => dest.Following,opt => opt.MapFrom(y=>y.FollowedUser.Any()));
+
+            //Htmlpage
             CreateMap<HtmlPage,HtmlPageCreationDto>().ReverseMap();
             CreateMap<HtmlPage,HtmlPageDto>().ReverseMap();
+
+            //Article
             CreateMap<GenreDto, Genre>().ReverseMap();
             CreateMap<GenreCreateDto, Genre>();
             CreateMap<TagDto, Tag>().ReverseMap();
-            CreateMap<AreaCreateDto,Area>().ReverseMap();
-            CreateMap<AreaDto,Area>().ReverseMap();
-            CreateMap<CategoryTyeDto,CategoryType>().ReverseMap();
-            CreateMap<CategoryTypeCreateDto,CategoryType>().ReverseMap();
-            CreateMap<CategoryType,CategoryTypeAllDto>()
-                .ForMember(dest => dest.types,opt => opt.MapFrom(MapTypes));
-            CreateMap<TechnicianTypeDto,TechnicianType>();
-            CreateMap<TechnicianType,TechnicianTypeDto>()
-                .ForMember(dest => dest.CategoryTypeName,opt => opt.MapFrom(src => src.CategoryType.Name));
-            CreateMap<TechnicianTypeCreateDto,TechnicianType>().ReverseMap();
-            CreateMap<TagCreateDto, Tag>();
-            CreateMap<TypeDto,TechnicianType>().ReverseMap();
-            CreateMap<AreaDto,Area>().ReverseMap();
-            CreateMap<MaintenanceCreateDto,Maintenance>()
-                .ForMember(dest=>dest.Pictures,opt=>opt.Ignore())
-                .ForMember(dest=>dest.CreateAt,opt=>opt.Ignore())
-                .ForMember(dest=>dest.AreaId ,opt=>opt.MapFrom(src => src.AreaIds[0]))
-                .ForMember(dest=>dest.Types ,opt=>opt.MapFrom(MapMainTypes));
-            CreateMap<TechnicianCreateDto,Technician>()
-                .ForMember(dest => dest.UserId,opt=>opt.Ignore())
-                .ForMember(dest => dest.CreateAt,opt => opt.Ignore())
-                .ForMember(dest => dest.PictureUrl,opt => opt.Ignore())
-                .ForMember(dest => dest.AreaScopes,otp=>otp.MapFrom(MapAreaScope))
-                .ForMember(dest=> dest.TechType,opt => opt.MapFrom(MapTechType));
-            CreateMap<Technician,TechnicianDto>()
-                // .ForMember(dest => dest.Areas,otp=>otp.MapFrom(MapAreaScope))
-                // .ForMember(dest=> dest.Types,opt => opt.MapFrom(MapTechType));
-                .ForMember(dest => dest.Areas,otp=>otp.MapFrom(src=> src.AreaScopes))
-                .ForMember(dest=> dest.Types,opt => opt.MapFrom(src => src.TechType));
-            CreateMap<TechType,TypeDto>()
-                .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.TypeId))
-                .ForMember(dest => dest.Name,opt => opt.MapFrom(src => src.Type.Name));
-            CreateMap<AreaScope,AreaDto>()
-                .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.AreaId))
-                .ForMember(dest => dest.Name,opt => opt.MapFrom(src => src.Area.Name));
-
-            CreateMap<ArticleCreationDto,Article>()
+             CreateMap<ArticleCreationDto,Article>()
                 .ForMember(dest => dest.AuthorId ,opt => opt.Ignore())
                 .ForMember(dest => dest.PhotoArticles,opt => opt.Ignore())
                 .ForMember(dest => dest.Slug,opt => opt.MapFrom(MapSlug))
@@ -86,11 +70,57 @@ namespace API.Helpers
                 .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Url,opt => opt.MapFrom(src => src.Url))
                 .ForMember(dest => dest.IsMain,opt => opt.MapFrom(src => src.IsMain));
-            CreateMap<AppUser,ProfileDto>()
-                .ForMember(dest =>dest.Username,opt=>opt.MapFrom(y=>y.UserName))
-                .ForMember(dest=>dest.Bio,opt=>opt.MapFrom(y => y.Bio))
-                .ForMember(dest => dest.Image,opt=>opt.MapFrom(y=> y.Photos.FirstOrDefault(p => p.IsMain).Url))
-                .ForMember(dest => dest.Following,opt => opt.MapFrom(y=>y.FollowedUser.Any()));
+
+            //technician
+            CreateMap<AreaCreateDto,Area>().ReverseMap();
+            CreateMap<MultiselectorDto,Area>().ReverseMap();
+            CreateMap<CategoryTyeDto,CategoryType>().ReverseMap();
+            CreateMap<CategoryTypeCreateDto,CategoryType>().ReverseMap();
+            CreateMap<CategoryType,CategoryTypeAllDto>()
+                .ForMember(dest => dest.types,opt => opt.MapFrom(MapTypes));
+            CreateMap<TechnicianTypeDto,TechnicianType>();
+            CreateMap<TechnicianType,TechnicianTypeDto>()
+                .ForMember(dest => dest.CategoryTypeName,opt => opt.MapFrom(src => src.CategoryType.Name));
+            CreateMap<TechnicianTypeCreateDto,TechnicianType>().ReverseMap();
+            CreateMap<TagCreateDto, Tag>();
+            CreateMap<MultiselectorDto,TechnicianType>().ReverseMap();
+            CreateMap<MultiselectorDto,Area>().ReverseMap();
+            CreateMap<TechnicianCreateDto,Technician>()
+                .ForMember(dest => dest.UserId,opt=>opt.Ignore())
+                .ForMember(dest => dest.CreateAt,opt => opt.Ignore())
+                .ForMember(dest => dest.PictureUrl,opt => opt.Ignore())
+                .ForMember(dest => dest.AreaScopes,otp=>otp.MapFrom(MapAreaScope))
+                .ForMember(dest=> dest.TechType,opt => opt.MapFrom(MapTechType));
+            CreateMap<Technician,TechnicianDto>()
+                .ForMember(dest => dest.Areas,otp=>otp.MapFrom(src=> src.AreaScopes))
+                .ForMember(dest=> dest.Types,opt => opt.MapFrom(src => src.TechType));
+            CreateMap<TechType,MultiselectorDto>()
+                .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.TypeId))
+                .ForMember(dest => dest.Name,opt => opt.MapFrom(src => src.Type.Name));
+            CreateMap<AreaScope,MultiselectorDto>()
+                .ForMember(dest => dest.Id,opt => opt.MapFrom(src => src.AreaId))
+                .ForMember(dest => dest.Name,opt => opt.MapFrom(src => src.Area.Name));
+
+
+            //maintenance
+            CreateMap<MaintenanceCreateDto,Maintenance>()
+                .ForMember(dest=>dest.Pictures,opt=>opt.Ignore())
+                .ForMember(dest=>dest.CreateAt,opt=>opt.Ignore())
+                .ForMember(dest=>dest.AreaId,opt=>opt.MapFrom(src=>src.AreaIds))
+                .ForMember(dest=>dest.Types ,opt=>opt.MapFrom(MapMainTypes));
+            CreateMap<Maintenance,MaintenanceDto>()
+                .ForMember(dest=>dest.CustomerName,opt=>opt.MapFrom(src=>src.User.UserName))
+                .ForMember(dest=>dest.AreaName,opt=>opt.MapFrom(src=>src.Area.Name));
+            CreateMap<MaintenanceTypes,MultiselectorDto>()
+                .ForMember(dest=>dest.Id,opt=>opt.MapFrom(src=>src.TypeId))
+                .ForMember(dest=>dest.Name,opt=>opt.MapFrom(src=>src.Type.Name));
+            CreateMap<PictureWithDetails,PictureWithDetialsDto>()
+                .ForMember(dest=>dest.Id,opt=>opt.MapFrom(src=>src.Id))
+                .ForMember(dest=>dest.Description,opt=>opt.MapFrom(src=>src.Description))
+                .ForMember(dest=>dest.PictureUrl,opt=>opt.MapFrom(src=>src.PictureUrl));  
+
+                
+
         }   
         private List<MaintenanceTypes> MapMainTypes(MaintenanceCreateDto maintenanceCreateDto,Maintenance maintenance)
         {
@@ -114,12 +144,12 @@ namespace API.Helpers
             }
             return result;
         }
-        private List<TypeDto> MapTypes(CategoryType categoryType,CategoryTypeAllDto categoryTypeAllDto)
+        private List<MultiselectorDto> MapTypes(CategoryType categoryType,CategoryTypeAllDto categoryTypeAllDto)
         {
-            var result = new List<TypeDto>();
+            var result = new List<MultiselectorDto>();
             if(categoryType.TechnicianTypes != null){
                 foreach(var type in categoryType.TechnicianTypes){
-                    result.Add(new TypeDto(){
+                    result.Add(new MultiselectorDto(){
                         Id=type.Id,Name=type.Name
                     });
                 }
@@ -186,13 +216,13 @@ namespace API.Helpers
             }
             return result;
         }
-         private List<AreaDto> MapAreaScope(Technician technician,TechnicianDto technicianDto)
+         private List<MultiselectorDto> MapAreaScope(Technician technician,TechnicianDto technicianDto)
         {
-            var result = new List<AreaDto>();
+            var result = new List<MultiselectorDto>();
             if(technician.AreaScopes == null){return result;}
             foreach( var area in technician.AreaScopes)
             {
-                result.Add(new AreaDto(){ Id = area.AreaId,Name =area.Area.Name });
+                result.Add(new MultiselectorDto(){ Id = area.AreaId,Name =area.Area.Name });
             }
             return result;
         }
@@ -209,15 +239,15 @@ namespace API.Helpers
 
             return result;
         }
-         private List<TypeDto> MapTechType(Technician technician, TechnicianDto technicianDto)
+         private List<MultiselectorDto> MapTechType(Technician technician, TechnicianDto technicianDto)
         {
-            var result = new List<TypeDto>();
+            var result = new List<MultiselectorDto>();
 
             if (technician.TechType == null) { return result; }
 
             foreach (var type in technician.TechType)
             {
-                result.Add(new TypeDto() { Id = type.TypeId,Name = type.Type.Name });
+                result.Add(new MultiselectorDto() { Id = type.TypeId,Name = type.Type.Name });
             }
 
             return result;

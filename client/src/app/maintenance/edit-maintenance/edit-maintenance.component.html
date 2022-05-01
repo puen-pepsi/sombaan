@@ -1,0 +1,13 @@
+<div class="container">
+    <h2>Edit Maintenance</h2>
+    <app-form-maintenance 
+    *ngIf="nonSelectedTypes"
+    [selectedTypes]="selectedTypes"
+    [selectedAreas]="selectedAreas"
+    [nonSelectedTypes]="nonSelectedTypes"
+    [nonSelectedAreas]="nonSelectedAreas"
+    [groups]="groups"
+    [photoPreview]="photoList"
+    [model]="model"
+    (onSaveChanges)="saveChanges($event)"></app-form-maintenance>
+</div>

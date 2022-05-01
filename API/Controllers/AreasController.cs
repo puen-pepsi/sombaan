@@ -19,15 +19,15 @@ namespace API.Controllers
 
         }
         [HttpGet] // api/area
-        public async Task<ActionResult<List<AreaDto>>> Get()
+        public async Task<ActionResult<List<MultiselectorDto>>> Get()
         {
             // var area = await _unitOfWork.Repository.SelectAll<tag>();
             var area = await _unitOfWork.Areas.GetAll();
-            return _mapper.Map<List<AreaDto>>(area);
+            return _mapper.Map<List<MultiselectorDto>>(area);
         }
         [HttpGet("{Id}")]
         // [HttpGet("{Id:int}", Name = "getGenre")] // api/area/example
-        public async Task<ActionResult<AreaDto>> Get(int Id)
+        public async Task<ActionResult<MultiselectorDto>> Get(int Id)
         {
             // var tag = await  _unitOfWork.Repository.SelectById<tag>(Id);
             var area = await _unitOfWork.Areas.Get(g => g.Id == Id);
@@ -36,7 +36,7 @@ namespace API.Controllers
                 return NotFound();
             }
 
-            return _mapper.Map<AreaDto>(area);
+            return _mapper.Map<MultiselectorDto>(area);
         }
 
         [HttpPost]

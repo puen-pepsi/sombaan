@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class MaintenancesController : BaseApiController
     {
         private readonly IMapper _mapper;
@@ -24,7 +25,30 @@ namespace API.Controllers
             _mapper = mapper;
 
         }
-        [Authorize]
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<MaintenanceDto>> Get(int id)
+        {   
+            var maintenance = await  _unitOfWork.MaintenanceRepository.GetMaintenance(id);
+            if(maintenance == null){
+                return NotFound();
+            }
+            
+            var dto = _mapper.Map<MaintenanceDto>(maintenance);
+            
+            return dto;
+        }
+        [HttpGet("PostGet")]
+        public async Task<ActionResult<MaintenancePostGetDto>> PostGet()
+        {
+            var groupTypes = await getCategory();
+            var areas = await _unitOfWork.Areas.GetAll();
+            var areasDto = _mapper.Map<List<MultiselectorDto>>(areas);
+
+            return new MaintenancePostGetDto() { 
+                GroupTypes = groupTypes,
+                Areas = areasDto
+            };
+        }
         [HttpPost]
         public async Task<ActionResult<int>> Post([FromForm] MaintenanceCreateDto maintenanceCreateDto)
         {   
@@ -48,6 +72,67 @@ namespace API.Controllers
             }
             return BadRequest("Can not Create maintenance");
         }
+       [HttpGet("putget/{id:int}")]
+        public async Task<ActionResult<MaintenancePutGetDto>> PutGet(int id)
+        {
+            var maintenanceResult = await Get(id);
+            if (maintenanceResult == null) { return NotFound(); }
+            var maintenance = maintenanceResult.Value;
+            var postgetDto = await PostGet();
+            var response = new MaintenancePutGetDto();
+            response.Maintenance = maintenance;
+            response.SelectedTypes = maintenance.Types;
+            response.GroupTypes = postgetDto.Value.GroupTypes;
+            response.SelectedAreas = new MultiselectorDto(){
+                Id=maintenance.AreaId,
+                Name=maintenance.AreaName
+            };
+            response.Areas = postgetDto.Value.Areas;
+            return response;
+        }
+       [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(int id, [FromForm] MaintenanceCreateDto maintenanceCreateDto)
+        {
+            var maintenance  = await _unitOfWork.MaintenanceRepository.GetMaintenance(id);
 
+            if (maintenance == null)
+            {
+                return NotFound();
+            }
+            maintenanceCreateDto.UserId = maintenance.UserId;
+            maintenance = _mapper.Map(maintenanceCreateDto, maintenance);
+              //remove ole photolist
+            if(maintenance.Pictures != null && maintenanceCreateDto.Pictures == null){
+                foreach(var file in maintenance.Pictures){
+                  await  _fileStorageService.DeleteFile(file.PictureUrl,container);
+                }
+                maintenance.Pictures = null;
+            }
+            
+            if (maintenanceCreateDto.Pictures != null)
+            {
+                var listImage = new List<PictureWithDetails>();
+                foreach(var file in maintenanceCreateDto.Pictures){
+                    var getUrl = await _fileStorageService
+                        .EditFile(container,file,file.FileName);
+                    listImage.Add(new PictureWithDetails{
+                        MaintenanceId=maintenance.Id,
+                        PictureUrl=getUrl,
+                        Description = null
+                    });  
+                }
+                maintenance.Pictures = listImage;
+            }
+
+
+            await _unitOfWork.Complete();
+            return NoContent();
+        }
+        [HttpGet("Category")]
+        public async Task<List<CategoryTypeAllDto>> getCategory()
+        {
+            var categoryList =  await _unitOfWork.CategoryTypes.GetAll(null,null,new List<string> {"TechnicianTypes"});
+            return _mapper.Map<List<CategoryTypeAllDto>>(categoryList);
+        } 
     }
 }

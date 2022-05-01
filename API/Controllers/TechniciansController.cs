@@ -54,7 +54,7 @@ namespace API.Controllers
         {
             var groupTypes = await getCategory();
             var areas = await _unitOfWork.Areas.GetAll();
-            var areasDto = _mapper.Map<List<AreaDto>>(areas);
+            var areasDto = _mapper.Map<List<MultiselectorDto>>(areas);
 
             return new TechnicianPostGetDto() { 
                 GroupTypes = groupTypes,

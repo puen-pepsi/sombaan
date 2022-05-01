@@ -1,0 +1,1 @@
+[{"stmt":"SELECT id, code, name_th, name_en, geography_id\nFROM provinces;","header":["id","code","name_th","name_en","geography_id"],"rows":[["1","10","กรุงเทพมหานคร","Bangkok","2"],["2","11","สมุทรปราการ","Samut Prakan","2"],["3","12","นนทบุรี","Nonthaburi","2"],["4","13","ปทุมธานี","Pathum Thani","2"]]}]

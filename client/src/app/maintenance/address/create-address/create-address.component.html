@@ -1,0 +1,12 @@
+
+<app-form-address *ngIf="ProvinceList"
+    (onProvinceSelected)="getAmphureByProvince($event)"
+    (onAmphureSelected)="getDistrictByAmphure($event)"
+    (onSaveChange)="saveChange($event)"
+    [ProvinceList]="ProvinceList"
+    [AmphureList]="AmphureList"
+    [DistrictList]="DistrictList"
+    [model]="model">
+</app-form-address>
+
+

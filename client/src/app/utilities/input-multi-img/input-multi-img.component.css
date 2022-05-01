@@ -36,7 +36,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    background-color:#4a4a4a ;
+    background-color:#ff0000 ;
     opacity: 1;
   }
   .preview-item .mat-mini-fab {
@@ -49,6 +49,6 @@
     cursor: pointer;
   }
   :host ::ng-deep .mat-mini-fab {
-    background-color: #4a4a4a;
+    background-color: #ff0000;
   }
   

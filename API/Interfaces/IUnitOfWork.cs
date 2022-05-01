@@ -10,10 +10,14 @@ namespace API.Interfaces
         IArticleRepository ArticleRepository{get;}
         ITagRepository TagRepository{get;}
         IHtmlpageRepository HtmlpageRepository{get;}
+        IGenericRepository<Address> Addresses{get;}
         IGenericRepository<Genre> Genres{get;}
         IGenericRepository<Tag> Tags{get;}
         IGenericRepository<Article> Articles{get;}
         IGenericRepository<Area> Areas{get;}
+        IGenericRepository<Province> Provinces{get;}
+        IGenericRepository<Amphure> Amphures{get;}
+        IGenericRepository<District> Districts{get;}
         IGenericRepository<CategoryType> CategoryTypes{get;}
         IGenericRepository<TechnicianType> TechnicianTypes{get;}
         ITechnicianRepository TechnicianRepository{get;}

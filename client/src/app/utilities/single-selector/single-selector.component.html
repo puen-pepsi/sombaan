@@ -1,0 +1,27 @@
+<!-- <h3>Single selection</h3> -->
+<p>
+  <mat-form-field>
+    <mat-select 
+        (selectionChange)="onChangeSelect($event)"
+        [formControl]="selectedCtrl" 
+        placeholder="{{placeHolder}}"
+        #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search [formControl]="selectedFilterCtrl"
+                                placeholderLabel="Find {{placeHolder}}..." 
+                                noEntriesFoundLabel="'no matching {{placeHolder}} found'">
+                  </ngx-mat-select-search>
+                </mat-option>
+                
+      <mat-option *ngFor="let list of filteredSelector | async" [value]="list">
+        {{list.value}}
+      </mat-option>
+      <mat-option class="filter-option" disabled="disabled">
+        <button mat-button (click)="deselectAll()">Clear</button>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</p>
+<!-- <p>
+  Selected {{placeHolder}}: {{selectedCtrl.value?.value}}
+</p> -->

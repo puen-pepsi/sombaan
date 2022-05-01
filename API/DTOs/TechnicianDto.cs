@@ -13,7 +13,7 @@ namespace API.DTOs
         public DateTime? DateOfBirth { get; set; }
         public DateTime CreateAt { get; set; }
         public string PictureUrl { get; set; }
-        public List<TypeDto> Types { get; set; }
-        public List<AreaDto> Areas { get; set; }
+        public List<MultiselectorDto> Types { get; set; }
+        public List<MultiselectorDto> Areas { get; set; }
     }
 }

@@ -14,6 +14,10 @@ namespace API.Data
         private readonly IConfiguration _config;
         private IGenericRepository<Genre> _genres;
         private IGenericRepository<Tag> _tags;
+        private IGenericRepository<Address> _Addresses;
+        private IGenericRepository<Province> _Provinces;
+        private IGenericRepository<Amphure> _Amphures;
+        private IGenericRepository<District> _Districts;
         private IGenericRepository<Area> _Areas;
         private IGenericRepository<CategoryType> _CategoryTypes;
         private IGenericRepository<TechnicianType> _TechnicianTypes;
@@ -40,6 +44,7 @@ namespace API.Data
 
         public IHtmlpageRepository HtmlpageRepository =>  new HtmlPageRepository(_context,_mapper);
 
+        public IGenericRepository<Address> Addresses => _Addresses ??= new GenericRepository<Address>(_context);
         public IGenericRepository<Area> Areas => _Areas ??= new GenericRepository<Area>(_context);
 
         public IGenericRepository<CategoryType> CategoryTypes => _CategoryTypes ??= new GenericRepository<CategoryType>(_context);
@@ -49,6 +54,10 @@ namespace API.Data
         public ITechnicianRepository TechnicianRepository =>  new TechnicianRepository(_context,_mapper);
 
         public IMaintenanceRepository MaintenanceRepository => new MaintenanceRepository(_context,_mapper);
+        public IGenericRepository<Province> Provinces => _Provinces ??=new GenericRepository<Province>(_context);
+
+        public IGenericRepository<Amphure> Amphures => _Amphures?? new GenericRepository<Amphure>(_context);
+        public IGenericRepository<District> Districts => _Districts?? new GenericRepository<District>(_context);
 
         public async Task<bool> Complete()
         {

@@ -65,22 +65,17 @@
             </div>
             <div class="post-footer">
                 <div class="button-love">
-                    <!-- <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
-                        <mat-icon>favorite_border</mat-icon>39
-                      </button> -->
                       <app-favorite-icon
                         [article]="article"
                         (toggle)="onToggleFavorite($event)">
                         <span class="counter"> {{article.likesCount}}</span>
                     </app-favorite-icon>
-                    <!-- <a href="#" class="mfn-love " data-id="2269"><span class="icons-wrapper"><i class="icon-heart-empty-fa"></i><i class="icon-heart-fa"></i></span><span class="label">38</span></a> -->
                 </div>
                 <div class="post-links">
                     <button mat-icon-button >
                         <i class="fa-regular fa-comment"></i>
                             <span class="count">{{article.totalComments}}</span> 
                     </button>
-                    <!-- <i class="icon-comment-empty-fa"></i><a href="content/blogger/article-1-2.html#comments" class="post-comments">4</a><i class="icon-doc-text"></i><a href="content/blogger/article-1-2.html" class="post-more">Read more</a> -->
                 </div>
                 <div class="readmore">
                     <button mat-icon-button [routerLink]="['/article' ,article.slug]">
