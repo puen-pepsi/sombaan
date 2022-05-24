@@ -490,6 +490,18 @@ namespace API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsCanceled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("UpdateAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
@@ -515,6 +527,49 @@ namespace API.Migrations
                     b.HasIndex("TypeId");
 
                     b.ToTable("MaintenanceTypes");
+                });
+
+            modelBuilder.Entity("API.Entities.MatchTechnician", b =>
+                {
+                    b.Property<int>("TechnicianId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("MaintenanceId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("TechnicianId", "MaintenanceId");
+
+                    b.HasIndex("MaintenanceId");
+
+                    b.ToTable("MatchTechnicians");
+                });
+
+            modelBuilder.Entity("API.Entities.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("MaintenanceId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("OriginalDateTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaintenanceId");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("API.Entities.Photo", b =>
@@ -612,6 +667,30 @@ namespace API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Provinces");
+                });
+
+            modelBuilder.Entity("API.Entities.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Rate")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TechnicianId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TechnicianId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("API.Entities.Tag", b =>
@@ -715,6 +794,24 @@ namespace API.Migrations
                     b.HasIndex("FollowedUserId");
 
                     b.ToTable("FollowedUser");
+                });
+
+            modelBuilder.Entity("API.Entities.UserNotification", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("NotificationId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserId", "NotificationId");
+
+                    b.HasIndex("NotificationId");
+
+                    b.ToTable("UserNotifications");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -1019,6 +1116,34 @@ namespace API.Migrations
                     b.Navigation("Type");
                 });
 
+            modelBuilder.Entity("API.Entities.MatchTechnician", b =>
+                {
+                    b.HasOne("API.Entities.Maintenance", "Maintenance")
+                        .WithMany("MatchTechnicians")
+                        .HasForeignKey("MaintenanceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.Technician", "Technician")
+                        .WithMany("MatchTechnicians")
+                        .HasForeignKey("TechnicianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Maintenance");
+
+                    b.Navigation("Technician");
+                });
+
+            modelBuilder.Entity("API.Entities.Notification", b =>
+                {
+                    b.HasOne("API.Entities.Maintenance", "Maintenance")
+                        .WithMany()
+                        .HasForeignKey("MaintenanceId");
+
+                    b.Navigation("Maintenance");
+                });
+
             modelBuilder.Entity("API.Entities.Photo", b =>
                 {
                     b.HasOne("API.Entities.AppUser", "AppUser")
@@ -1050,6 +1175,25 @@ namespace API.Migrations
                         .IsRequired();
 
                     b.Navigation("Maintenance");
+                });
+
+            modelBuilder.Entity("API.Entities.Rating", b =>
+                {
+                    b.HasOne("API.Entities.Technician", "Technician")
+                        .WithMany()
+                        .HasForeignKey("TechnicianId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Technician");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("API.Entities.TechType", b =>
@@ -1112,6 +1256,25 @@ namespace API.Migrations
                     b.Navigation("SourceUser");
                 });
 
+            modelBuilder.Entity("API.Entities.UserNotification", b =>
+                {
+                    b.HasOne("API.Entities.Notification", "Notification")
+                        .WithMany()
+                        .HasForeignKey("NotificationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.AppUser", "User")
+                        .WithMany("UserNotifications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Notification");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("API.Entities.AppRole", null)
@@ -1169,6 +1332,8 @@ namespace API.Migrations
 
                     b.Navigation("Technician");
 
+                    b.Navigation("UserNotifications");
+
                     b.Navigation("UserRoles");
                 });
 
@@ -1207,6 +1372,8 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Entities.Maintenance", b =>
                 {
+                    b.Navigation("MatchTechnicians");
+
                     b.Navigation("Pictures");
 
                     b.Navigation("Types");
@@ -1220,6 +1387,8 @@ namespace API.Migrations
             modelBuilder.Entity("API.Entities.Technician", b =>
                 {
                     b.Navigation("AreaScopes");
+
+                    b.Navigation("MatchTechnicians");
 
                     b.Navigation("TechType");
                 });

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Entities
@@ -20,5 +21,12 @@ namespace API.Entities
         //Area
         public ICollection<AreaScope> AreaScopes { get; set; }
         //public ICollection<TechTeams> TechTeams { get; set; }
+        public ICollection<MatchTechnician> MatchTechnicians { get; set; }
+        public Technician()
+        {
+            TechType = new Collection<TechType>();
+            AreaScopes = new Collection<AreaScope>();
+            MatchTechnicians = new Collection<MatchTechnician>();
+        }
     }
 }

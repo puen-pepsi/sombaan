@@ -1,0 +1,32 @@
+<form (submit)="saveChanges()" 
+[formGroup]="form" [style.fontSize.px]="12" class="form-filter">
+<span class="label-filter">Filter by:</span>
+<div class="field-form">
+<mat-form-field appearance="legacy">
+   <mat-label>Search</mat-label>
+   <input formControlName="search" matInput #search
+        (keyup)="onSearch($event)">
+   <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+<app-multiple-selector-group  
+    (onChangeSelectItems)="onChangeMultiple($event)"
+    [SelectedItems]="selectedTypes"
+    [getRequired]="false"
+    [groups]="nonSelectedTypes">
+</app-multiple-selector-group>   
+<mat-form-field appearance="legacy">
+    <mat-label>Areas</mat-label>
+    <mat-select formControlName="areas" >
+        <mat-option *ngFor="let area of nonSelectedAreas" [value]="area.key">
+            {{area.value}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+</div>
+
+
+<div class="action">
+    <button mat-stroked-button type="submit">Show</button>
+    <button mat-stroked-button (click)="resetFilter()">Reset</button>
+</div>
+</form>  

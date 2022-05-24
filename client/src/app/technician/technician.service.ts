@@ -1,3 +1,4 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
@@ -38,7 +39,7 @@ export class TechnicianService {
     return this.technicianParams;
   }
   getTechnicianPagination(technicianParams:TechnicianParams){
-    console.log(technicianParams)
+    // console.log(technicianParams)
     var response = this.technicianCache.get(Object.values(technicianParams).join('-'));
     if(response){
       return of(response);
@@ -51,12 +52,12 @@ export class TechnicianService {
     }
     if(technicianParams.areas)params = params.append('areas', technicianParams.areas);
     if(technicianParams.search)params = params.append('search',technicianParams.search);
-        console.log(params)
+        // console.log(params)
         
     return getPaginatedResult<TechnicianDto[]>(this.apiUrl,params,this.http)
         .pipe(map(response => {
           this.technicianCache.set(Object.values(technicianParams).join('-'),response);
-          console.log(this.technicianCache)
+          // console.log(this.technicianCache)
           return response;
         }))
   }
@@ -65,6 +66,7 @@ export class TechnicianService {
                 .reduce((arr,elem)=> arr.concat(elem.result),[])
                 .find((technician:TechnicianDto)=>technician.id == id);
          if(technician){
+             console.log(technician)
              return of(technician);
          }
     return this.http.get<TechnicianDto>(`${this.apiUrl}/${id}`);

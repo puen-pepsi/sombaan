@@ -22,6 +22,7 @@ namespace API.Data
         private IGenericRepository<CategoryType> _CategoryTypes;
         private IGenericRepository<TechnicianType> _TechnicianTypes;
         private IGenericRepository<Article> _articles;
+        private GenericRepository<Rating> _Ratings;
 
         public UnitOfWork(DataContext context, IMapper mapper, IConfiguration config)
         {
@@ -58,6 +59,8 @@ namespace API.Data
 
         public IGenericRepository<Amphure> Amphures => _Amphures?? new GenericRepository<Amphure>(_context);
         public IGenericRepository<District> Districts => _Districts?? new GenericRepository<District>(_context);
+
+        public IGenericRepository<Rating> Ratings => _Ratings?? new GenericRepository<Rating>(_context);
 
         public async Task<bool> Complete()
         {

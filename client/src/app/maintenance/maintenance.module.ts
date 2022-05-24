@@ -10,7 +10,13 @@ import { FormMaintenanceComponent } from './form-maintenance/form-maintenance.co
 import { CreateAddressComponent } from './address/create-address/create-address.component';
 import { FormAddressComponent } from './address/form-address/form-address.component';
 import { EditMaintenanceComponent } from './edit-maintenance/edit-maintenance.component';
-
+import { MaintenanceListComponent } from './maintenance-list/maintenance-list.component';
+import { MaintenanceCardComponent } from './maintenance-card/maintenance-card.component';
+import { MaintenanceDetailsComponent } from './maintenance-details/maintenance-details.component';
+import { NgImageSliderModule} from 'ng-image-slider';
+import { MaintenanceFilterComponent } from './maintenance-filter/maintenance-filter.component'
+import { TechnicianModule } from '../technician/technician.module';
+import { MatchtechnicianCardComponent } from './matchtechnician-card/matchtechnician-card.component';
 
 @NgModule({
   declarations: [
@@ -18,14 +24,20 @@ import { EditMaintenanceComponent } from './edit-maintenance/edit-maintenance.co
     FormMaintenanceComponent,
     CreateAddressComponent,
     FormAddressComponent,
-    EditMaintenanceComponent
+    EditMaintenanceComponent,
+    MaintenanceListComponent,
+    MaintenanceCardComponent,
+    MaintenanceDetailsComponent,
+    MaintenanceFilterComponent,
+    MatchtechnicianCardComponent
   ],
   imports: [
     CommonModule,
     MaintenanceRoutingModule,
     MaterialModule,
     SharedModule,
-    UtilitiesModule
+    UtilitiesModule,
+    NgImageSliderModule,
   ],
   exports:[
     

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
@@ -77,6 +78,21 @@ namespace API.Data
                 .ConfigurationProvider,new { CurrentUsername = technicianParams.CurrentUsername }).AsNoTracking(), 
                     technicianParams.PageNumber, technicianParams.PageSize);
 
+        }
+
+        public Task<List<Technician>> GetTechniciansMatch(List<int> types)
+        {
+            var query = _context.Technicians.AsQueryable();
+            // var query = _context.Technicians.Select( x => x);
+            query = query.Include(u => u.User);
+            query = query.Include(x => x.TechType);
+            if(types != null){
+                types.ForEach(ele => {
+                    query = query.Where(a => a.TechType.Select(x => x.TypeId)
+                            .Contains(ele));
+                }); 
+            }    
+            return query.ToListAsync();
         }
     }
 }

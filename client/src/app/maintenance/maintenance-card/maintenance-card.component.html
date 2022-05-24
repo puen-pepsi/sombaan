@@ -1,0 +1,45 @@
+<mat-card class="mat-elevation-z1">
+    <mat-card-title-group>
+      <mat-card-title> 
+      <div >
+        <mat-card-title>
+            {{maintenance.customerName | titlecase}}            
+        </mat-card-title>
+       <mat-card-subtitle>{{maintenance.areaName | uppercase}}</mat-card-subtitle> 
+      </div>
+     </mat-card-title>
+      <span class="space"></span>
+      <div class="">
+              <app-chip-list 
+              [chiplist]="maintenance.types" 
+              [prefix]="''"></app-chip-list>
+      </div>
+      
+    </mat-card-title-group>
+    <mat-card-content>
+      <div class="descript">
+        <p><span class="caption-txt">Description : </span>{{ maintenance.description }}</p>
+        <span class="space"></span>
+        <span class="caption-txt">DueDate : {{maintenance.dueDate | date:'mediumDate'}}</span>
+      </div>
+      <div class="image-slider">
+            <ng-image-slider *ngIf="imageObject.length > 0"
+                [imageSize]="{width: '100%', height: '160'}"
+                [images]="imageObject" #nav>
+             </ng-image-slider>  
+      </div>
+    
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-button>Like</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+      <!-- <div class="technician-list">
+        <app-technician-card *ngFor="let technician of technicians"
+          [technician]="technician">
+         </app-technician-card> 
+      </div> -->
+      <app-matchtechnician-card *ngFor="let items of maintenance.matchTechnicians"
+      [technicianId]= items.technicianId>
+      </app-matchtechnician-card>
+  </mat-card>

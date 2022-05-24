@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.DTOs;
@@ -23,7 +24,19 @@ namespace API.Controllers
             _fileStorageService = fileStorageService;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+        }
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<MaintenanceDto>>> GetMaintenanceAsync([FromQuery] MaintenanceParams maintenanceParams)
+        {
+            // var gender = await _unitOfWork.UserRepository.GetUserGender(User.GetUsername());
+            maintenanceParams.CurrentUsername = User.GetUsername();
 
+            var maintenances = await _unitOfWork.MaintenanceRepository.GetMaintenanceAsync(maintenanceParams);
+
+            Response.AddPaginationHeader(maintenances.CurrentPage, maintenances.PageSize,
+                maintenances.TotalCount, maintenances.TotalPages);
+
+            return Ok(maintenances);
         }
         [HttpGet("{id:int}")]
         public async Task<ActionResult<MaintenanceDto>> Get(int id)
@@ -65,9 +78,20 @@ namespace API.Controllers
                 maintenance.Pictures = listImage;
             }
 
+                   //match technician by types => add to MatchTechnician
+                var techMatch = await _unitOfWork.TechnicianRepository.GetTechniciansMatch(maintenanceCreateDto.TypeIds);
+                foreach(var math in techMatch){
+                     maintenance.MatchTechnicians.Add(new MatchTechnician(){
+                            Maintenance = maintenance,
+                            Technician = math
+                    });
+                }        
+                
             _unitOfWork.MaintenanceRepository.addmaintenance(maintenance);
+            maintenance.Create();
             if (await _unitOfWork.Complete())
             {
+
                 return maintenance.Id;
             }
             return BadRequest("Can not Create maintenance");
@@ -100,9 +124,10 @@ namespace API.Controllers
                 return NotFound();
             }
             maintenanceCreateDto.UserId = maintenance.UserId;
+            
             maintenance = _mapper.Map(maintenanceCreateDto, maintenance);
               //remove ole photolist
-            if(maintenance.Pictures != null && maintenanceCreateDto.Pictures == null){
+            if(maintenance.Pictures != null && maintenanceCreateDto.Pictures != null){
                 foreach(var file in maintenance.Pictures){
                   await  _fileStorageService.DeleteFile(file.PictureUrl,container);
                 }
@@ -123,10 +148,38 @@ namespace API.Controllers
                 }
                 maintenance.Pictures = listImage;
             }
+               _unitOfWork.MaintenanceRepository.DeleteMatchTech(maintenance.Id);
+                var techMatch = await _unitOfWork.TechnicianRepository.GetTechniciansMatch(maintenanceCreateDto.TypeIds);
+                foreach(var math in techMatch){
+                     maintenance.MatchTechnicians.Add(new MatchTechnician(){
+                            Maintenance = maintenance,
+                            Technician = math
+                    });
+                }  
+            
+            DateTime localDate = DateTime.Now;
+            maintenance.Modify(localDate);
+            if (await _unitOfWork.Complete())
+            {
+                return Ok();
+            }
+            return BadRequest("Maintenance Update Error");
+        }
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> cancel(int id)
+        {
+             var userId = User.GetUserId();
 
+            var maintenance = await _unitOfWork.MaintenanceRepository
+                                .GetMaintenanceWithTechnicians(id);
 
-            await _unitOfWork.Complete();
-            return NoContent();
+            if (maintenance == null || maintenance.IsCanceled)
+                return NotFound();
+
+            maintenance.Cancel();
+            if(await _unitOfWork.Complete())return Ok();
+
+            return BadRequest("Can not Cancel Maintenace");
         }
         [HttpGet("Category")]
         public async Task<List<CategoryTypeAllDto>> getCategory()

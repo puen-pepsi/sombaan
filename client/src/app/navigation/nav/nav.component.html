@@ -6,7 +6,7 @@
        <button mat-icon-button (click)="onToggleSidenav()">
        <mat-icon>menu</mat-icon></button>
    </div>
-   <div class="mr-5"><span>som</span><span>baan</span></div>
+   <div class="mr-5">som<span class="v-line">|</span>baan</div>
    <div fxFlex="80" fxLayout fxLayoutAlign="flex-start" fxHide.xs>
      <ul fxLayout fxLayoutGap="10px" class="navigation-items">
        <ng-container *ngIf="accountService.currentUser$ | async">
@@ -23,7 +23,12 @@
             routerLink='/technician' routerLinkActive='active'>
             <span class="text-space">Technician</span>
           </mat-list-item>
-          <mat-list-item class="item-link" *appHasRole='["Admin","Moderator"]'
+            <mat-list-item class="item-link"
+            routerLink='/maintenance' routerLinkActive='active'>
+            <span class="text-space">Maintenance</span>
+        </mat-list-item>
+          <mat-list-item class="item-link"
+          
             routerLink='/admin' routerLinkActive='active'>
             <mat-icon>settings</mat-icon>
             <span class="text-space">Admin</span>

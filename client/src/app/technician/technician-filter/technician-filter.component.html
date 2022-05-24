@@ -6,7 +6,7 @@
            <mat-label>Search</mat-label>
            <input formControlName="search" matInput #search
                 (keyup)="onSearch($event)">
-           <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+           <mat-icon matSuffix>search</mat-icon>
        </mat-form-field>
        <!-- <mat-form-field appearance="legacy">
            <mat-label>Skill</mat-label>
@@ -19,6 +19,7 @@
        <app-multiple-selector-group  
             (onChangeSelectItems)="onChangeMultiple($event)"
             [SelectedItems]="selectedTypes"
+            [getRequired]="false"
             [groups]="nonSelectedTypes">
        </app-multiple-selector-group>   
        <!-- <mat-form-field appearance="legacy">

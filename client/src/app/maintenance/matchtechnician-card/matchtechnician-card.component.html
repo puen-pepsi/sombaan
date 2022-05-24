@@ -1,0 +1,48 @@
+<mat-card  *ngIf="technician"
+    class="example-card mat-elevation-z0">
+    <mat-card-title-group>
+     <img mat-card-md-image src="{{ technician.pictureUrl}}" >
+      <mat-card-title>{{technician.fullName | uppercase}}</mat-card-title>
+      <mat-card-subtitle *ngIf="technician.bio">{{technician.bio | titlecase}}</mat-card-subtitle>
+      <mat-card-subtitle>{{technician.phoneNumber}}</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="technician.bio">{{technician.lineId}}</mat-card-subtitle>
+      <mat-card-subtitle>
+        <app-rating (onRating)="onRating($event)" [selectedRate]=3></app-rating>
+      </mat-card-subtitle>
+
+    </mat-card-title-group>
+    <mat-card-content class="card-content">
+        <mat-accordion class="">
+            <mat-expansion-panel class="mat-elevation-z0"
+                                (opened)="panelOpenState = true"
+                                (closed)="panelOpenState = false" >
+                <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Skill | Experience
+                </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list>
+                    <mat-list-item *ngFor="let list of technician.types">
+                        <p>{{list.name}}</p>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                </mat-list>
+            </mat-expansion-panel>
+            <mat-expansion-panel class="mat-elevation-z0"
+                                (opened)="panelOpenState = true"
+                                (closed)="panelOpenState = false" >
+                <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Areas
+                </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list>
+                    <mat-list-item *ngFor="let list of technician.areas">
+                        <p>{{list.name}}</p>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                </mat-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card-content>
+  </mat-card>

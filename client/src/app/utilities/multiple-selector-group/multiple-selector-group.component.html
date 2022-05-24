@@ -1,10 +1,12 @@
 <div class="multi-group">
 	<div class="selector">
 		<mat-form-field>
-			<mat-select placeholder="Skill" [(ngModel)]="SelectedItems" 
-			(ngModelChange)="ngModelChange($event)"
-					[compareWith]="comparer"
-					multiple #itemSelect="ngModel">
+			<mat-select placeholder="Skill" 
+				[(ngModel)]="SelectedItems" 
+				(ngModelChange)="ngModelChange($event)"
+				[required]="getRequired"
+				[compareWith]="comparer"
+				multiple #itemSelect="ngModel">
 				<!-- <mat-option>
 					<ngx-mat-select-search [formControl]="bankFilterCtrl"></ngx-mat-select-search>
 				</mat-option> -->

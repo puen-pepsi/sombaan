@@ -106,6 +106,7 @@ namespace API.Helpers
             CreateMap<MaintenanceCreateDto,Maintenance>()
                 .ForMember(dest=>dest.Pictures,opt=>opt.Ignore())
                 .ForMember(dest=>dest.CreateAt,opt=>opt.Ignore())
+                // .ForMember(dest=>dest.DueDate,opt=>opt.MapFrom(src=>src.DueDate))
                 .ForMember(dest=>dest.AreaId,opt=>opt.MapFrom(src=>src.AreaIds))
                 .ForMember(dest=>dest.Types ,opt=>opt.MapFrom(MapMainTypes));
             CreateMap<Maintenance,MaintenanceDto>()
@@ -118,7 +119,8 @@ namespace API.Helpers
                 .ForMember(dest=>dest.Id,opt=>opt.MapFrom(src=>src.Id))
                 .ForMember(dest=>dest.Description,opt=>opt.MapFrom(src=>src.Description))
                 .ForMember(dest=>dest.PictureUrl,opt=>opt.MapFrom(src=>src.PictureUrl));  
-
+            CreateMap<MatchTechnician,MathTechnicianDto>()
+                .ForMember(dest=>dest.TechnicianId,opt=>opt.MapFrom(src=>src.TechnicianId));
                 
 
         }   

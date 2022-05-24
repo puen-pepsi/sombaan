@@ -1,0 +1,30 @@
+.mat-card{
+  margin-bottom: 20px;
+}
+.space{
+  flex:1 1 auto;
+}
+
+.image-slider{
+    width: 100%;
+}
+.descript{
+  display: flex;
+  flex-direction: column;
+}
+ .mat-card-content {
+    display: flex;
+    margin-bottom: 16px;
+}
+.mat-card-content>:first-child {
+  margin-top: 0;
+  width: 100%;
+}
+.mat-card-content>:last-child{
+  margin-bottom: 0;
+  width:260px;
+}
+.caption-txt{
+  opacity: 0.4;
+  font-weight: 400;
+}

@@ -4,7 +4,12 @@
           <mat-card-title>{{technician.fullName | uppercase}}</mat-card-title>
               <mat-card-subtitle *ngIf="technician.bio">{{technician.bio}}</mat-card-subtitle>
               <mat-card-subtitle>{{technician.phoneNumber}}</mat-card-subtitle>    
-          <img mat-card-lg-image src="{{technician.pictureUrl}}" >
+              <mat-card-subtitle>{{technician.lineId}}</mat-card-subtitle>
+              <mat-card-subtitle>
+                Average: {{technician.averageVote}}
+                <app-rating (onRating)="onRating($event)" [selectedRate]="technician.userVote"></app-rating>
+              </mat-card-subtitle>
+              <img mat-card-lg-image src="{{technician.pictureUrl}}" >
         </mat-card-title-group>
         <mat-card-content class="card-content">
         

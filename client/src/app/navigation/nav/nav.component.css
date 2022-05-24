@@ -119,3 +119,7 @@ mat-nav-list.list-horizontal {
 .navigation-items .mat-list-item:last-child{
     border-right: none;
 }
+.v-line{
+    font-weight: 100;
+    opacity: 0.5;
+}

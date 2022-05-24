@@ -5,6 +5,7 @@
         (selectionChange)="onChangeSelect($event)"
         [formControl]="selectedCtrl" 
         placeholder="{{placeHolder}}"
+        required
         #singleSelect>
                 <mat-option>
                   <ngx-mat-select-search [formControl]="selectedFilterCtrl"

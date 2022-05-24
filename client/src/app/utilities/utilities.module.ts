@@ -26,7 +26,8 @@ import { FavoriteIconComponent } from './buttons/favorite-icon/favorite-icon.com
 import { SearchSelectComponent } from './search-select/search-select.component';
 import { SelectorDropdownComponent } from './selector-dropdown/selector-dropdown.component';
 import { SingleSelectorComponent } from './single-selector/single-selector.component';
-
+import { RatingComponent } from './rating/rating.component';
+// import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -53,12 +54,14 @@ import { SingleSelectorComponent } from './single-selector/single-selector.compo
     SearchSelectComponent,
     SelectorDropdownComponent,
     SingleSelectorComponent,
+    RatingComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     MarkdownModule,
-    CKEditorModule
+    CKEditorModule,
+    // SweetAlert2Module
   ],
   exports:[
     DisplayErrorsComponent,
@@ -85,7 +88,10 @@ import { SingleSelectorComponent } from './single-selector/single-selector.compo
     FavoriteIconComponent,
     SearchSelectComponent,
     SelectorDropdownComponent,
-    SingleSelectorComponent
+    SingleSelectorComponent,
+    RatingComponent
+
+    // SweetAlert2Module
   ]
 })
 export class UtilitiesModule { }

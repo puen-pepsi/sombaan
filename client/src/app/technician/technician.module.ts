@@ -30,6 +30,8 @@ import { TechnicianFilterComponent } from './technician-filter/technician-filter
     MaterialModule,
     SharedModule,
     UtilitiesModule
+  ],
+  exports:[
   ]
 })
 export class TechnicianModule { }

@@ -5,6 +5,7 @@
             [(ngModel)]="SelectedItems"
 			#itemSelect="ngModel"
 			[compareWith]="comparer"
+			required
             (selectionChange)="onChange()">
 
 				<!-- <mat-option class="filter-option" disabled="disabled">

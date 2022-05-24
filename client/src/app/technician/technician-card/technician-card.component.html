@@ -6,7 +6,11 @@
       <mat-card-title>{{technician.fullName | uppercase}}</mat-card-title>
       <mat-card-subtitle *ngIf="technician.bio">{{technician.bio | titlecase}}</mat-card-subtitle>
       <mat-card-subtitle>{{technician.phoneNumber}}</mat-card-subtitle>
-      
+      <mat-card-subtitle *ngIf="technician.bio">{{technician.lineId}}</mat-card-subtitle>
+      <mat-card-subtitle>
+        <app-rating (onRating)="onRating($event)" [selectedRate]=3></app-rating>
+      </mat-card-subtitle>
+
     </mat-card-title-group>
     <mat-card-content class="card-content">
         <mat-accordion class="">

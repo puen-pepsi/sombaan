@@ -28,8 +28,15 @@ export class FormTechnicianComponent implements OnInit {
   // allTags:string[]=[
   //   'Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'
   // ]
+  minDate: Date;
+  maxDate: Date;
+
   phoneNumberReg = /((\+66|0)(\d{1,2}\-?\d{3}\-?\d{3,4}))/;
-  constructor(private formBuilder : FormBuilder) { }
+  constructor(private formBuilder : FormBuilder) { 
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 80, 0, 1);
+    this.maxDate = new Date(currentYear - 15, 11, 31);
+  }
   form : FormGroup;
   ngOnInit(): void {
     this.form = this.formBuilder.group({

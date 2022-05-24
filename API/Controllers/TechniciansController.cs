@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
@@ -8,6 +10,7 @@ using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -17,8 +20,10 @@ namespace API.Controllers
         private readonly IMapper _mapper;
         private string container = "technicians";
         private readonly IFileStorageService _fileStorageService;
-        public TechniciansController(IUnitOfWork unitOfWork, IMapper mapper, IFileStorageService fileStorageService)
+        private readonly DataContext _context;
+        public TechniciansController(DataContext context, IUnitOfWork unitOfWork, IMapper mapper, IFileStorageService fileStorageService)
         {
+            _context = context;
             _fileStorageService = fileStorageService;
             _mapper = mapper;
             _unitOfWork = unitOfWork;
@@ -30,23 +35,43 @@ namespace API.Controllers
             // var gender = await _unitOfWork.UserRepository.GetUserGender(User.GetUsername());
             technicianParams.CurrentUsername = User.GetUsername();
 
-            var articles = await _unitOfWork.TechnicianRepository.GetTechnicianAsync(technicianParams);
+            var technicians = await _unitOfWork.TechnicianRepository.GetTechnicianAsync(technicianParams);
 
-            Response.AddPaginationHeader(articles.CurrentPage, articles.PageSize,
-                articles.TotalCount, articles.TotalPages);
+            Response.AddPaginationHeader(technicians.CurrentPage, technicians.PageSize,
+                technicians.TotalCount, technicians.TotalPages);
 
-            return Ok(articles);
+            return Ok(technicians);
         }
         [HttpGet("{id:int}")]
         public async Task<ActionResult<TechnicianDto>> Get(int id)
-        {   
-            var technician = await  _unitOfWork.TechnicianRepository.GetTechnician(id);
-            if(technician == null){
+        {
+            var technician = await _unitOfWork.TechnicianRepository.GetTechnician(id);
+            if (technician == null)
+            {
                 return NotFound();
             }
-            
+            var averageVote = 0.0;
+            var userVote = 0;
+
+            if (await _context.Ratings.AnyAsync(x => x.TechnicianId == id))
+            {
+                averageVote = await _context.Ratings.Where(x => x.TechnicianId == id)
+                    .AverageAsync(x => x.Rate);
+                
+                    var userId = User.GetUserId()??default(int);
+                if(userId > 0){
+                    var ratingDb = await _context.Ratings.FirstOrDefaultAsync(x => x.TechnicianId == id
+                    && x.UserId == userId);
+
+                    if (ratingDb != null)
+                    {
+                        userVote = ratingDb.Rate;
+                    }
+                }
+            }
             var dto = _mapper.Map<TechnicianDto>(technician);
-            
+            dto.AverageVote = averageVote;
+            dto.UserVote = userVote;
             return dto;
         }
         [HttpGet("PostGet")]
@@ -56,20 +81,21 @@ namespace API.Controllers
             var areas = await _unitOfWork.Areas.GetAll();
             var areasDto = _mapper.Map<List<MultiselectorDto>>(areas);
 
-            return new TechnicianPostGetDto() { 
+            return new TechnicianPostGetDto()
+            {
                 GroupTypes = groupTypes,
                 Areas = areasDto
             };
         }
-       [HttpPost]
+        [HttpPost]
         public async Task<ActionResult<int>> Post([FromForm] TechnicianCreateDto technicianCreateDto)
         {
             var technician = _mapper.Map<Technician>(technicianCreateDto);
             technician.CreateAt = DateTime.Now;
-            technician.UserId = User.GetUserId()??default(int);
+            technician.UserId = User.GetUserId() ?? default(int);
             if (technicianCreateDto.PictureUrl != null)
-            { 
-                technician.PictureUrl = await _fileStorageService.SaveFile(container,technicianCreateDto.PictureUrl);
+            {
+                technician.PictureUrl = await _fileStorageService.SaveFile(container, technicianCreateDto.PictureUrl);
             }
             _unitOfWork.TechnicianRepository.addTechnician(technician);
             if (await _unitOfWork.Complete())
@@ -78,7 +104,7 @@ namespace API.Controllers
             }
             return BadRequest("Can not Create Technician");
         }
-         [HttpGet("putget/{id:int}")]
+        [HttpGet("putget/{id:int}")]
         public async Task<ActionResult<TechnicianPutGetDto>> PutGet(int id)
         {
             var technicianResult = await Get(id);
@@ -107,7 +133,7 @@ namespace API.Controllers
             }
 
             technician = _mapper.Map(technicianCreateDto, technician);
-             
+
             if (technicianCreateDto.PictureUrl != null)
             {
                 technician.PictureUrl = await _fileStorageService.EditFile(container, technicianCreateDto.PictureUrl,
@@ -120,8 +146,8 @@ namespace API.Controllers
         [HttpGet("Category")]
         public async Task<List<CategoryTypeAllDto>> getCategory()
         {
-            var categoryList =  await _unitOfWork.CategoryTypes.GetAll(null,null,new List<string> {"TechnicianTypes"});
+            var categoryList = await _unitOfWork.CategoryTypes.GetAll(null, null, new List<string> { "TechnicianTypes" });
             return _mapper.Map<List<CategoryTypeAllDto>>(categoryList);
-        } 
+        }
     }
 }

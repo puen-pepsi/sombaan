@@ -13,9 +13,13 @@
       </div>
     </div>
   </div> -->
-  <div class="container-upload">
-  
+  <div class="container-upload" >
+      <div *ngIf="previews.length==0" class="preview-item" 
+        (click)="fileInput.click()" >
+      <img src = "../../../assets/no-image.jpg" />
+    </div>
   <div class="preview-list" *ngIf="previews">
+
     <div  *ngFor='let preview of previews; let i = index' class="preview-item">
           <img  [src]="preview.url??preview" >
         <button mat-mini-fab  (click)="removeImage(i)">

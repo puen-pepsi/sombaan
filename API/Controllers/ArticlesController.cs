@@ -153,7 +153,7 @@ namespace API.Controllers
 
             article = _mapper.Map(articleCreationDto, article);
             //remove ole photolist
-            if(article.PhotoArticles != null && articleCreationDto.PhotoList == null){
+            if(article.PhotoArticles != null && articleCreationDto.PhotoList != null){
                 foreach(var file in article.PhotoArticles){
                   await  _fileStorageService.DeleteFile(file.Url,container);
                 }

@@ -1,7 +1,7 @@
-<div style="height: 200px;display: block;">
+<div class="container">
+        <div class="ck-content " [innerHtml] = "model.content | sanitizeHtml" ></div>
 </div>
-<p>{{ model | json}}</p>
-<div class="ck-content " [innerHtml] = "model.content | sanitizeHtml" ></div>
+<!-- <p>{{ model | json}}</p> -->
 
 <!-- <div class="ck-content">
         <figure class="image image_resized image-style-align-left" style="width:50%;">

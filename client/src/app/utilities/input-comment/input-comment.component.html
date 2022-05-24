@@ -1,6 +1,6 @@
 
               <div *ngIf="user" > 
-                <p>{{ parent | json}}</p>
+                <!-- <p>{{ parent | json}}</p> -->
                 <app-display-errors [errors]="commentFormErrors"></app-display-errors>
                 <form class="card comment-form" 
                   [formGroup]="commentForm"

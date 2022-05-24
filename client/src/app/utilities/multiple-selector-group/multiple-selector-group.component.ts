@@ -13,6 +13,7 @@ export class MultipleSelectorGroupComponent {
   @Output() onChangeSelectItems = new EventEmitter<any>();
   @Input() groups:GroupDto[];
   @Input() SelectedItems : any[];
+  @Input() getRequired:boolean = true;
   // @Input() SelectedItems:multipleSelectorModel[]=[];
   // modelGroup =[{ "id": 3, "name": "เดินไฟฟ้า", "categoryId": 2 }]; // the selected values
   constructor() { }

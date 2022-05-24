@@ -2,7 +2,7 @@
     <div class="container clearfix">
         <div class="postcontent nobottommargin clearfix">
             <div *ngIf="article">
-               <p>{{ article | json}}</p>
+               <!-- <p>{{ article | json}}</p> -->
                 <div class="entry-title">
                   <h2>{{article.title | uppercase}}</h2>  
                 </div>
@@ -67,7 +67,7 @@
             </div>
 
               <!-- commen list  -->
-              <p>{{commentToGet | json}}</p>
+              <!-- <p>{{commentToGet | json}}</p> -->
                 <app-article-comment-list *ngIf="commentToGet"
                 [user]="user"
                 [getcomment]="commentToGet"

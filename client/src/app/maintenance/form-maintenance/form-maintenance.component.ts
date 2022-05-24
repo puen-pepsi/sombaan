@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { dateInputsHaveChanged } from '@angular/material/datepicker/datepicker-input-base';
 import { GroupDto, TypeDto } from 'src/app/utilities/multiple-selector-group/multiple-group.model';
-import { MultipleSelectorComponent } from 'src/app/utilities/multiple-selector/multiple-selector.component';
 import { multipleSelectorModel } from 'src/app/utilities/multiple-selector/multiple-selector.model';
-import { MaintenanceCreateDto, MaintenanceDto, PictureWithDesDto } from '../maintenance.model';
+import { MaintenanceCreateDto } from '../maintenance.model';
 
 @Component({
   selector: 'app-form-maintenance',
@@ -20,6 +20,13 @@ export class FormMaintenanceComponent implements OnInit {
   @Input() photoPreview:string[]=[];
   @Input()  model: MaintenanceCreateDto;
   constructor(private formBuilder : FormBuilder) { }
+  myFilter = (d: Date | null): boolean => {
+    const day = (d || new Date());
+    const now = new Date();
+    now.setDate(now.getDate()-1)
+    // Prevent Saturday and Sunday from being selected.
+    return day > now;
+  };
   form : FormGroup;
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -28,6 +35,7 @@ export class FormMaintenanceComponent implements OnInit {
       }],
       pictureUrl:'',
       typeIds: '',
+      dueDate:'',
       areaIds:'',
     })
     if (this.model !== undefined){

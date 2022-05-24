@@ -11,6 +11,7 @@ namespace API.DTOs
         public int UserId { get; set; }
         public string Description { get; set; }
         public virtual List<IFormFile> Pictures {get;set;}
+        public DateTime DueDate { get; set; }
         
         public int AreaIds { get;set;}
 

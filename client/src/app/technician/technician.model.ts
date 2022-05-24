@@ -12,6 +12,8 @@ export interface TechnicianDto{
     pictureUrl: string;
     types: TypeDto[];
     areas: areaDto[];
+    averageVote: number;
+    userVote: number;
 }
 export interface TechnicianCreateDto {
     userId: number;

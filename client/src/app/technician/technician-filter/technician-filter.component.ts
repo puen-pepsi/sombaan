@@ -18,8 +18,7 @@ export class TechnicianFilterComponent implements OnInit {
   @Input() nonSelectedTypes : GroupDto[] = [];
   @Input() selectedAreas: number;
   @Input() nonSelectedAreas: multipleSelectorModel[]=[];
-  constructor(private formbuilder : FormBuilder,
-              private technicianService:TechnicianService) { }
+  constructor(private formbuilder : FormBuilder) { }
   form : FormGroup;
   ngOnInit(): void {
     this.form = this.formbuilder.group({

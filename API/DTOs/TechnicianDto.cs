@@ -10,6 +10,8 @@ namespace API.DTOs
         public string Bio { get; set; }
         public string PhoneNumber { get; set; }
         public string LineId { get; set; }
+        public double AverageVote { get; set; }
+        public int UserVote { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public DateTime CreateAt { get; set; }
         public string PictureUrl { get; set; }

@@ -21,6 +21,7 @@ namespace API.Entities
         public virtual ICollection<LikedArticle> LikedArticles { get; set; }
         public virtual ICollection<UserLink> FollowedByUser { get; set; }
         public virtual ICollection<UserLink> FollowedUser { get; set; }
+        public virtual ICollection<UserNotification> UserNotifications { get; set; }
         public AppUser()
         {
             FollowedByUser  = new Collection<UserLink>();
@@ -29,6 +30,11 @@ namespace API.Entities
             UserRoles = new Collection<AppUserRole>();
             Photos = new Collection<Photo>();
             Addresses = new Collection<Address>();
+            UserNotifications= new Collection<UserNotification>();
+        }
+         public void Notify(Notification notification)
+        {
+            UserNotifications.Add(new UserNotification(notification, this));
         }
 
     }

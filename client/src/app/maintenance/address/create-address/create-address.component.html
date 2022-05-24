@@ -1,5 +1,6 @@
-
-<app-form-address *ngIf="ProvinceList"
+<div class="container">
+    <h4>Address</h4>
+    <app-form-address *ngIf="ProvinceList"
     (onProvinceSelected)="getAmphureByProvince($event)"
     (onAmphureSelected)="getDistrictByAmphure($event)"
     (onSaveChange)="saveChange($event)"
@@ -8,5 +9,7 @@
     [DistrictList]="DistrictList"
     [model]="model">
 </app-form-address>
+</div>
+
 
 

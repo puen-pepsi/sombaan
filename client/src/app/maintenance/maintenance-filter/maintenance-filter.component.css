@@ -1,0 +1,28 @@
+
+.label-filter{
+    font-size: 12px;
+    font-weight: 400;
+    align-self: center;
+    padding-right: 1rem;
+}
+.form-filter{
+    display: flex;
+    flex-wrap: wrap;
+    /* align-items: center; */
+}
+.field-form{
+    display: flex;
+    gap:1rem;
+}
+.mat-stroked-button{
+    font-size: 12px;
+    height: 34px;
+}
+.material-icons{
+    font-size: 12px;
+    width: 12px;
+    height: 12px;
+}
+:host ::ng-deep .mat-form-field-infix {
+    height: 34px;
+}

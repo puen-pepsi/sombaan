@@ -34,10 +34,14 @@ namespace API.Data
         public DbSet<AreaScope> AreaScopes { get; set; }
         public DbSet<Maintenance> Maintenances {get;set;}
         public DbSet<MaintenanceTypes> MaintenanceTypes {get;set;}
+        public DbSet<MatchTechnician> MatchTechnicians{get;set;}
+        public DbSet<Notification> Notifications {get;set;}
+        public DbSet<UserNotification> UserNotifications { get; set; }
         public DbSet<PictureWithDetails> pictureWithDetails{get;set;}
         public DbSet<Province> Provinces { get; set; }
         public DbSet<District> Districts { get; set; }
         public DbSet<Amphure> Amphures { get; set; }
+        public DbSet<Rating> Ratings {get;set;}
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -96,6 +100,10 @@ namespace API.Data
                 .HasKey( x=> new {x.AreaId,x.TechnicianId});
             builder.Entity<MaintenanceTypes>()
                 .HasKey( x=> new {x.MaintenanceId,x.TypeId});
+            builder.Entity<UserNotification>()
+                .HasKey(x => new{x.UserId,x.NotificationId});
+            builder.Entity<MatchTechnician>()
+                .HasKey(x=> new{x.TechnicianId,x.MaintenanceId});
         }
     }
 }

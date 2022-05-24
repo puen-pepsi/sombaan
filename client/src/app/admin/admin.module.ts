@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../material.module';
 import { CreateGenreComponent } from './genre/create-genre/create-genre.component';
-import { RouterModule } from '@angular/router';
 import { SharedModule } from '../_modules/shared.module';
 import { FormGenreComponent } from './genre/form-genre/form-genre.component';
 import { IndexGenresComponent } from './genre/index-genres.component';
@@ -28,6 +28,8 @@ import { IndexTechniciantypeComponent } from './techniciantype/index-techniciant
 import { FormTechniciantypeComponent } from './techniciantype/form-techniciantype/form-techniciantype.component';
 import { CreateTechnicianComponent } from './techniciantype/create-technician/create-technician.component';
 import { EditTechnicianComponent } from './techniciantype/edit-technician/edit-technician.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AdminRoutingModule } from './admin-routing.module';
 @NgModule({
   declarations: [
     CreateGenreComponent,
@@ -54,31 +56,16 @@ import { EditTechnicianComponent } from './techniciantype/edit-technician/edit-t
     FormTechniciantypeComponent,
     CreateTechnicianComponent,
     EditTechnicianComponent,
+    AdminPanelComponent,
   ],
   imports: [
     CommonModule,
+    AdminRoutingModule,
     SharedModule,
+    MaterialModule,
     UtilitiesModule,
     SweetAlert2Module,
-    RouterModule.forChild([
-      {path:'genres',component:IndexGenresComponent},
-      {path:'genres/create',component:CreateGenreComponent},
-      {path:'genres/edit/:id',component:EditGenreComponent},
-      {path:'tags',component:IndexTagComponent},
-      {path:'tags/create',component:CreateTagComponent},
-      {path:'tags/edit/:id',component:EditTagComponent},
-      {path:'htmlpage/create',component:CreateHtmlPageComponent},
-      {path:'htmlpage/edit/:id',component:EditHtmlPageComponent},
-      {path:'areas',component:IndexAreaComponent},
-      {path:'areas/create',component:CreateAreasComponent},
-      {path:'areas/edit/:id',component:EditAreasComponent},
-      {path:'categorytypes',component:IndexCategorytypeComponent},
-      {path:'categorytypes/create',component:CreateCategorytypeComponent},
-      {path:'categorytypes/edit/:id',component:EditCategorytypeComponent},
-      {path:'techniciantypes',component:IndexTechniciantypeComponent},
-      {path:'techniciantypes/create',component:CreateTechnicianComponent},
-      {path:'techniciantypes/edit/:id',component:EditTechnicianComponent},
-    ])
+   
     
 
   ],

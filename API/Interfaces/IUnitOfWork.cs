@@ -20,6 +20,7 @@ namespace API.Interfaces
         IGenericRepository<District> Districts{get;}
         IGenericRepository<CategoryType> CategoryTypes{get;}
         IGenericRepository<TechnicianType> TechnicianTypes{get;}
+        IGenericRepository<Rating> Ratings{get;}
         ITechnicianRepository TechnicianRepository{get;}
         IMaintenanceRepository MaintenanceRepository{get;}
         IUserRepository UserRepository {get; }
