@@ -156,13 +156,12 @@ namespace API.Controllers
                             Technician = math
                     });
                 }  
-            
-            DateTime localDate = DateTime.Now;
-            maintenance.Modify(localDate);
-            if (await _unitOfWork.Complete())
-            {
-                return Ok();
+            if(await _unitOfWork.Complete()){
+                 DateTime localDate = DateTime.Now;
+                 maintenance.Modify(localDate);
+                 if(await _unitOfWork.Complete())return Ok();
             }
+
             return BadRequest("Maintenance Update Error");
         }
         [HttpDelete("{id:int}")]
