@@ -6,18 +6,16 @@
 
     <mat-sidenav-content>
         <app-header></app-header>
-        <app-nav (sidenavtoggle)="sidenav.toggle()" ></app-nav>
-        <!-- <mat-toolbar class="secondToolbar"
-             [ngClass]="{'mat-elevation-z5' : true, 'sticky' : isSticky}">
-            <h4>title</h4>&nbsp; > &nbsp; <h4>subtitle</h4>
-        </mat-toolbar> -->
+        <app-nav-main (toggle)="sidenav.toggle()" ></app-nav-main>
+        <!-- <app-nav (sidenavtoggle)="sidenav.toggle()" ></app-nav>
         <app-nav2 class="secondToolbar"
              [ngClass]="{'mat-elevation-z5' : true, 'sticky' : isSticky}">
-        </app-nav2>
+        </app-nav2> -->
 
         <main>
              <router-outlet></router-outlet>
         </main>
+        <app-scroll-to-top></app-scroll-to-top>
         <!-- <app-footer></app-footer> -->
     </mat-sidenav-content>
 </mat-sidenav-container> 

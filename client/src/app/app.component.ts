@@ -9,17 +9,13 @@ import { PresenceService } from './_services/presence.service';
 })
 export class AppComponent implements OnInit {
   title = 'sombaan';
-  isSticky: boolean = false;
-  @HostListener('window:scroll', ['$event'])
-  checkScroll() {
-    this.isSticky = window.pageYOffset >= 180;
-  }
+
   constructor(private accountService:AccountService,
               private presence:PresenceService){}
 
   ngOnInit(){
     this.setCurrentUser();
-    console.log(this.accountService.isAuthenticated())
+    // console.log(this.accountService.isAuthenticated())
   }
   setCurrentUser(){
     const user:User = JSON.parse(localStorage.getItem('user'));

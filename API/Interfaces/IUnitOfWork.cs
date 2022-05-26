@@ -8,6 +8,7 @@ namespace API.Interfaces
 
     {
         IArticleRepository ArticleRepository{get;}
+        INotificationRepository NotificationRepository{get;}
         ITagRepository TagRepository{get;}
         IHtmlpageRepository HtmlpageRepository{get;}
         IGenericRepository<Address> Addresses{get;}
@@ -24,7 +25,7 @@ namespace API.Interfaces
         ITechnicianRepository TechnicianRepository{get;}
         IMaintenanceRepository MaintenanceRepository{get;}
         IUserRepository UserRepository {get; }
-         IRepository Repository {get;}
+        IRepository Repository {get;}
         Task<bool> Complete();
         bool HasChanges();
     }

@@ -59,67 +59,25 @@
      </ul>
    </div>
 
-   <div fxFlex="fill" fxLayout fxLayoutAlign="flex-end">
-       <ul fxLayout fxLayoutGap="0px" class="navigation-items" >
-        <li class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
-            <button mat-button
-              #menuTrigger="matMenuTrigger"
-              [matMenuTriggerFor]="beforeMenu">
-              <app-label-name
-                [imageUrl]='user.photoUrl'
-                [knownAs]='user.knownAs'
-                [userName]='user.username'
-              >
-                <div content >
-                    Liverpool
-                </div>
-              </app-label-name>
-              <mat-icon fxHide.gt-sm >arrow_drop_down</mat-icon>
-            </button>
-            <mat-menu #beforeMenu="matMenu"
-                [overlapTrigger]="false"
-                xPosition="before">
-              <span (mouseleave)="menuTrigger.closeMenu()">             
-              <button mat-menu-item routerLink='/member/edit'>
-                <mat-icon>edit_note</mat-icon>
-                <span class="text-space" >Profile</span>
-              </button>
-
-              <mat-divider></mat-divider>
-              <button mat-menu-item (click)="logout()" >
-                <mat-icon>input</mat-icon>
-                <span class="text-space" >Logout</span>
-              </button>
-            </span>
-            </mat-menu>
-
-          </li>
-
-        <div *ngIf="(accountService.currentUser$|async)===null">
-          <!-- <a routerLink='/authentication/login'><mat-icon>face</mat-icon> Log In</a>| -->
-          <button mat-stroked-button (click)="loginWithGoogle()">
-            <span class="p-2">
-              <img src="https://img.icons8.com/color/24/000000/google-logo.png"/>
-            </span>
-          </button>
-          <button mat-stroked-button routerLink='/authentication/login'>
-            <span class="p-2">
-              <mat-icon>face</mat-icon> Log In
-            </span>
-            </button>
-          <!-- <a routerLink='/'> Register</a> -->
-          <!-- <button class="btn" type="button" (click)="loginWithGoogle()">
+   <div fxFlex="fill" fxLayout fxLayoutAlign="flex-end" 
+      *ngIf="(accountService.currentUser$ | async) as user">
+      <app-login-panel 
+           (getLogout)="logout()"
+           [user]="user"></app-login-panel>
+    </div>
+      <div *ngIf="(accountService.currentUser$|async)===null">
+        <!-- <a routerLink='/authentication/login'><mat-icon>face</mat-icon> Log In</a>| -->
+        <button mat-stroked-button (click)="loginWithGoogle()">
+          <span class="p-2">
             <img src="https://img.icons8.com/color/24/000000/google-logo.png"/>
-          </button> -->
-
-        </div>
-
-       </ul>
+          </span>
+        </button>
+        <button mat-stroked-button routerLink='/authentication/login'>
+          <span class="p-2">
+            <mat-icon>face</mat-icon> Log In
+          </span>
+        </button>
       </div>
-      <div >
-
-      </div>
-
   
 </mat-toolbar>
 </div>

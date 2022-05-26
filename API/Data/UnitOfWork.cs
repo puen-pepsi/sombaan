@@ -55,12 +55,14 @@ namespace API.Data
         public ITechnicianRepository TechnicianRepository =>  new TechnicianRepository(_context,_mapper);
 
         public IMaintenanceRepository MaintenanceRepository => new MaintenanceRepository(_context,_mapper);
+        public INotificationRepository NotificationRepository =>  new NotificationRepository(_context,_mapper);
         public IGenericRepository<Province> Provinces => _Provinces ??=new GenericRepository<Province>(_context);
 
         public IGenericRepository<Amphure> Amphures => _Amphures?? new GenericRepository<Amphure>(_context);
         public IGenericRepository<District> Districts => _Districts?? new GenericRepository<District>(_context);
 
         public IGenericRepository<Rating> Ratings => _Ratings?? new GenericRepository<Rating>(_context);
+
 
         public async Task<bool> Complete()
         {

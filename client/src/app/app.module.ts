@@ -25,6 +25,9 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { HomeComponent } from './home/home.component';
 import { Nav2Component } from './navigation/nav2/nav2.component';
 import { TopsocialComponent } from './navigation/topsocial/topsocial.component';
+import { LoginPanelComponent } from './navigation/login-panel/login-panel.component';
+import { ScrollToTopComponent } from './navigation/scroll-to-top/scroll-to-top.component';
+import { NavMainComponent } from './navigation/nav-main/nav-main.component';
 // import { LOADING_BAR_CONFIG } from '@ngx-loading-bar/core';
 
 // import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
@@ -41,9 +44,12 @@ import { TopsocialComponent } from './navigation/topsocial/topsocial.component';
     HomeComponent,
     Nav2Component,
     TopsocialComponent,
+    LoginPanelComponent,
+    ScrollToTopComponent,
+    NavMainComponent,
 
   ],
-  imports: [
+  imports:[
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -55,8 +61,7 @@ import { TopsocialComponent } from './navigation/topsocial/topsocial.component';
     SweetAlert2Module.forRoot(),
     MarkdownModule.forRoot(),
     TimeagoModule.forRoot(),
-    NgImageSliderModule,
-    
+    NgImageSliderModule
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},

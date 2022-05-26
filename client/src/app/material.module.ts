@@ -90,6 +90,7 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
         MatDatepickerModule,
         MatMomentDateModule,
         NgxMatSelectSearchModule
+    
     ]
 })
 export class MaterialModule { }

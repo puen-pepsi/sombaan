@@ -1,0 +1,21 @@
+.navigation-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-weight: lighter;
+    font-size: 1rem;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0px;
+    display: flex;
+}
+
+
+ul > li:last-child {
+    border-bottom: none;
+}
+.mat-icon{
+    vertical-align: middle;
+}

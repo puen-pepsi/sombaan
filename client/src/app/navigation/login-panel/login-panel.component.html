@@ -1,0 +1,52 @@
+<!-- <div fxFlex="fill" fxLayout fxLayoutAlign="flex-end"> -->
+    <div *ngIf="user">
+      <span class="notifications">
+        <!-- <a href="#">
+            <i class="glyphicon glyphicon-globe"></i>
+            <span class="badge js-notifications-count hide"></span>
+        </a> -->
+          <mat-icon matBadge="1" 
+             
+              matBadgeColor="warn">notifications</mat-icon>
+            <!-- Include text description of the icon's meaning for screen-readers -->
+            <span class="cdk-visually-hidden">
+              Example with a home icon with overlaid badge showing the number 15
+            </span>
+    </span>
+     <span class="dropdown"  dropdown>
+         <button mat-button
+           #menuTrigger="matMenuTrigger"
+           [matMenuTriggerFor]="beforeMenu">
+           <app-label-name
+             [imageUrl]='user.photoUrl'
+             [knownAs]='user.knownAs'
+             [userName]='user.username'
+           >
+             <div content >
+                 Liverpool
+             </div>
+           </app-label-name>
+           <mat-icon fxHide.gt-sm >arrow_drop_down</mat-icon>
+         </button>
+         <mat-menu #beforeMenu="matMenu"
+             [overlapTrigger]="false"
+             xPosition="before">
+           <span (mouseleave)="menuTrigger.closeMenu()">             
+           <button mat-menu-item routerLink='/member/edit'>
+             <mat-icon>edit_note</mat-icon>
+             <span class="text-space" >Profile</span>
+           </button>
+
+           <mat-divider></mat-divider>
+           <button mat-menu-item (click)="logout()" >
+             <mat-icon>input</mat-icon>
+             <span class="text-space" >Logout</span>
+           </button>
+         </span>
+         </mat-menu>
+
+     </span>
+
+        </div>
+
+<!-- </div> -->

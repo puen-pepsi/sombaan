@@ -13,7 +13,6 @@ export class MatchtechnicianCardComponent implements OnInit {
   constructor(private technicianService:TechnicianService) { }
 
   ngOnInit(): void {
-    console.log(this.technicianId)
     this.technicianService.getTechnician(this.technicianId).subscribe(res=>{
        this.technician = res;
     });

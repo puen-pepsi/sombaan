@@ -1,0 +1,20 @@
+.secondToolbar {
+    position: fixed;
+    background: white;
+    top: -60px;
+    height: 0;
+    opacity: 0;
+    transition: opacity .25s ease-out, height .15s ease;
+    cursor: default;
+    user-select: none;
+    width: 100%;
+    z-index: 999;
+  }
+  
+  .sticky {
+    top:0;
+    height: 60px;
+    opacity: 1;
+    transition: opacity .25s ease-out, height .15s ease;
+    z-index: 999;
+  }

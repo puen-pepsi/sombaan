@@ -121,9 +121,15 @@ namespace API.Helpers
                 .ForMember(dest=>dest.PictureUrl,opt=>opt.MapFrom(src=>src.PictureUrl));  
             CreateMap<MatchTechnician,MathTechnicianDto>()
                 .ForMember(dest=>dest.TechnicianId,opt=>opt.MapFrom(src=>src.TechnicianId));
-                
-
+            
+            //Notification  
+            CreateMap<Notification,NotificationDto>();
+            CreateMap<Maintenance,MaintenanceNotificationDto>()
+                .ForMember(dest => dest.AreaName,opt => opt.MapFrom(x => x.Area.Name))
+                .ForMember(dest => dest.CustomerName,opt=>opt.MapFrom(x => x.User.UserName));
+            
         }   
+
         private List<MaintenanceTypes> MapMainTypes(MaintenanceCreateDto maintenanceCreateDto,Maintenance maintenance)
         {
             var result = new List<MaintenanceTypes>();
