@@ -9,6 +9,7 @@ namespace API.Interfaces
     {
         IArticleRepository ArticleRepository{get;}
         INotificationRepository NotificationRepository{get;}
+        IUserNotificationRepository UserNotificationRepository{get;}
         ITagRepository TagRepository{get;}
         IHtmlpageRepository HtmlpageRepository{get;}
         IGenericRepository<Address> Addresses{get;}

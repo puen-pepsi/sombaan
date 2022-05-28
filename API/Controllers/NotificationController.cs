@@ -26,16 +26,17 @@ namespace API.Controllers
             return _mapper.Map<IEnumerable<NotificationDto>>(notifications);
 
         }
-        // [HttpPost]
-        // public IHttpActionResult MarkAsRead()
-        // {
-        //     var userId = User.Identity.GetUserId();
-        //     var notifications = _unitOfWork.UserNotifications.GetUserNotificationsFor(userId)
-        //         .ToList();
+        [HttpPost]
+        public async Task<IActionResult> MarkAsRead()
+        {
+            var userId = User.GetUserId()??default(int);
+            var notifications = await _unitOfWork.UserNotificationRepository.GetUserNotificationsFor(userId);
 
-        //     notifications.ForEach(n => n.Read());
-
-        //     return Ok();
-        // }
+            foreach(var n in notifications){
+                n.Read();
+            }
+            await _unitOfWork.Complete();
+            return Ok();
+        }
     }
 }

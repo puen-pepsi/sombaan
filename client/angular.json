@@ -36,7 +36,6 @@
               "./node_modules/@sweetalert2/ngx-sweetalert2",
               "./node_modules/@fortawesome/fontawesome-free/css/all.css",
               "./src/styles.css"
-              
             ],
             "scripts": [
               "./node_modules/@fortawesome/fontawesome-free/js/all.js"

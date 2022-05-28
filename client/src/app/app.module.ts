@@ -28,6 +28,9 @@ import { TopsocialComponent } from './navigation/topsocial/topsocial.component';
 import { LoginPanelComponent } from './navigation/login-panel/login-panel.component';
 import { ScrollToTopComponent } from './navigation/scroll-to-top/scroll-to-top.component';
 import { NavMainComponent } from './navigation/nav-main/nav-main.component';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { NotificationComponent } from './navigation/notification/notification.component';
+import { TemplateContentComponent } from './navigation/notification/template-content/template-content.component';
 // import { LOADING_BAR_CONFIG } from '@ngx-loading-bar/core';
 
 // import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
@@ -47,6 +50,8 @@ import { NavMainComponent } from './navigation/nav-main/nav-main.component';
     LoginPanelComponent,
     ScrollToTopComponent,
     NavMainComponent,
+    NotificationComponent,
+    TemplateContentComponent,
 
   ],
   imports:[
@@ -61,7 +66,8 @@ import { NavMainComponent } from './navigation/nav-main/nav-main.component';
     SweetAlert2Module.forRoot(),
     MarkdownModule.forRoot(),
     TimeagoModule.forRoot(),
-    NgImageSliderModule
+    NgImageSliderModule,
+    PopoverModule.forRoot()
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor,multi:true},

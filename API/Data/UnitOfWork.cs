@@ -63,6 +63,7 @@ namespace API.Data
 
         public IGenericRepository<Rating> Ratings => _Ratings?? new GenericRepository<Rating>(_context);
 
+        public IUserNotificationRepository UserNotificationRepository => new UserNotificationRepository(_context);
 
         public async Task<bool> Complete()
         {

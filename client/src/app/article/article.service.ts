@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Profile } from '../profile/profile.model';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
 import { getPaginatedResult, getPaginationHeaders } from '../_services/paginationHelper';

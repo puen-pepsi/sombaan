@@ -16,6 +16,3 @@ ul {
 ul > li:last-child {
     border-bottom: none;
 }
-.mat-icon{
-    vertical-align: middle;
-}
