@@ -1,0 +1,7 @@
+<h2>Edit Addons Customer</h2>
+
+<app-form-addon-customer *ngIf="model"
+    [states]="states"
+    [model]="model"
+    (onSaveChanges)="saveChanges($event)"></app-form-addon-customer>
+<mat-spinner *ngIf="!model"></mat-spinner>

@@ -1,0 +1,30 @@
+<form (submit)="saveChanges()" [formGroup]="form">
+    <mat-form-field appearance="outline">
+        <mat-label>Add-on State</mat-label>
+        <mat-select 
+         formControlName="addonStateId">
+          <mat-option *ngFor="let item of states" [value]="item.id">
+            {{item.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Name*</mat-label>
+        <input formControlName="name" matInput />
+        <mat-error *ngIf="form.invalid">{{getErrorMessageFieldName()}}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Descriptions</mat-label>
+        <input formControlName="descriptions" matInput />
+        <!-- <mat-error *ngIf="form.invalid">{{getErrorMessageFieldName()}}</mat-error> -->
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Price</mat-label>
+      <input formControlName="price" matInput />
+      <!-- <mat-error *ngIf="form.invalid">{{getErrorMessageFieldName()}}</mat-error> -->
+   </mat-form-field>
+    <div>
+        <button mat-flat-button color="primary" [disabled]="form.invalid">Save Changes</button>
+        <a mat-stroked-button routerLink="/admin/addoncustomer">Cancel</a>
+    </div>
+</form>

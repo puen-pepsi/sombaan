@@ -42,7 +42,10 @@ namespace API.Data
         public DbSet<District> Districts { get; set; }
         public DbSet<Amphure> Amphures { get; set; }
         public DbSet<Rating> Ratings {get;set;}
-
+        public DbSet<AddonCustomer> AddonCustomers { get; set; }
+        public DbSet<AddonTechnicial> AddonTechnicials { get; set; }
+        public DbSet<AddonCustomerGroup> AddonCustomerGroups { get; set; }
+        public DbSet<AddonTechnicialGroup> AddonTechnicialGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -104,6 +107,7 @@ namespace API.Data
                 .HasKey(x => new{x.UserId,x.NotificationId});
             builder.Entity<MatchTechnician>()
                 .HasKey(x=> new{x.TechnicianId,x.MaintenanceId});
+
         }
     }
 }

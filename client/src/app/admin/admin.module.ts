@@ -30,6 +30,15 @@ import { CreateTechnicianComponent } from './techniciantype/create-technician/cr
 import { EditTechnicianComponent } from './techniciantype/edit-technician/edit-technician.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AdminRoutingModule } from './admin-routing.module';
+import { IndexAddonStateComponent } from './addons/state/index-addon-state.component';
+import { IndexAddonCustomerComponent } from './addons/addoncustomer/index-addon-customer.component';
+import { FormStateComponent } from './addons/state/form-state/form-state.component';
+import { CreateStateComponent } from './addons/state/create-state/create-state.component';
+import { EditStateComponent } from './addons/state/edit-state/edit-state.component';
+import { FormAddonCustomerComponent } from './addons/addoncustomer/form-addon-customer/form-addon-customer.component';
+import { CreateAddonCustomerComponent } from './addons/addoncustomer/create-addon-customer/create-addon-customer.component';
+import { EditAddonCustomerComponent } from './addons/addoncustomer/edit-addon-customer/edit-addon-customer.component';
+import { AddonAutocompleteComponent } from './addons/addon-autocomplete/addon-autocomplete.component';
 @NgModule({
   declarations: [
     CreateGenreComponent,
@@ -57,6 +66,15 @@ import { AdminRoutingModule } from './admin-routing.module';
     CreateTechnicianComponent,
     EditTechnicianComponent,
     AdminPanelComponent,
+    IndexAddonStateComponent,
+    IndexAddonCustomerComponent,
+    FormStateComponent,
+    CreateStateComponent,
+    EditStateComponent,
+    FormAddonCustomerComponent,
+    CreateAddonCustomerComponent,
+    EditAddonCustomerComponent,
+    AddonAutocompleteComponent,
   ],
   imports: [
     CommonModule,

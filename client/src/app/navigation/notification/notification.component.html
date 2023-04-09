@@ -2,22 +2,23 @@
     <ng-template #popTemplate>
         <app-generic-list [list]="contents">
             <ng-container content>
-                <ul class="notifications">
-                    <li *ngFor="let n of contents">
-                        <span>{{n.createAt | date :'shortDate'}}</span>
-                        <span>{{n.maintenance.customerName | titlecase}}</span>
-                        <span>{{types[n.type]}}</span>
-                        <span>{{n.maintenance.areaName}}</span>
-                    </li>
-                    <li>
-                        <button mat-stroked-button (click)="MarkAsRead()">Clear All</button>
-                    </li>
-                </ul>
+                    <ul>
+                        <li *ngFor="let n of contents">
+                            <span>{{n.createAt | date :'shortDate'}}</span>
+                            <span>{{n.maintenance.customerName | titlecase}}</span>
+                            <span>{{types[n.type]}}</span>
+                            <span>{{n.maintenance.areaName}}</span>
+                        </li>
+                        <li>
+                            <button mat-stroked-button (click)="MarkAsRead()">Clear All</button>
+                        </li>
+                    </ul>
             </ng-container>
         </app-generic-list>
-
     </ng-template>
-    <mat-icon matBadge="1" (click)="popup()"
+    <mat-icon 
+            matBadge="3" 
+            (click)="popup()"
             [popover]="popTemplate"
             popoverTitle="Notification"
             placement='bottom right'

@@ -70,7 +70,7 @@
              <app-login-panel 
               (getLogout)="logout()"  
               [user]="user"></app-login-panel>
-              <!-- <app-notification></app-notification> -->
+              <app-notification></app-notification>
            </div>
            <div *ngIf="(accountService.currentUser$|async)===null">
             <button mat-stroked-button (click)="loginWithGoogle()">

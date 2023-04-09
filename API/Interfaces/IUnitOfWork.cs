@@ -15,6 +15,8 @@ namespace API.Interfaces
         IGenericRepository<Address> Addresses{get;}
         IGenericRepository<Genre> Genres{get;}
         IGenericRepository<Tag> Tags{get;}
+        IGenericRepository<AddonState> AddonState{get;}
+        IGenericRepository<AddonCustomer> AddonCustomer{get;}
         IGenericRepository<Article> Articles{get;}
         IGenericRepository<Area> Areas{get;}
         IGenericRepository<Province> Provinces{get;}

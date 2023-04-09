@@ -1,0 +1,6 @@
+<h2>Edit Addons State</h2>
+
+<app-form-state *ngIf="model" [model]="model" 
+(onSaveChanges)="saveChanges($event)"></app-form-state>
+
+<mat-spinner *ngIf="!model"></mat-spinner>

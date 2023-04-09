@@ -128,6 +128,11 @@ namespace API.Helpers
                 .ForMember(dest => dest.AreaName,opt => opt.MapFrom(x => x.Area.Name))
                 .ForMember(dest => dest.CustomerName,opt=>opt.MapFrom(x => x.User.UserName));
             
+            //Addon
+            CreateMap<AddonState,AddonStateDto>().ReverseMap();
+            CreateMap<AddonState,AddonStateCreateDto>().ReverseMap();
+            CreateMap<AddonCustomer,AddonCustomerDto>().ReverseMap();
+            CreateMap<AddonCustomer,AddonCustomerCreateDto>().ReverseMap();
         }   
 
         private List<MaintenanceTypes> MapMainTypes(MaintenanceCreateDto maintenanceCreateDto,Maintenance maintenance)

@@ -14,6 +14,7 @@ checkScroll() {
 }
 constructor() { }
   ngOnInit(): void {
+
   }
   sidenavtoggle(){
     this.toggle.emit();

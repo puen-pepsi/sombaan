@@ -16,11 +16,11 @@
            </div>
             <div class="aside col-md-3"></div> 
             <mat-paginator *ngIf="pagination"
-            [length]="pagination?.totalItems"
-            [pageSizeOptions]="[3]"
-            [showFirstLastButtons]="true"
-            [pageIndex]="pagination.currentPage-1"
-            (page)="pageChanged($event)">
+              [length]="pagination?.totalItems"
+              [pageSizeOptions]="[3]"
+              [showFirstLastButtons]="true"
+              [pageIndex]="pagination.currentPage-1"
+              (page)="pageChanged($event)">
      </mat-paginator>
     </div>
 </div>

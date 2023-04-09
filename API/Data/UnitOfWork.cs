@@ -23,6 +23,8 @@ namespace API.Data
         private IGenericRepository<TechnicianType> _TechnicianTypes;
         private IGenericRepository<Article> _articles;
         private GenericRepository<Rating> _Ratings;
+        private GenericRepository<AddonState> _AddonState;
+        private GenericRepository<AddonCustomer> _AddonCustomer;
 
         public UnitOfWork(DataContext context, IMapper mapper, IConfiguration config)
         {
@@ -64,6 +66,10 @@ namespace API.Data
         public IGenericRepository<Rating> Ratings => _Ratings?? new GenericRepository<Rating>(_context);
 
         public IUserNotificationRepository UserNotificationRepository => new UserNotificationRepository(_context);
+
+        public IGenericRepository<AddonState> AddonState => _AddonState ??= new GenericRepository<AddonState>(_context);
+
+        public IGenericRepository<AddonCustomer> AddonCustomer => _AddonCustomer ??= new GenericRepository<AddonCustomer>(_context);
 
         public async Task<bool> Complete()
         {

@@ -27,6 +27,7 @@ import { SearchSelectComponent } from './search-select/search-select.component';
 import { SelectorDropdownComponent } from './selector-dropdown/selector-dropdown.component';
 import { SingleSelectorComponent } from './single-selector/single-selector.component';
 import { RatingComponent } from './rating/rating.component';
+import { SelectOptionComponent } from './select-option/select-option.component';
 // import {SweetAlert2Module} from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
@@ -55,6 +56,7 @@ import { RatingComponent } from './rating/rating.component';
     SelectorDropdownComponent,
     SingleSelectorComponent,
     RatingComponent,
+    SelectOptionComponent,
   ],
   imports: [
     CommonModule,
@@ -89,7 +91,8 @@ import { RatingComponent } from './rating/rating.component';
     SearchSelectComponent,
     SelectorDropdownComponent,
     SingleSelectorComponent,
-    RatingComponent
+    RatingComponent,
+    SelectOptionComponent
 
     // SweetAlert2Module
   ]

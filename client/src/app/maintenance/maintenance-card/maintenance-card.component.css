@@ -28,3 +28,12 @@
   opacity: 0.4;
   font-weight: 400;
 }
+.technician-list{
+
+  display: flex;
+  flex-wrap: wrap;
+  gap : 10px;
+}
+.technician-card{
+  max-width: 350px;
+}

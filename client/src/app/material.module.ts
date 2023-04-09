@@ -26,8 +26,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { MatMomentDateModule } from "@angular/material-moment-adapter";
+import {MatMomentDateModule } from "@angular/material-moment-adapter";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 @NgModule({
     imports: [
         MatSliderModule,
@@ -58,7 +59,8 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
         MatTabsModule,
         MatDatepickerModule,
         MatMomentDateModule,
-        NgxMatSelectSearchModule
+        NgxMatSelectSearchModule,
+        DragDropModule
     ],
     exports: [
         MatSliderModule,
@@ -89,8 +91,8 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
         MatTabsModule,
         MatDatepickerModule,
         MatMomentDateModule,
-        NgxMatSelectSearchModule
-    
+        NgxMatSelectSearchModule,
+        DragDropModule
     ]
 })
 export class MaterialModule { }

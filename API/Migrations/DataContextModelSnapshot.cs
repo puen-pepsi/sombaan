@@ -16,6 +16,108 @@ namespace API.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "5.0.4");
 
+            modelBuilder.Entity("API.Entities.AddonCustomer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("AddonCustomerGroupId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AddonStateId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descriptions")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddonCustomerGroupId");
+
+                    b.HasIndex("AddonStateId");
+
+                    b.ToTable("AddonCustomers");
+                });
+
+            modelBuilder.Entity("API.Entities.AddonCustomerGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AddonCustomerGroups");
+                });
+
+            modelBuilder.Entity("API.Entities.AddonState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AddonState");
+                });
+
+            modelBuilder.Entity("API.Entities.AddonTechnicial", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AddonStateId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("AddonTechnicialGroupId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Descriptions")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddonStateId");
+
+                    b.HasIndex("AddonTechnicialGroupId");
+
+                    b.ToTable("AddonTechnicials");
+                });
+
+            modelBuilder.Entity("API.Entities.AddonTechnicialGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AddonTechnicialGroups");
+                });
+
             modelBuilder.Entity("API.Entities.Address", b =>
                 {
                     b.Property<int>("Id")
@@ -898,6 +1000,36 @@ namespace API.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("API.Entities.AddonCustomer", b =>
+                {
+                    b.HasOne("API.Entities.AddonCustomerGroup", null)
+                        .WithMany("AddonCustomers")
+                        .HasForeignKey("AddonCustomerGroupId");
+
+                    b.HasOne("API.Entities.AddonState", "AddonState")
+                        .WithMany("AddonCustomers")
+                        .HasForeignKey("AddonStateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AddonState");
+                });
+
+            modelBuilder.Entity("API.Entities.AddonTechnicial", b =>
+                {
+                    b.HasOne("API.Entities.AddonState", "AddonState")
+                        .WithMany("AddonTechnicials")
+                        .HasForeignKey("AddonStateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Entities.AddonTechnicialGroup", null)
+                        .WithMany("AddonTechnicials")
+                        .HasForeignKey("AddonTechnicialGroupId");
+
+                    b.Navigation("AddonState");
+                });
+
             modelBuilder.Entity("API.Entities.Address", b =>
                 {
                     b.HasOne("API.Entities.AppUser", "UserAddress")
@@ -1309,6 +1441,23 @@ namespace API.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("API.Entities.AddonCustomerGroup", b =>
+                {
+                    b.Navigation("AddonCustomers");
+                });
+
+            modelBuilder.Entity("API.Entities.AddonState", b =>
+                {
+                    b.Navigation("AddonCustomers");
+
+                    b.Navigation("AddonTechnicials");
+                });
+
+            modelBuilder.Entity("API.Entities.AddonTechnicialGroup", b =>
+                {
+                    b.Navigation("AddonTechnicials");
                 });
 
             modelBuilder.Entity("API.Entities.AppRole", b =>

@@ -18,6 +18,12 @@ import { IndexTechniciantypeComponent } from './techniciantype/index-techniciant
 import { CreateTechnicianComponent } from './techniciantype/create-technician/create-technician.component';
 import { EditTechnicianComponent } from './techniciantype/edit-technician/edit-technician.component';
 import { CreateGenreComponent } from './genre/create-genre/create-genre.component';
+import { IndexAddonStateComponent } from './addons/state/index-addon-state.component';
+import { CreateStateComponent } from './addons/state/create-state/create-state.component';
+import { EditStateComponent } from './addons/state/edit-state/edit-state.component';
+import { IndexAddonCustomerComponent } from './addons/addoncustomer/index-addon-customer.component';
+import { CreateAddonCustomerComponent } from './addons/addoncustomer/create-addon-customer/create-addon-customer.component';
+import { EditAddonCustomerComponent } from './addons/addoncustomer/edit-addon-customer/edit-addon-customer.component';
 
 const routes: Routes = [
   {path:'',component:AdminPanelComponent,
@@ -26,6 +32,12 @@ const routes: Routes = [
       {path:'genres',component:IndexGenresComponent},
       {path:'genres/create',component:CreateGenreComponent},
       {path:'genres/edit/:id',component:EditGenreComponent},
+      {path:'addonstate',component:IndexAddonStateComponent},
+      {path:'addonstate/create',component:CreateStateComponent},
+      {path:'addonstate/edit/:id',component:EditStateComponent},
+      {path:'addoncustomer',component:IndexAddonCustomerComponent},
+      {path:'addoncustomer/create',component:CreateAddonCustomerComponent},
+      {path:'addoncustomer/edit/:id',component:EditAddonCustomerComponent},
       {path:'tags',component:IndexTagComponent},
       {path:'tags/create',component:CreateTagComponent},
       {path:'tags/edit/:id',component:EditTagComponent},

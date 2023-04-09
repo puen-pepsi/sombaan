@@ -8,16 +8,16 @@
 .popover-body{
     padding: 0 !important;
 }
-ul.notifications {
+ul{
         list-style: none;
         padding-left: 0px;
 }
-ul.notifications > li {
+ul>li {
         border-bottom: 1px solid #ddd;
         padding: 10px;
 }
 
-ul.notifications > li:last-child {
+ul>li:last-child {
         border-bottom: none;
         padding-bottom:0;
 }

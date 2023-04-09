@@ -18,6 +18,7 @@ namespace API.Data
             _context = context;
 
         }
+
         public async Task<IEnumerable<Notification>> GetNewNotificationsFor(int userId)
         {
              return await _context.UserNotifications

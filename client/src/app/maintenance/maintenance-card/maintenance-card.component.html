@@ -39,7 +39,12 @@
           [technician]="technician">
          </app-technician-card> 
       </div> -->
-      <app-matchtechnician-card *ngFor="let items of maintenance.matchTechnicians"
-      [technicianId]= items.technicianId>
-      </app-matchtechnician-card>
+      <div class="row">
+            <div class="technician-list">
+              <app-matchtechnician-card class="technician-card"
+              *ngFor="let items of maintenance.matchTechnicians"
+              [technicianId]= items.technicianId>
+              </app-matchtechnician-card>
+             </div>
+      </div>
   </mat-card>
