@@ -1,0 +1,34 @@
+<!-- <form   [formGroup]="form">
+    <div class="field-form">
+    <app-multiple-selector-group  
+        (onChangeSelectItems)="onChange($event)"
+        [SelectedItems]="selectedTypes"
+        [getRequired]="false"
+        [MultiSelect]="false"
+        [groups]="nonSelectedTypes">
+    </app-multiple-selector-group>
+        <button mat-icon-button color="accent"
+                    type="button" 
+                    [disabled]="!AddRootChild"
+                    (click)="addRootDetail()"><mat-icon>add_circle</mat-icon></button>
+    </div>
+
+    <app-detail-type-array [parent]="form" *ngIf="AddRootChild"
+                     (add)="initSubDetail()" >
+    </app-detail-type-array>
+    <div>
+        <button mat-flat-button type="submit" 
+            color="primary" 
+            (click)="save(form)"
+            [disabled]="form.invalid || selectedTypes.id == null">Save Changes</button>
+        <a mat-stroked-button routerLink="/admin/">Cancel</a>
+    </div>
+    <pre>{{ form.value | json }}</pre>
+</form> -->
+
+<app-form-maintenance-detail 
+    [model]="model"
+    [nonSelectedTypes]="nonSelectedTypes"
+    (onTypeChanges)="onChanges($event)"
+    (onSaveChanges)="onSave($event)">
+</app-form-maintenance-detail>

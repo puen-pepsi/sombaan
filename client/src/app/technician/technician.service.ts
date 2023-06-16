@@ -82,6 +82,9 @@ export class TechnicianService {
   public postget() : Observable<TechnicianPostGetDTO>{
     return this.http.get<TechnicianPostGetDTO>(`${this.apiUrl}/postget`);
   }
+  public getCategory() : Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/Category`);
+  }
   public create(technicianCreateDto : TechnicianCreateDto) : Observable<number>{
     const formData = this.BuildFormData(technicianCreateDto);
     return this.http.post<number>(this.apiUrl, formData);

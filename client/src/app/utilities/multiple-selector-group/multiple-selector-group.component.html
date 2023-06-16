@@ -1,24 +1,29 @@
 <div class="multi-group">
 	<div class="selector">
 		<mat-form-field>
-			<mat-select placeholder="Skill" 
+			<mat-select [placeholder]="placeHolder" 
 				[(ngModel)]="SelectedItems" 
 				(ngModelChange)="ngModelChange($event)"
 				[required]="getRequired"
 				[compareWith]="comparer"
-				multiple #itemSelect="ngModel">
+				[multiple] ="MultiSelect" 
+				#itemSelect="ngModel">
 				<!-- <mat-option>
 					<ngx-mat-select-search [formControl]="bankFilterCtrl"></ngx-mat-select-search>
 				</mat-option> -->
-				<mat-option class="filter-option" disabled="disabled">
-					<button mat-button (click)="selectAll(itemSelect)">Select All</button>
-					<button mat-button (click)="deselectAll(itemSelect)">DeSelect All</button>
-				</mat-option>
+				<div *ngIf="MultiSelect">
+					<mat-option class="filter-option" disabled="disabled" >
+						<button mat-button (click)="selectAll(itemSelect)">Select All</button>
+						<button mat-button (click)="deselectAll(itemSelect)">DeSelect All</button>
+					</mat-option>
+				</div>
+				<!-- <mat-option value="" selected>--- Please Select ---</mat-option> -->
 				<mat-divider></mat-divider>
 				<!-- Loop through each group via the groups array -->
+				
 				<mat-optgroup *ngFor="let group of groups" [label]="group.name">
 					<mat-option *ngFor="let item of group.types" [value]="item">
-						{{item.name}}
+						{{group.name}} - {{item.name}}
 					</mat-option>
 				</mat-optgroup>
 			</mat-select>

@@ -39,6 +39,16 @@ import { FormAddonCustomerComponent } from './addons/addoncustomer/form-addon-cu
 import { CreateAddonCustomerComponent } from './addons/addoncustomer/create-addon-customer/create-addon-customer.component';
 import { EditAddonCustomerComponent } from './addons/addoncustomer/edit-addon-customer/edit-addon-customer.component';
 import { AddonAutocompleteComponent } from './addons/addon-autocomplete/addon-autocomplete.component';
+import { FormMaintenanceDetailComponent } from './MaintenanceDetail/form-maintenance-detail/form-maintenance-detail.component';
+import { IndexMaintenanceDetailComponent } from './MaintenanceDetail/index-maintenance-detail.component';
+import { CreateMaintenanceDetailComponent } from './MaintenanceDetail/create-maintenance-detail/create-maintenance-detail.component';
+import { EditMaintenanceDetailComponent } from './MaintenanceDetail/edit-maintenance-detail/edit-maintenance-detail.component';
+import { DetailTypeComponent } from './MaintenanceDetail/detail-type/detail-type.component';
+import { DetailTypeArrayComponent } from './MaintenanceDetail/detail-type-array/detail-type-array.component';
+import { IndexMdpriceComponent } from './MaintenanceDetailPrice/index-mdprice.component';
+import { FormMdpriceComponent } from './MaintenanceDetailPrice/form-mdprice/form-mdprice.component';
+import { CreateMdpriceComponent } from './MaintenanceDetailPrice/create-mdprice/create-mdprice.component';
+import { DetailTypeArray2Component } from './MaintenanceDetailPrice/detail-type-array/detail-type-array2.component';
 @NgModule({
   declarations: [
     CreateGenreComponent,
@@ -75,6 +85,16 @@ import { AddonAutocompleteComponent } from './addons/addon-autocomplete/addon-au
     CreateAddonCustomerComponent,
     EditAddonCustomerComponent,
     AddonAutocompleteComponent,
+    FormMaintenanceDetailComponent,
+    IndexMaintenanceDetailComponent,
+    CreateMaintenanceDetailComponent,
+    EditMaintenanceDetailComponent,
+    DetailTypeComponent,
+    DetailTypeArrayComponent,
+    IndexMdpriceComponent,
+    FormMdpriceComponent,
+    CreateMdpriceComponent,
+    DetailTypeArray2Component
   ],
   imports: [
     CommonModule,

@@ -32,7 +32,7 @@ namespace API.Controllers
             var technicianType = await _unitOfWork.TechnicianTypes.Get(g => g.Id == id);
             if (technicianType == null)
             {
-                return NotFound();
+                return  NotFound();
             }
 
             return _mapper.Map<TechnicianTypeDto>(technicianType);

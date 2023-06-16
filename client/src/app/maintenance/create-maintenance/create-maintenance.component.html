@@ -1,10 +1,23 @@
 <div class="container">
     <h2>Create Maintenance</h2>
-    <app-form-maintenance 
+    <!-- <app-form-maintenance 
     *ngIf="nonSelectedTypes"
     [nonSelectedTypes]="nonSelectedTypes"
     [nonSelectedAreas]="nonSelectedAreas"
     [groups]="groups"
-    (onSaveChanges)="saveChanges($event)"></app-form-maintenance>
+    (onSaveChanges)="saveChanges($event)"></app-form-maintenance> -->
+    <app-form2-maintenance
+        [selectedTypes]="selectedTypes"
+        [nonSelectedTypes]="nonSelectedTypes"
+        [selectedDetailTypes]="selectedDetailTypes"
+        [nonSelectedDetailTypes]="nonSelectedDetailTypes"
+        [selectList]="selectedList"
+        [selectPrice]="price"
+        (onSelectedTypeChange)="onTypeChange($event)"
+        (onSelectedDetailChange)="onDetailChange($event)"
+        (onSelected)="onSelected($event)"
+        >
+    </app-form2-maintenance>
+    <pre>{{DetailGroup | json}}</pre>
 </div>
 

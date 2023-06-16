@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { MatSelect, MatSelectChange } from '@angular/material/select';
-import { multipleSelectorModel } from '../multiple-selector/multiple-selector.model';
+// import { MatSelect, MatSelectChange } from '@angular/material/select';
+// import { multipleSelectorModel } from '../multiple-selector/multiple-selector.model';
 import { GroupDto } from './multiple-group.model';
 
 @Component({
@@ -14,6 +14,8 @@ export class MultipleSelectorGroupComponent {
   @Input() groups:GroupDto[];
   @Input() SelectedItems : any[];
   @Input() getRequired:boolean = true;
+  @Input() MultiSelect:boolean = true;
+  @Input() placeHolder:string = "Skill"
   // @Input() SelectedItems:multipleSelectorModel[]=[];
   // modelGroup =[{ "id": 3, "name": "เดินไฟฟ้า", "categoryId": 2 }]; // the selected values
   constructor() { }

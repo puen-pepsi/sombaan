@@ -1,0 +1,11 @@
+
+.field-form{
+    display: flex;
+    align-items: center;
+    gap:1rem;
+}
+.selectlist{
+    display: flex;
+    align-items: center;
+    gap:1rem;
+}

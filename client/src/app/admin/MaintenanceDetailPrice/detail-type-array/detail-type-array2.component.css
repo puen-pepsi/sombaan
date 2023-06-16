@@ -1,0 +1,8 @@
+:host ::ng-deep app-detail-type-array2 .group-detail{
+    padding-left: 40px;
+}
+.field-form{
+    display: flex;
+    align-items: center;
+    gap:1rem;
+}

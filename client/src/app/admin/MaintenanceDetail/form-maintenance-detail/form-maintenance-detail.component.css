@@ -1,0 +1,12 @@
+.field-form{
+    display: flex;
+    gap:1rem;
+    align-items: center;
+}
+
+:host ::ng-deep app-detail-type .group-main{
+    padding-left: 30px;
+}
+:host ::ng-deep app-detail-type-array .group-detail{
+    padding-left: 30px;
+}

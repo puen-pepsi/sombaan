@@ -14,6 +14,7 @@ export class FormTechniciantypeComponent implements OnInit {
   onSaveChanges: EventEmitter<techniciantypeCreationDTO> = new EventEmitter<techniciantypeCreationDTO>();
   @Input()
   model:techniciantypeCreationDTO;
+  Selected:number;
   categorytypes:categorytypeDTO[];
   constructor(private formBuilder: FormBuilder,
               private categoryTypeService:CategorytypeService) { }
@@ -32,7 +33,10 @@ export class FormTechniciantypeComponent implements OnInit {
     });
 
     if (this.model !== undefined){
-      this.form.patchValue(this.model);
+      console.log(this.model)
+      // this.form.patchValue(this.model);
+      this.form.get('name').setValue(this.model.name);
+      this.form.get('categoryTypeId').setValue(this.model.categoryTypeId);
     }
   }
   onCategoryTypeChange(event){

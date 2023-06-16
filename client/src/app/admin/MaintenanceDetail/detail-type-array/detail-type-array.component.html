@@ -1,0 +1,36 @@
+<div [formGroup]="parent">
+    <div formArrayName="subDetail" class="group-detail">
+        <div *ngFor="let sub of details.controls; let j=index">
+            <div [formGroupName]="j" >
+                <mat-form-field>
+                    <mat-label>subDetails*{{j+1}}</mat-label>
+                    <input [id]="j" formControlName="detail" matInput />
+                    <mat-error>The Details field is required</mat-error>
+                </mat-form-field>
+                <button mat-icon-button aria-label="Add Child" 
+                    color="primary"
+                    tyep="button"
+                    (click)="addChild(sub)">
+                    <mat-icon>add_circle</mat-icon>
+                  </button>
+                  <button mat-icon-button aria-label="Delete item" 
+                    type="button"
+                    color="warn"
+                    (click)="onRemove(j)">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                <!-- <button mat-flat-button color="accent" (click)="addChild(sub)">+</button>
+                <button mat-flat-button color="warn" [swal]="{
+                                title: 'Confirmation',
+                                text: 'Are you sure that you want to delete the record?',
+                                showCancelButton: true
+                            }" (confirm)="onRemove(detail,j)">
+                    -
+                </button> -->
+            </div>
+            <app-detail-type-array 
+                            [parent]="parent.controls.subDetail.controls[j]">
+             </app-detail-type-array>
+        </div>
+    </div> 
+</div>

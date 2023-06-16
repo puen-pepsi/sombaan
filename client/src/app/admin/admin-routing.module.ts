@@ -24,6 +24,10 @@ import { EditStateComponent } from './addons/state/edit-state/edit-state.compone
 import { IndexAddonCustomerComponent } from './addons/addoncustomer/index-addon-customer.component';
 import { CreateAddonCustomerComponent } from './addons/addoncustomer/create-addon-customer/create-addon-customer.component';
 import { EditAddonCustomerComponent } from './addons/addoncustomer/edit-addon-customer/edit-addon-customer.component';
+import { IndexMaintenanceDetailComponent } from './MaintenanceDetail/index-maintenance-detail.component';
+import { CreateMaintenanceDetailComponent } from './MaintenanceDetail/create-maintenance-detail/create-maintenance-detail.component';
+import { EditMaintenanceDetailComponent } from './MaintenanceDetail/edit-maintenance-detail/edit-maintenance-detail.component';
+import { IndexMdpriceComponent } from './MaintenanceDetailPrice/index-mdprice.component';
 
 const routes: Routes = [
   {path:'',component:AdminPanelComponent,
@@ -52,6 +56,10 @@ const routes: Routes = [
       {path:'techniciantypes',component:IndexTechniciantypeComponent},
       {path:'techniciantypes/create',component:CreateTechnicianComponent},
       {path:'techniciantypes/edit/:id',component:EditTechnicianComponent},
+      {path:'maintenancedetail',component:IndexMaintenanceDetailComponent},
+      {path:'maintenancedetail/create',component:CreateMaintenanceDetailComponent},
+      {path:'maintenancedetail/edit/:id',component:EditMaintenanceDetailComponent},
+      {path:'maintenancedetailwithprice',component:IndexMdpriceComponent},
     ]
   }
 ];

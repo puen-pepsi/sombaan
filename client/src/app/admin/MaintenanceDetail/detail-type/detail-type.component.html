@@ -1,0 +1,50 @@
+<div [formGroup]="parent">
+    <div formArrayName="subDetail" class="group-main">
+        <div *ngFor="let detail of details.controls; let i=index">
+            <div [formGroupName]="i">
+                        <mat-form-field>
+                            <mat-label>Details*</mat-label>
+                            <input [id]="i" formControlName="detail" matInput />
+                            <mat-error>The Details field is required</mat-error>
+                        </mat-form-field>
+                        <button mat-icon-button type="button" 
+                        color="primary" (click)="addChild(detail)"><mat-icon>add_circle</mat-icon></button>
+                        <button mat-icon-button type="button" color="warn" [swal]="{
+                                        title: 'Confirmation',
+                                        text: 'Are you sure that you want to delete the record?',
+                                        showCancelButton: true
+                                    }" (confirm)="onRemove(detail)">
+                            <mat-icon>cancel</mat-icon>
+                        </button>
+                        <!-- <div formArrayName="subDetail"  
+                        *ngFor="let sub of parent.controls.subDetail.controls[i].controls.subDetail.controls; 
+                        let j=index">
+                            <div [formGroupName]="j" >
+                                <mat-form-field>
+                                    <mat-label>subDetails*{{j+1}}</mat-label>
+                                    <input [id]="j" formControlName="detail" matInput />
+                                    <mat-error>The Details field is required</mat-error>
+                                </mat-form-field>
+                                <button mat-flat-button color="accent" (click)="addChild(sub)">+</button>
+                                <button mat-flat-button color="warn" [swal]="{
+                                                title: 'Confirmation',
+                                                text: 'Are you sure that you want to delete the record?',
+                                                showCancelButton: true
+                                            }" (confirm)="onRemove(detail,j)">
+                                    -
+                                </button>
+                              
+                            </div>
+                        </div> -->
+
+                        <app-detail-type-array 
+                            [parent]="parent.controls.subDetail.controls[i]">
+                        </app-detail-type-array>
+                        <!-- <pre>{{parent.controls.subDetail.controls[i].controls.subDetail.controls.length}}</pre>
+                        <pre>{{details.controls[i].controls.subDetail.controls.length}}</pre> -->
+                       
+            </div>
+            <!-- <pre>{{parent.controls.subDetail.controls.length}}</pre> -->
+        </div>    
+    </div>
+</div>

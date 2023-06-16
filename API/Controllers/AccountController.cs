@@ -168,7 +168,7 @@ namespace API.Controllers
     {
         return await _userManager.Users.AnyAsync(x => x.UserName == username.ToLower());
     }
-
+#region ExternalLogin
 //     [HttpPost("ExternalLogin")]
 //     public async Task<ActionResult<UserDto>> ExternalLogin([FromBody] ExternalAuthDto externalAuth)
 //     {
@@ -290,6 +290,6 @@ namespace API.Controllers
 //     //     return new Response    
 //     //     { Status = "Error", Message = "Invalid Data." };    
 //     // }    
-
+#endregion
  }
 }

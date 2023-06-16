@@ -1,0 +1,66 @@
+<form [formGroup]="form">
+    <div class="selectlist">
+      <app-multiple-selector-group  
+          (onChangeSelectItems)="onChange($event)"
+          [placeHolder]="'Maintenance'"
+          [SelectedItems]="selectedTypes"
+          [getRequired]="false"
+          [MultiSelect]="false"
+          [groups]="nonSelectedTypes">
+      </app-multiple-selector-group>
+      <button mat-stroked-button (click)="reset()">reset</button>
+    </div>
+    <div formArrayName="detailArray" >
+        <!-- <div *ngFor="let detail of detailList; let i = index"> -->
+        <div *ngFor="let detail of detailType.controls; let i = index" >
+            <div [formGroupName]="i" [ngStyle]="{'padding-left':(i+1)*40+'px'}" class="field-form">
+              <mat-form-field>
+                  <mat-label>Descriptions {{i+1}}</mat-label>
+                  <mat-select  formControlName="detailId" 
+                      (selectionChange)="onSelectChange($event.value,i,detail)">
+                    <mat-option *ngFor="let detail of detailType.controls[i].controls.detailList.value"
+                      [value]="detail.key" >
+                      {{detail.value}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            <!--   <mat-form-field style="width:20rem">
+                <mat-label>Desc.</mat-label>
+                <input matInput placeholder="Descriptions" formControlName="desc">
+              </mat-form-field> -->
+              <mat-form-field appearance="outline" *ngIf="detail.controls.detailId.value"
+                style="width:8rem;font-size:smaller">
+                <mat-label>Price</mat-label>
+                <input matInput placeholder="Negotiate" formControlName="price" readonly>
+                <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+              </mat-form-field>
+              <button mat-mini-fab type="button" 
+                *ngIf="detail.controls.detailId.value"
+                  (click)="select(detail.controls.detailId.value)"><mat-icon>done</mat-icon></button>
+            </div>
+            <!-- <pre>{{detailList[i].controls.detailList.value | json}}</pre> -->
+        </div>
+    </div>
+    <div *ngIf="selectList.length > 0">
+      <mat-nav-list>
+        <mat-list-item *ngFor="let link of selectList" [activated]="link.isActive">
+          <button mat-icon-button (click)="showInfo(link)" matListItemMeta>
+             <mat-icon>info</mat-icon>
+          </button>
+           <a matListItemTitle href="...">{{ link.details }}</a>
+        </mat-list-item>
+        
+      </mat-nav-list>
+      <mat-form-field appearance="outline" style="width:8rem;font-size:smaller"  >
+          <mat-label>Price</mat-label>
+          <input matInput  formControlName="price" 
+            placeholder="Negotiate" readonly>
+        <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+        </mat-form-field>
+        <button mat-flat-button type="submit" 
+              color="primary"  >Accept</button>
+          <a mat-stroked-button routerLink="/admin/">Cancel</a>
+    </div>
+    <!-- <pre>{{nonSelectedDetailTypes | json }}</pre> -->
+    <pre>{{form.value | json}}</pre>
+</form>

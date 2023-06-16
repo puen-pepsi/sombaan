@@ -71,6 +71,8 @@ namespace API.Data
 
         public IGenericRepository<AddonCustomer> AddonCustomer => _AddonCustomer ??= new GenericRepository<AddonCustomer>(_context);
 
+        public IDetailTypesRepository DetailTypesRepository => new DetailTypesRepository(_context,_mapper);
+
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;

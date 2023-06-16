@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { ReplaySubject, Subject } from 'rxjs';
@@ -10,9 +10,10 @@ import { multipleSelectorModel } from '../multiple-selector/multiple-selector.mo
   templateUrl: './single-selector.component.html',
   styleUrls: ['./single-selector.component.css']
 })
-export class SingleSelectorComponent implements OnInit,AfterViewInit, OnDestroy {
+export class SingleSelectorComponent implements OnInit,AfterViewInit,OnDestroy,OnChanges{
     @Output() onSelectChange = new EventEmitter<multipleSelectorModel>();
     @Input() placeHolder :string='Area';
+    @Input() fcName:string='';
     /** list of lists */
     @Input() lists: multipleSelectorModel[];
     @Input() selected:multipleSelectorModel = {key:2,value:'ลาดพร้าว'};
@@ -30,8 +31,11 @@ export class SingleSelectorComponent implements OnInit,AfterViewInit, OnDestroy 
     /** Subject that emits when the component has been destroyed. */
     protected _onDestroy = new Subject<void>();
   
-  
+
     constructor() { }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.ngOnInit();
+  }
   
     ngOnInit() {
       if(this.lists){

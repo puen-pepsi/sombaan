@@ -63,3 +63,9 @@ export class MaintenanceParams{
     }
 
 }
+
+export interface multipleSelectorModelWithDetail{
+    key: number;
+    value: string;
+    price:number;
+}

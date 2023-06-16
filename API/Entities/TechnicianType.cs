@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace API.Entities
@@ -9,5 +11,11 @@ namespace API.Entities
         public string Name { get; set; }
         public int CategoryTypeId { get; set; }
         public CategoryType CategoryType { get; set; }
+
+        public virtual ICollection<MaintenanceDetailType> MaintenanceDetailTypes { get; set; }
+
+        public TechnicianType(){
+            MaintenanceDetailTypes = new Collection<MaintenanceDetailType>();
+        }
     }
 }

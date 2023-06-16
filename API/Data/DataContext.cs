@@ -30,6 +30,8 @@ namespace API.Data
         public DbSet<Area> Area { get; set; }
         public DbSet<CategoryType> CategoryTypes { get; set; }
         public DbSet<TechnicianType> TechnicianTypes { get; set; }
+        public DbSet<MaintenanceDetailType> MaintenanceDetailTypes { get; set; }
+        public DbSet<DetailTypeWithPrice> DetailtypewithPrices { get; set; }
         public DbSet<TechType> TechTypes { get; set; }
         public DbSet<AreaScope> AreaScopes { get; set; }
         public DbSet<Maintenance> Maintenances {get;set;}
@@ -107,7 +109,7 @@ namespace API.Data
                 .HasKey(x => new{x.UserId,x.NotificationId});
             builder.Entity<MatchTechnician>()
                 .HasKey(x=> new{x.TechnicianId,x.MaintenanceId});
-
+            
         }
     }
 }

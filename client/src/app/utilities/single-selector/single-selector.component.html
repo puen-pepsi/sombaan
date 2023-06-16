@@ -4,6 +4,7 @@
     <mat-select 
         (selectionChange)="onChangeSelect($event)"
         [formControl]="selectedCtrl" 
+        [formControlName]="fcName"
         placeholder="{{placeHolder}}"
         required
         #singleSelect>

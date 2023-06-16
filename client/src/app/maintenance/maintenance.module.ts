@@ -17,6 +17,7 @@ import { NgImageSliderModule} from 'ng-image-slider';
 import { MaintenanceFilterComponent } from './maintenance-filter/maintenance-filter.component'
 import { TechnicianModule } from '../technician/technician.module';
 import { MatchtechnicianCardComponent } from './matchtechnician-card/matchtechnician-card.component';
+import { Form2MaintenanceComponent } from './form2-maintenance/form2-maintenance.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MatchtechnicianCardComponent } from './matchtechnician-card/matchtechni
     MaintenanceCardComponent,
     MaintenanceDetailsComponent,
     MaintenanceFilterComponent,
-    MatchtechnicianCardComponent
+    MatchtechnicianCardComponent,
+    Form2MaintenanceComponent
   ],
   imports: [
     CommonModule,

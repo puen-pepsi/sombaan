@@ -27,6 +27,7 @@ namespace API.Interfaces
         IGenericRepository<Rating> Ratings{get;}
         ITechnicianRepository TechnicianRepository{get;}
         IMaintenanceRepository MaintenanceRepository{get;}
+        IDetailTypesRepository DetailTypesRepository{get;}
         IUserRepository UserRepository {get; }
         IRepository Repository {get;}
         Task<bool> Complete();

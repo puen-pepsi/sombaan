@@ -462,6 +462,29 @@ namespace API.Migrations
                     b.ToTable("Connections");
                 });
 
+            modelBuilder.Entity("API.Entities.DetailTypeWithPrice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Desc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("MaintenanceDetailTypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaintenanceDetailTypeId")
+                        .IsUnique();
+
+                    b.ToTable("DetailtypewithPrices");
+                });
+
             modelBuilder.Entity("API.Entities.District", b =>
                 {
                     b.Property<int>("Id")
@@ -614,6 +637,31 @@ namespace API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Maintenances");
+                });
+
+            modelBuilder.Entity("API.Entities.MaintenanceDetailType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ParentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("TechnicianTypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("uuId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TechnicianTypeId");
+
+                    b.ToTable("MaintenanceDetailTypes");
                 });
 
             modelBuilder.Entity("API.Entities.MaintenanceTypes", b =>
@@ -1165,6 +1213,17 @@ namespace API.Migrations
                         .HasForeignKey("GroupName");
                 });
 
+            modelBuilder.Entity("API.Entities.DetailTypeWithPrice", b =>
+                {
+                    b.HasOne("API.Entities.MaintenanceDetailType", "MaintenanceDetailType")
+                        .WithOne("detailTypeWithPrice")
+                        .HasForeignKey("API.Entities.DetailTypeWithPrice", "MaintenanceDetailTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MaintenanceDetailType");
+                });
+
             modelBuilder.Entity("API.Entities.District", b =>
                 {
                     b.HasOne("API.Entities.Amphure", "Amphure")
@@ -1227,6 +1286,15 @@ namespace API.Migrations
                     b.Navigation("Area");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("API.Entities.MaintenanceDetailType", b =>
+                {
+                    b.HasOne("API.Entities.TechnicianType", "TechnicianType")
+                        .WithMany("MaintenanceDetailTypes")
+                        .HasForeignKey("TechnicianTypeId");
+
+                    b.Navigation("TechnicianType");
                 });
 
             modelBuilder.Entity("API.Entities.MaintenanceTypes", b =>
@@ -1528,6 +1596,11 @@ namespace API.Migrations
                     b.Navigation("Types");
                 });
 
+            modelBuilder.Entity("API.Entities.MaintenanceDetailType", b =>
+                {
+                    b.Navigation("detailTypeWithPrice");
+                });
+
             modelBuilder.Entity("API.Entities.Tag", b =>
                 {
                     b.Navigation("ArticleATagList");
@@ -1540,6 +1613,11 @@ namespace API.Migrations
                     b.Navigation("MatchTechnicians");
 
                     b.Navigation("TechType");
+                });
+
+            modelBuilder.Entity("API.Entities.TechnicianType", b =>
+                {
+                    b.Navigation("MaintenanceDetailTypes");
                 });
 #pragma warning restore 612, 618
         }

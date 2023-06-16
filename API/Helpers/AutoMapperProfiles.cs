@@ -133,6 +133,14 @@ namespace API.Helpers
             CreateMap<AddonState,AddonStateCreateDto>().ReverseMap();
             CreateMap<AddonCustomer,AddonCustomerDto>().ReverseMap();
             CreateMap<AddonCustomer,AddonCustomerCreateDto>().ReverseMap();
+
+            //DetailTypes
+            CreateMap<MaintenanceDetailType,DetailTypeCreateDto>().ReverseMap();
+            CreateMap<DetailTypeWithPrice,DetailTypeWithPriceCreateDto>().ReverseMap();
+            CreateMap<DetailTypeWithPriceArray,DetailTypeWithPrice>()
+                .ForMember(dest => dest.Price,opt => opt.MapFrom(src => src.Price))
+                .ForMember(dest => dest.Desc,opt => opt.MapFrom(src => src.Desc));
+
         }   
 
         private List<MaintenanceTypes> MapMainTypes(MaintenanceCreateDto maintenanceCreateDto,Maintenance maintenance)
@@ -272,5 +280,6 @@ namespace API.Helpers
             result = articleCreationDto.Title.GenerateSlug();
             return result; 
         }
+
     }
 }

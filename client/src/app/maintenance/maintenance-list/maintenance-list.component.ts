@@ -29,6 +29,7 @@ export class MaintenanceListComponent implements OnInit {
       });
       this.nonSelectedTypes = res.groupTypes;
     });
+
     this.loadMaintenance();
   }
   loadMaintenance(){

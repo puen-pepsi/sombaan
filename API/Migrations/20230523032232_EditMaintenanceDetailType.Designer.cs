@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230224071212_init")]
-    partial class init
+    [Migration("20230523032232_EditMaintenanceDetailType")]
+    partial class EditMaintenanceDetailType
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -616,6 +616,31 @@ namespace API.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Maintenances");
+                });
+
+            modelBuilder.Entity("API.Entities.MaintenanceDetailType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ParentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("TechnicianTypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("uuId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TechnicianTypeId");
+
+                    b.ToTable("MaintenanceDetailTypes");
                 });
 
             modelBuilder.Entity("API.Entities.MaintenanceTypes", b =>
@@ -1231,6 +1256,15 @@ namespace API.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("API.Entities.MaintenanceDetailType", b =>
+                {
+                    b.HasOne("API.Entities.TechnicianType", "TechnicianType")
+                        .WithMany("MaintenanceDetailTypes")
+                        .HasForeignKey("TechnicianTypeId");
+
+                    b.Navigation("TechnicianType");
+                });
+
             modelBuilder.Entity("API.Entities.MaintenanceTypes", b =>
                 {
                     b.HasOne("API.Entities.Maintenance", "Maintenance")
@@ -1542,6 +1576,11 @@ namespace API.Migrations
                     b.Navigation("MatchTechnicians");
 
                     b.Navigation("TechType");
+                });
+
+            modelBuilder.Entity("API.Entities.TechnicianType", b =>
+                {
+                    b.Navigation("MaintenanceDetailTypes");
                 });
 #pragma warning restore 612, 618
         }
